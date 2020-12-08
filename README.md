@@ -46,8 +46,8 @@ Each query needs the following inputs:
 - **time_lvl**: `yearly`, `monthly`, `weekly`, or `daily` as strings
     - If not provided, then the most recent data will be retrieved with annotation for when it's from
 - **timespan**: start and end `datetime.date` objects to be subsetted based on `time_lvl`
-- **Further arguments**: the names of modules in [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data)'s directories
-    - These are passed to the arguments corresponding to their directories
+- **Further arguments**: the names of modules in [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data) directories
+    - These are passed to arguments corresponding to their directories
     - Data will be queried for these properties for the given `locations`, `depth`, `time_lvl` and `timespan`, with results being merged as dataframe columns
 
 Queries are also able to access information in Wikidata sub-pages for locations. For example: if inflation rate is not found on the location's main page, then wikirepo checks the location's economic topic page as [inflation_rate.py](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/economic/inflation_rate.py) is found in [wikirepo/data/economic](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/economic) (see [Germany](https://www.wikidata.org/wiki/Q183) and [economy of Germany](https://www.wikidata.org/wiki/Q8046)).
@@ -56,7 +56,7 @@ wikirepo further provides a unique dictionary class, `EntitiesDict`, that stores
 
 Examples of [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py) follow:
 
-#### Querying information for given countries
+#### Querying Information for Given Countries
 
 ```python
 import wikirepo
@@ -101,7 +101,8 @@ df.head(6)
 | People's Republic of China | Q148  |   2009 | Wen Jiabao     | nan           |    75.032  |           0.694 |             nan |
 
 
-#### Querying information for all US counties
+
+#### Querying Information for all US Counties
 
 ```python
 # Note: >3000 regions, expect an hour runtime
@@ -152,6 +153,7 @@ df[df['population'].notnull()].head(6)
 | United States of America | California | Santa Clara County  | Q110739 |   2018 |      1.9566e+06  |       3377 | San Jose     |
 
 
+
 ### Upload Data
 
 [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py) will be the core of the eventual wikirepo ELT process. The goal is to reocrd edits that a user makes to a prveviously queried dataframe such that these changes can then be pushed back to Wikidata. This process could be as simple as making changes to a `df.copy()` of a queried dataframe, and then using [pandas](https://github.com/pandas-dev/pandas) to compare the new and original dataframes after the user has added information that they have access to. The unique information in the edited dataframe could then be loaded into Wikidata for all to use.
@@ -190,7 +192,7 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 - Distinct properties for Freedom House and Press Freedom indexes, as well as other descriptive metrics
     - These could be added to [data/institutional](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/institutional)
 
-### Further ways to help
+### Further Ways to Help
 
 - Integrating current Python tools with wikirepo ETL structures for ELT uploads to Wikidata
 - Adding multiprocessing support to the [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py) process and `data.lctn_utils.gen_lctns_dict`
