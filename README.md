@@ -30,9 +30,9 @@ wikirepo's data structure is built around [Wikidata.org](https://www.wikidata.or
 
 ### Query Data
 
-wikirepo's main ETL access function, [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py), returns a `pandas.DataFrame` of locations and property data across time. `wikirepo.data.query` accessses `data.data_utils.query_repo_dir`, with desired statistics coming from the `query_prop_data` functions of [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data) directory modules, and results then being merged across modules and directories. 
+wikirepo's main ETL access function, [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py), returns a `pandas.DataFrame` of locations and property data across time. Property access is through `data.data_utils.query_repo_dir`, with desired statistics coming from [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data) directory modules, and results then being merged across modules and directories. 
 
-The query structure streamlines not just data extraction, but also the process of adding new wikirepo properties for all to use. Adding a new property is as simple as adding a module to an appropriate [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data) directory, with most data modules being as simple as six defined variables and a single function call. wikirepo is self indexing, so any property module added is accessible by `wikirepo.data.query`. See [data/demographic/population](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/demographic/population.py) for the general structure of data modules, and [examples/add_property](https://github.com/andrewtavis/wikirepo/blob/main/examples/add_property.ipynb) for a quick demo on adding new properties to wikirepo.
+The query structure streamlines not just data extraction, but also the process of adding access to Wikidata properties for all to use. Adding a new property is as simple as adding a module to an appropriate [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data) directory, with most data modules being as simple as six defined variables and a single function call. wikirepo is self indexing, so any property module added is accessible by [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py). See [data.demographic.population](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/demographic/population.py) for the general structure of data modules, and [examples/add_property](https://github.com/andrewtavis/wikirepo/blob/main/examples/add_property.ipynb) for a quick demo on adding new properties to wikirepo.
 
 Each query needs the following inputs:
 
@@ -54,7 +54,7 @@ Queries are also able to access information in Wikidata sub-pages for locations.
 
 wikirepo further provides a unique dictionary class, `EntitiesDict`, that stores all loaded Wikidata entities during a query. This speeds up data retrieval, as entities are loaded once and then accessed in the `EntitiesDict` object for any other needed properties.
 
-Examples of `wikirepo.data.query` follow:
+Examples of [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py) follow:
 
 #### Querying information for given countries
 
@@ -66,6 +66,7 @@ from datetime import date
 ents_dict = wd_utils.EntitiesDict()
 # Strings must match their Wikidata English page names
 countries = ["Germany", "United States of America", "People's Republic of China"]
+# countries = ["Q183", "Q30", "Q148"] # we could also pass QIDs
 depth = 0
 time_lvl = 'yearly'
 timespan = (date(2009,1,1), date(2010,1,1))
@@ -111,6 +112,7 @@ from datetime import date
 ents_dict = wd_utils.EntitiesDict()
 depth = 2 # 2 for counties, 1 for states and territories
 country = "United States of America"
+# country = "Q30" # we could also pass its QID
 sub_lctns = True # for all
 time_lvl = 'yearly'
 # Only valid sub-locations given the timespan will be queried
