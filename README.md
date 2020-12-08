@@ -34,7 +34,7 @@ import wikirepo
 
 wikirepo's data structure is built around [Wikidata.org](https://www.wikidata.org/wiki/Wikidata:Main_Page). Human-readable access to Wikidata statistics is achieved through converting requests into Wikidata's Query IDs (QIDs) and Property IDs (PIDs), with the Python package [wikidata](https://github.com/dahlia/wikidata) serving as a basis for data loading and indexing. The wikirepo community aims to work with Wikidata to derive and add needed statistics, thus playing an integral role in growing the premier free and open sourced online knowledge base.
 
-## Query Data
+### Query Data
 
 wikirepo's main ETL access function, [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py), returns a `pandas.DataFrame` of locations and property data across time. `wikirepo.data.query` accessses `data.data_utils.query_repo_dir`, with desired statistics coming from the `query_prop_data` functions of [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data) directory modules, and results then being merged across modules and directories. 
 
@@ -62,7 +62,7 @@ wikirepo further provides a unique dictionary class, `EntitiesDict`, that stores
 
 Examples of `wikirepo.data.query` follow:
 
-### Querying information for given countries
+#### Querying information for given countries
 
 ```python
 import wikirepo
@@ -105,7 +105,7 @@ df.head(6)
 | People's Republic of China | Q148  |   2010 | Wen Jiabao     |   1.35976e+09 |    75.236  |           0.706 |             nan |
 | People's Republic of China | Q148  |   2009 | Wen Jiabao     | nan           |    75.032  |           0.694 |             nan |
 
-### Querying information for all US counties
+#### Querying information for all US counties
 
 ```python
 # Note: >3000 regions, expect an hour runtime
@@ -154,7 +154,7 @@ df[df['population'].notnull()].head(6)
 | United States of America | California | San Mateo County    | Q108101 |   2018 | 774155           |       1919 | Redwood City |
 | United States of America | California | Santa Clara County  | Q110739 |   2018 |      1.9566e+06  |       3377 | San Jose     |
 
-## Upload Data
+### Upload Data
 
 [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py) will be the core of the eventual wikirepo ELT process. The goal is to reocrd edits that a user makes to a prveviously queried dataframe such that these changes can then be pushed back to Wikidata. This process could be as simple as making changes to a `df.copy()` of a queried dataframe, and then using [pandas](https://github.com/pandas-dev/pandas) to compare the new and original dataframes after the user has added information that they have access to. The unique information in the edited dataframe could then be loaded into Wikidata for all to use.
 
@@ -166,11 +166,11 @@ Put simply: a full featured `wikirepo.data.upload` function would realize the po
 
 [wikirepo/maps](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/maps) is a further goal of the project, as it combines wikirepo's focus on easy to access open source data and quick high level analytics.
 
-## Query Maps
+### Query Maps
 
 As in [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py), passing the `depth`, `locations`, `time_lvl` and `timespan` arguments could access GeoJSON files stored on [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page), thus providing mapping files in parallel to the user's data. These files could then be leveraged using existing Python plotting libraries to provide detailed presentations of geographic analysis.
 
-## Upload Maps
+### Upload Maps
 
 Similar to the potential of adding statistics through [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py), GeoJSON map files could also be uploaded to Wikidata using appropriate arguments. The potential exists for a myriad of variable maps given `depth`, `locations`, `time_lvl` and `timespan` information that would allow all wikirepo users to get the exact mapping file that they need for their given task.
 
