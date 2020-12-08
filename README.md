@@ -37,7 +37,7 @@ The query structure streamlines not just data extraction, but also the process o
 Each query needs the following inputs:
 
 - **locations**: the locations that data should be queried for
-    - Strings are accepted for `Earth`, continents, and countries]
+    - Strings are accepted for `Earth`, continents, and countries
     - The user can also pass Wikidata QIDs directly
 - **depth**: the geographic level of the given locations to query
     - A depth of 0 is the locations themselves
