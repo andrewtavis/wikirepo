@@ -36,9 +36,9 @@ wikirepo's data structure is built around [Wikidata.org](https://www.wikidata.or
 
 ## Query Data
 
-wikirepo's main ETL access function, [wikirepo.data.query](), returns a `pandas.DataFrame` of locations and property data across time. `wikirepo.data.query` accessses [data.data_utils.query_repo_dir](), with desired statistics coming from the `query_property` functions of [wikirepo/data]() directory modules, and results then being merged across modules and directories. 
+wikirepo's main ETL access function, [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py), returns a `pandas.DataFrame` of locations and property data across time. `wikirepo.data.query` accessses `data.data_utils.query_repo_dir`, with desired statistics coming from the `query_prop_data` functions of [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data) directory modules, and results then being merged across modules and directories. 
 
-The query structure streamlines not just data extraction, but also the process of adding new wikirepo properties for all to use. Adding a new property is as simple as adding a module to an appropriate [wikirepo/data]() directory, with most data modules being as simple as six defined variables and a single function call. wikirepo is self indexing, so any property module added is accessible by `wikirepo.data.query`. See [data/demographic/population]() for the general structure of data modules, and [examples/add_property]() for a quick demo on adding new properties to wikirepo.
+The query structure streamlines not just data extraction, but also the process of adding new wikirepo properties for all to use. Adding a new property is as simple as adding a module to an appropriate [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data) directory, with most data modules being as simple as six defined variables and a single function call. wikirepo is self indexing, so any property module added is accessible by `wikirepo.data.query`. See [data/demographic/population](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/demographic/population.py) for the general structure of data modules, and [examples/add_property](https://github.com/andrewtavis/wikirepo/blob/main/examples/add_property.ipynb) for a quick demo on adding new properties to wikirepo.
 
 Each query needs the following inputs:
 
@@ -52,11 +52,11 @@ Each query needs the following inputs:
 - **time_lvl**: `yearly`, `monthly`, `weekly`, or `daily` as strings
     - If not provided, then the most recent data will be retrieved with annotation for when it's from
 - **timespan**: start and end `datetime.date` objects to be subsetted based on `time_lvl`
-- **Further arguments**: the names of modules in [wikirepo/data]()'s directories
+- **Further arguments**: the names of modules in [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data)'s directories
     - These are passed to the arguments corresponding to their directories
     - Data will be queried for these properties for the given `locations`, `depth`, `time_lvl` and `timespan`, with results being merged as dataframe columns
 
-Queries are also able to access information in Wikidata sub-pages for locations. For example: if inflation rate is not found on the location's main page, then wikirepo checks the location's economic topic page as [inflation.py]() is found in [wikirepo/data/economic]() (see [Germany](https://www.wikidata.org/wiki/Q183) and [economy of Germany](https://www.wikidata.org/wiki/Q8046)).
+Queries are also able to access information in Wikidata sub-pages for locations. For example: if inflation rate is not found on the location's main page, then wikirepo checks the location's economic topic page as [inflation_rate.py](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/economic/inflation_rate.py) is found in [wikirepo/data/economic](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/economic) (see [Germany](https://www.wikidata.org/wiki/Q183) and [economy of Germany](https://www.wikidata.org/wiki/Q8046)).
 
 wikirepo further provides a unique dictionary class, `EntitiesDict`, that stores all loaded Wikidata entities during a query. This speeds up data retrieval, as entities are loaded once and then accessed in the `EntitiesDict` object for any other needed properties.
 
@@ -156,23 +156,23 @@ df[df['population'].notnull()].head(6)
 
 ## Upload Data
 
-[wikirepo.data.upload]() will be the core of the eventual wikirepo ELT process. The goal is to reocrd edits that a user makes to a prveviously queried dataframe such that these changes can then be pushed back to Wikidata. This process could be as simple as making changes to a `df.copy()` of a queried dataframe, and then using [pandas](https://github.com/pandas-dev/pandas) to compare the new and original dataframes after the user has added information that they have access to. The unique information in the edited dataframe could then be loaded into Wikidata for all to use.
+[wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py) will be the core of the eventual wikirepo ELT process. The goal is to reocrd edits that a user makes to a prveviously queried dataframe such that these changes can then be pushed back to Wikidata. This process could be as simple as making changes to a `df.copy()` of a queried dataframe, and then using [pandas](https://github.com/pandas-dev/pandas) to compare the new and original dataframes after the user has added information that they have access to. The unique information in the edited dataframe could then be loaded into Wikidata for all to use.
 
-The same process that is used to query information from Wikidata could be reversed for the upload process. [wikirepo/data]() property modules could all have a corresponding `upload_property` function that would link dataframe columns to their corresponding Wikidata properties, indicate if the time qualifiers are a [points in time](https://www.wikidata.org/wiki/Property:P585) or spans using [start time](https://www.wikidata.org/wiki/Property:P580) and [end time](https://www.wikidata.org/wiki/Property:P582) through the defined variables, and other necessary qualifiers for proper data indexing could also be derived. Source information could also be added in corresponding columns to the given property edits.
+The same process that is used to query information from Wikidata could be reversed for the upload process. [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data) property modules could all have a corresponding `upload_prop_data` function that would link dataframe columns to their corresponding Wikidata properties, indicate if the time qualifiers are a [points in time](https://www.wikidata.org/wiki/Property:P585) or spans using [start time](https://www.wikidata.org/wiki/Property:P580) and [end time](https://www.wikidata.org/wiki/Property:P582) through the defined variables, and other necessary qualifiers for proper data indexing could also be derived. Source information could also be added in corresponding columns to the given property edits.
 
 Put simply: a full featured `wikirepo.data.upload` function would realize the potential of a single open-source repository for all public social science information.
 
 # Maps
 
-[wikirepo/maps]() is a further goal of the project, as it combines wikirepo's focus on easy to access open source data and quick high level analytics.
+[wikirepo/maps](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/maps) is a further goal of the project, as it combines wikirepo's focus on easy to access open source data and quick high level analytics.
 
 ## Query Maps
 
-As in [wikirepo.data.query](), passing the `depth`, `locations`, `time_lvl` and `timespan` arguments could access GeoJSON files stored on [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page), thus providing mapping files in parallel to the user's data. These files could then be leveraged using existing Python plotting libraries to provide detailed presentations of geographic analysis.
+As in [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py), passing the `depth`, `locations`, `time_lvl` and `timespan` arguments could access GeoJSON files stored on [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page), thus providing mapping files in parallel to the user's data. These files could then be leveraged using existing Python plotting libraries to provide detailed presentations of geographic analysis.
 
 ## Upload Maps
 
-Similar to the potential of adding statistics through [wikirepo.data.upload](), GeoJSON map files could also be uploaded to Wikidata using appropriate arguments. The potential exists for a myriad of variable maps given `depth`, `locations`, `time_lvl` and `timespan` information that would allow all wikirepo users to get the exact mapping file that they need for their given task.
+Similar to the potential of adding statistics through [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py), GeoJSON map files could also be uploaded to Wikidata using appropriate arguments. The potential exists for a myriad of variable maps given `depth`, `locations`, `time_lvl` and `timespan` information that would allow all wikirepo users to get the exact mapping file that they need for their given task.
 
 # To-Do
 
@@ -180,28 +180,28 @@ Similar to the potential of adding statistics through [wikirepo.data.upload](), 
 
 The growth of wikirepo's database relies on that of [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page). Beyond simply adding entries to already existing properties, the following are examples of property types that could be included:
 
-- Those for electoral [polling]() and [results]() for locations
+- Those for electoral [polling](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/electoral_polls) and [results](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/electoral_results) for locations
     - This would allow direct access to all needed election information in a single function call
     - Data could be added to Wikidata sub-pages for locations and linked to via `data.wd_utils.dir_to_topic_page`
-- A property that links political parties and their regions in [data/political]()
+- A property that links political parties and their regions in [data/political](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/political)
     - For easy professional presentation of electoral results (ex: loading in party hex colors, abbreviations, and alignments)
-- [data/demographic]() properties such as:
+- [data/demographic](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/demographic) properties such as:
     - age, education, religious, and linguistic diversities across time
-- [data/economic]() properties such as:
+- [data/economic](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/economic) properties such as:
     - female workforce participation, workforce industry diversity, wealth diversity, and total working age population across time
 - Distinct properties for Freedom House and Press Freedom indexes, as well as other descriptive metrics
-    - These could be added to [data/institutional]()
+    - These could be added to [data/institutional](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/institutional)
 
 ### Further ways to help
 
 - Integrating current Python tools with wikirepo ETL structures for ELT uploads to Wikidata
 - Adding multiprocessing support to the `wikirepo.data.query` process and `data.lctn_utils.gen_lctns_dict`
-- Optimizing [wikirepo.data.query]():
+- Optimizing [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py):
     - Potentially converting `EntitiesDict` and `LocationsDict` to slotted object classes for memory savings
     - Deriving and optimizing other slow parts of the query process
-- Adding access to GeoJSON files for mapping via [wikirepo.maps.query]()
+- Adding access to GeoJSON files for mapping via [wikirepo.maps.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/maps/query.py)
 - Designing and adding GeoJSON files indexed by time properties to Wikidata
-- Creating and improving [examples](), as well as sharing them around the web
+- Creating and improving [examples](https://github.com/andrewtavis/wikirepo/tree/main/examples), as well as sharing them around the web
 - Testing for wikirepo
 - A read the docs page
 
@@ -239,9 +239,9 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 
 <div align="center">
   <br>
-  <a href="https://wikiba.se/"><img height="150" src="https://raw.githubusercontent.com/andrewtavis/wikibase-sdk/master/resources/gh_images/wikibase_logo.png" alt="wikibase"></a>
+  <a href="https://wikiba.se/"><img height="150" src="https://raw.githubusercontent.com/andrewtavis/wikirepo/master/resources/gh_images/wikibase_logo.png" alt="wikibase"></a>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://www.wikidata.org/wiki/Wikidata:Main_Page"><img height="150" src="https://raw.githubusercontent.com/maxlath/wikibase-sdk/master/resources/gh_images/wikidata_logo.png" alt="wikidata"></a>
+  <a href="https://www.wikidata.org/wiki/Wikidata:Main_Page"><img height="150" src="https://raw.githubusercontent.com/andrewtavis/wikirepo/master/resources/gh_images/wikidata_logo.png" alt="wikidata"></a>
   <br>
   <br>
 </div>

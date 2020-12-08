@@ -9,8 +9,8 @@ with open("README.md", "r") as fh:
 
 setup_args = dict(
     name='wikirepo',
-    version='0.0.1',
-    description='Python based ETL and ELT tools for Wikidata',
+    version='0.0.2',
+    description='Python based ETL and ELT framework for Wikidata',
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=find_namespace_packages(),
