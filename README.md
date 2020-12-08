@@ -174,7 +174,7 @@ Similar to the potential of adding statistics through [wikirepo.data.upload](htt
 
 # To-Do
 
-### Expanding wikirepo's data infrastructure
+### Expanding Wikidata
 
 The growth of wikirepo's database relies on that of [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page). Beyond simply adding entries to already existing properties, the following are examples of property types that could be included:
 
