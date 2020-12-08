@@ -11,13 +11,7 @@
 ### Python based ETL and ELT framework for Wikidata
 
 **Jump to:** 
-[Data](#data) 
-    [Query Data](#query-data)
-    [Upload Data](#upload-data)
-[Maps](#maps)
-    [Query Maps](#query-maps)
-    [Upload Maps](#upload-maps)
-[To-Do](#to-do)
+[Data](#data) • [Maps](#maps) • [To-Do](#to-do)
 
 **wikirepo** is a Python package that provides an ETL framework to easily source and leverage standardized [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) information. The current focus is to create an intuitive interface so that Wikidata can function as a common repository for public social science statistics. 
 
@@ -105,6 +99,7 @@ df.head(6)
 | People's Republic of China | Q148  |   2010 | Wen Jiabao     |   1.35976e+09 |    75.236  |           0.706 |             nan |
 | People's Republic of China | Q148  |   2009 | Wen Jiabao     | nan           |    75.032  |           0.694 |             nan |
 
+
 #### Querying information for all US counties
 
 ```python
@@ -153,6 +148,7 @@ df[df['population'].notnull()].head(6)
 | United States of America | California | Napa County         | Q108137 |   2018 | 141294           |       2042 | Napa         |
 | United States of America | California | San Mateo County    | Q108101 |   2018 | 774155           |       1919 | Redwood City |
 | United States of America | California | Santa Clara County  | Q110739 |   2018 |      1.9566e+06  |       3377 | San Jose     |
+
 
 ### Upload Data
 
