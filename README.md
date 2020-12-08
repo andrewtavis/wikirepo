@@ -64,7 +64,7 @@ from wikirepo.data import wd_utils
 from datetime import date
 
 ents_dict = wd_utils.EntitiesDict()
-# Strings must match their Wikidata English page name
+# Strings must match their Wikidata English page names
 countries = ["Germany", "United States of America", "People's Republic of China"]
 depth = 0
 time_lvl = 'yearly'
@@ -191,7 +191,7 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 ### Further ways to help
 
 - Integrating current Python tools with wikirepo ETL structures for ELT uploads to Wikidata
-- Adding multiprocessing support to the `wikirepo.data.query` process and `data.lctn_utils.gen_lctns_dict`
+- Adding multiprocessing support to the [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py) process and `data.lctn_utils.gen_lctns_dict`
 - Optimizing [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py):
     - Potentially converting `EntitiesDict` and `LocationsDict` to slotted object classes for memory savings
     - Deriving and optimizing other slow parts of the query process
