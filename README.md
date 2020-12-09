@@ -13,7 +13,7 @@
 **Jump to:** 
 [Data](#data) • [Maps](#maps) • [To-Do](#to-do)
 
-**wikirepo** is a Python package that provides an ETL framework to easily source and leverage standardized [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) information. The current focus is to create an intuitive interface so that Wikidata can function as a common repository for public social science statistics. 
+**wikirepo** is a Python package that provides an ETL framework to easily source and leverage standardized [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) information. The goal is to create an intuitive interface so that Wikidata can function as a common read-write repository for public statistics. 
 
 # Installation via PyPi
 ```bash
@@ -32,9 +32,9 @@ wikirepo's data structure is built around [Wikidata.org](https://www.wikidata.or
 
 wikirepo's main ETL access function, [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py), returns a `pandas.DataFrame` of locations and property data across time. Property access is through `data.data_utils.query_repo_dir`, with desired statistics coming from [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data) directory modules, and results then being merged across modules and directories. 
 
-The query structure streamlines not just data extraction, but also the process of adding access to Wikidata properties for all to use. Adding a new property is as simple as adding a module to an appropriate [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data) directory, with most data modules being as simple as six defined variables and a single function call. wikirepo is self indexing, so any property module added is accessible by [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py). See [data.demographic.population](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/demographic/population.py) for the general structure of data modules, and [examples/add_property](https://github.com/andrewtavis/wikirepo/blob/main/examples/add_property.ipynb) for a quick demo on adding new properties to wikirepo.
+The query structure streamlines not just data extraction, but also the process of adding access to Wikidata properties for all to use. Adding a new property is as simple as adding a module to an appropriate [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data) directory, with most data modules being as simple as six defined variables and a single function call. wikirepo is self indexing, so any property module added is accessible by [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py). See [data.demographic.population](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/demographic/population.py) for the general structure of data modules and [examples/add_property](https://github.com/andrewtavis/wikirepo/blob/main/examples/add_property.ipynb) for a quick demo on adding new properties to wikirepo.
 
-Each query needs the following inputs:
+**Each query needs the following inputs:**
 
 - **locations**: the locations that data should be queried for
     - Strings are accepted for `Earth`, continents, and countries
@@ -105,7 +105,7 @@ df.head(6)
 #### Querying Information for all US Counties
 
 ```python
-# Note: >3000 regions, expect an hour runtime
+# Note: >3000 regions, expect a 45 minute runtime
 import wikirepo
 from wikirepo.data import lctn_utils, wd_utils
 from datetime import date
@@ -160,7 +160,7 @@ df[df['population'].notnull()].head(6)
 
 The same process used to query information from Wikidata could be reversed for the upload process. Dataframe columns could be linked to their corresponding Wikidata properties, whether the time qualifiers are a [points in time](https://www.wikidata.org/wiki/Property:P585) or spans using [start time](https://www.wikidata.org/wiki/Property:P580) and [end time](https://www.wikidata.org/wiki/Property:P582) could be derived through the defined variables, and other necessary qualifiers for proper data indexing could also be included. Source information could also be added in corresponding columns to the given property edits.
 
-Put simply: a full featured [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py) function would realize the potential of a single open-source repository for all public social science information.
+Put simply: a full featured [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py) function would realize the potential of a single read-write repository for all public information.
 
 # Maps
 
@@ -178,11 +178,13 @@ Similar to the potential of adding statistics through [wikirepo.data.upload](htt
 
 ### Expanding Wikidata
 
-The growth of wikirepo's database relies on that of [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page). Beyond simply adding entries to already existing properties, the following are examples of property types that could be included:
+The growth of wikirepo's database relies on that of [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page). Through `data.wd_utils.dir_to_topic_page` wikirepo can access properties on location sub-pages, thus allowing for statistics on any topic to be linked to. Beyond simply adding entries to already existing properties, the following are examples of property types that could be included:
 
+- Climate statistics could be added to [data/climate]
+    - This would allow for easy modeling of global warming and its effects
+    - Planning would be needed for whether lower `time_lvl` intervals would be necessary, or just include daily averages
 - Those for electoral [polling](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/electoral_polls) and [results](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/electoral_results) for locations
     - This would allow direct access to all needed election information in a single function call
-    - Data could be added to Wikidata sub-pages for locations and linked to via `data.wd_utils.dir_to_topic_page`
 - A property that links political parties and their regions in [data/political](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/political)
     - For easy professional presentation of electoral results (ex: loading in party hex colors, abbreviations, and alignments)
 - [data/demographic](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/demographic) properties such as:
