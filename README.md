@@ -180,7 +180,7 @@ Similar to the potential of adding statistics through [wikirepo.data.upload](htt
 
 The growth of wikirepo's database relies on that of [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page). Through `data.wd_utils.dir_to_topic_page` wikirepo can access properties on location sub-pages, thus allowing for statistics on any topic to be linked to. Beyond simply adding entries to already existing properties, the following are examples of property types that could be included:
 
-- Climate statistics could be added to [data/climate]
+- Climate statistics could be added to [data/climate](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/climate)
     - This would allow for easy modeling of global warming and its effects
     - Planning would be needed for whether lower `time_lvl` intervals would be necessary, or just include daily averages
 - Those for electoral [polling](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/electoral_polls) and [results](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/electoral_results) for locations
