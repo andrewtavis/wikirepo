@@ -11,9 +11,9 @@
 ### Python based Wikidata framework for easy dataframe extraction
 
 **Jump to:** 
-[Data](#data) • [Maps](#maps) • [To-Do](#to-do)
+[Data](#data) • [Maps](#maps-(wip)) • [To-Do](#to-do)
 
-**wikirepo** is a Python package that provides an ETL framework to easily source and leverage standardized [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) information. The goal is to create an intuitive interface so that Wikidata can function as a common read-write repository for public statistics. 
+**wikirepo** is a Python package that provides a framework to easily source and leverage standardized [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) information. The goal is to create an intuitive interface so that Wikidata can function as a common read-write repository for public statistics. 
 
 # Installation via PyPi
 ```bash
@@ -30,9 +30,7 @@ wikirepo's data structure is built around [Wikidata.org](https://www.wikidata.or
 
 ### Query Data
 
-wikirepo's main ETL access function, [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py), returns a `pandas.DataFrame` of locations and property data across time. Property access is through `data.data_utils.query_repo_dir`, with desired statistics coming from [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data) directory modules, and results then being merged across modules and directories. 
-
-The query structure streamlines not just data extraction, but also the process of adding access to Wikidata properties for all to use. Adding a new property is as simple as adding a module to an appropriate [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data) directory, with most data modules being as simple as six defined variables and a single function call. wikirepo is self indexing, so any property module added is accessible by [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py). See [data.demographic.population](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/demographic/population.py) for the general structure of data modules and [examples/add_property](https://github.com/andrewtavis/wikirepo/blob/main/examples/add_property.ipynb) for a quick demo on adding new properties to wikirepo.
+wikirepo's main access function, [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py), returns a `pandas.DataFrame` of locations and property data across time. 
 
 **Each query needs the following inputs:**
 
@@ -154,15 +152,15 @@ df[df['population'].notnull()].head(6)
 
 
 
-### Upload Data
+### Upload Data (WIP)
 
-[wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py) will be the core of the eventual wikirepo ELT process. The goal is to reocrd edits that a user makes to a prveviously queried dataframe such that these changes can then be pushed back to Wikidata. This process could be as simple as making changes to a `df.copy()` of a queried dataframe, and then using [pandas](https://github.com/pandas-dev/pandas) to compare the new and original dataframes after the user has added information that they have access to. The unique information in the edited dataframe could then be loaded into Wikidata for all to use.
+[wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py) will be the core of the eventual wikirepo upload process. The goal is to reocrd edits that a user makes to a prveviously queried dataframe such that these changes can then be pushed back to Wikidata. This process could be as simple as making changes to a `df.copy()` of a queried dataframe, and then using [pandas](https://github.com/pandas-dev/pandas) to compare the new and original dataframes after the user has added information that they have access to. With the addition of login credentials as a wikirepo feature (to be added), the unique information in the edited dataframe could then be loaded into Wikidata for all to use.
 
 The same process used to query information from Wikidata could be reversed for the upload process. Dataframe columns could be linked to their corresponding Wikidata properties, whether the time qualifiers are a [points in time](https://www.wikidata.org/wiki/Property:P585) or spans using [start time](https://www.wikidata.org/wiki/Property:P580) and [end time](https://www.wikidata.org/wiki/Property:P582) could be derived through the defined variables, and other necessary qualifiers for proper data indexing could also be included. Source information could also be added in corresponding columns to the given property edits.
 
 Put simply: a full featured [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py) function would realize the potential of a single read-write repository for all public information.
 
-# Maps
+# Maps (WIP)
 
 [wikirepo/maps](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/maps) is a further goal of the project, as it combines wikirepo's focus on easy to access open source data and quick high level analytics.
 
@@ -196,7 +194,7 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 
 ### Further Ways to Help
 
-- Integrating current Python tools with wikirepo ETL structures for ELT uploads to Wikidata
+- Integrating current Python tools with wikirepo structures for uploads to Wikidata
 - Adding multiprocessing support to the [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py) process and `data.lctn_utils.gen_lctns_dict`
 - Optimizing [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py):
     - Potentially converting `EntitiesDict` and `LocationsDict` to slotted object classes for memory savings
