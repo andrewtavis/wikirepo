@@ -10,7 +10,7 @@ with open("README.md", "r") as fh:
 setup_args = dict(
     name='wikirepo',
     version='0.0.2',
-    description='Python based ETL and ELT framework for Wikidata',
+    description='Python based Wikidata framework for easy dataframe extraction',
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=find_namespace_packages(),

@@ -8,7 +8,7 @@
 [![Python Version](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8-blue.svg)](https://pypi.org/project/wikirepo/)
 [![GitHub](https://img.shields.io/github/license/andrewtavis/wikirepo.svg)](https://github.com/andrewtavis/wikirepo/blob/master/LICENSE)
 
-### Python based ETL and ELT framework for Wikidata
+### Python based Wikidata framework for easy dataframe extraction
 
 **Jump to:** 
 [Data](#data) • [Maps](#maps) • [To-Do](#to-do)
