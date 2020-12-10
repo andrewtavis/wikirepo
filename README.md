@@ -26,7 +26,7 @@ import wikirepo
 
 # Data
 
-wikirepo's data structure is built around [Wikidata.org](https://www.wikidata.org/wiki/Wikidata:Main_Page). Human-readable access to Wikidata statistics is achieved through converting requests into Wikidata's Quantity IDs (QIDs) and Property IDs (PIDs), with the Python package [wikidata](https://github.com/dahlia/wikidata) serving as a basis for data loading and indexing. The wikirepo community aims to work with Wikidata to derive and add needed statistics, thus playing an integral role in growing the premier free and open sourced online knowledge base.
+wikirepo's data structure is built around [Wikidata.org](https://www.wikidata.org/wiki/Wikidata:Main_Page). Human-readable access to Wikidata statistics is achieved through converting requests into Wikidata's Quantity IDs (QIDs) and Property IDs (PIDs), with the Python package [wikidata](https://github.com/dahlia/wikidata) serving as a basis for data loading and indexing.
 
 ### Query Data
 
