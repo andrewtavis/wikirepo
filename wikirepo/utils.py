@@ -7,9 +7,6 @@
 #       _make_var_list
 #       _return_given_type
 #
-#       head_shape
-#       wrap_print_list
-#
 #       try_float
 #       round_if_int
 #       gen_list_of_lists
@@ -48,26 +45,6 @@ def _return_given_type(var, var_was_str):
     
     else:
         return var
-
-
-def head_shape(df, length=5):
-    """Displays a variable head of a df and gives its shape"""
-    base_length = pd.get_option("display.max_rows")
-    pd.set_option("display.max_rows", length)
-    
-    from IPython.display import display
-    display(df.head(length))
-    display(df.shape)
-
-    pd.set_option("display.max_rows", base_length)
-
-
-def wrap_print_list(a_list, sort=False):
-    """Prints a list as a comma separated string"""
-    if sort:
-        print(*sorted(a_list), sep=', ')
-    else:
-        print(*a_list, sep=', ')
 
 
 def try_float(string):
