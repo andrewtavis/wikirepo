@@ -9,7 +9,7 @@ with open("README.md", "r") as fh:
 
 setup_args = dict(
     name='wikirepo',
-    version='0.0.2.1',
+    version='0.0.2.2',
     description='Python based Wikidata framework for easy dataframe extraction',
     long_description=long_description,
     long_description_content_type="text/markdown",

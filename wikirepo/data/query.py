@@ -22,6 +22,7 @@ def query(ents_dict=None,
           locations=None, 
           time_lvl=None, 
           timespan=None,
+          climate_props=False,
           demographic_props=False, 
           economic_props=False, 
           electoral_poll_props=False,
@@ -56,6 +57,9 @@ def query(ents_dict=None,
             Note 1: if None, then only the most recent data for the time_lvl will be queried
             Note 2: if True, then the full timespan from 1-1-1 to the current day will be queried 
             Note 3: passing a single entry will query for that date only
+
+        climate_props : str or list (contains strs) : optional (default=False)
+            String representations of data/climate modules for data_utils.query_repo_dir
 
         demographic_props : str or list (contains strs) : optional (default=False)
             String representations of data/demographic modules for data_utils.query_repo_dir

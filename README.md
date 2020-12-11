@@ -10,8 +10,7 @@
 
 ### Python based Wikidata framework for easy dataframe extraction
 
-**Jump to:** 
-[Data](#data) • [Maps (WIP)](#maps-wip) • [To-Do](#to-do)
+**Jump to:** [Data](#data) • [Maps (WIP)](#maps-wip) • [To-Do](#to-do)
 
 **wikirepo** is a Python package that provides a framework to easily source and leverage standardized [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) information. The goal is to create an intuitive interface so that Wikidata can function as a common read-write repository for public statistics. 
 
@@ -72,6 +71,7 @@ timespan = (date(2009,1,1), date(2010,1,1))
 df = wikirepo.data.query(ents_dict=ents_dict, 
                          locations=countries, depth=depth,
                          time_lvl=time_lvl, timespan=timespan,
+                         climate_props=False,
                          demographic_props=['population', 'life_expectancy'], 
                          economic_props='median_income', 
                          electoral_poll_props=False, 
@@ -128,6 +128,7 @@ us_counties_dict = lctn_utils.gen_lctns_dict(ents_dict=ents_dict,
 df = wikirepo.data.query(ents_dict=ents_dict, 
                          locations=us_counties_dict, depth=depth,
                          time_lvl=time_lvl, timespan=timespan,
+                         climate_props=False,
                          demographic_props='population', 
                          economic_props=False, 
                          electoral_poll_props=False, 
@@ -166,7 +167,7 @@ Put simply: a full featured [wikirepo.data.upload](https://github.com/andrewtavi
 
 ### Query Maps
 
-As in [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py), passing the `depth`, `locations`, `time_lvl` and `timespan` arguments could access GeoJSON files stored on [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page), thus providing mapping files in parallel to the user's data. These files could then be leveraged using existing Python plotting libraries to provide detailed presentations of geographic analysis.
+As in [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py), passing the `depth`, `locations`, `time_lvl` and `timespan` arguments could access GeoJSON files stored on Wikidata, thus providing mapping files in parallel to the user's data. These files could then be leveraged using existing Python plotting libraries to provide detailed presentations of geographic analysis.
 
 ### Upload Maps
 
