@@ -18,10 +18,10 @@ from wikirepo import utils
 from wikirepo.data import data_utils, lctn_utils, time_utils, wd_utils
 
 def query(ents_dict=None, 
-          depth=None, 
           locations=None, 
-          time_lvl=None, 
+          depth=None, 
           timespan=None,
+          interval=None, 
           climate_props=False,
           demographic_props=False, 
           economic_props=False, 
@@ -34,29 +34,30 @@ def query(ents_dict=None,
         #   multicore=True,
           verbose=True):
     """
-    Queries Wikidata properties based on module arguments for locations given a depth, time_lvl, and timespan
+    Queries Wikidata properties based on module arguments for locations given a depth, interval, and timespan
         
     Parameters
     ----------
         ents_dict : wd_utils.EntitiesDict : optional (default=None)
             A dictionary with keys being Wikidata QIDs and values being their entities
 
+        locations : str, list, or lctn_utils.LocationsDict (contains strs) : optional (default=None)
+            The locations to query either as strings for indexed locations or Wikidata QIDs
+
         depth : int (default=0, no sub_locations)
             The depth from the given lbls or qids that data should go
             Note: this uses 'P150' (contains administrative territorial entity)
 
-        locations : str, list, or lctn_utils.LocationsDict (contains strs) : optional (default=None)
-            The locations to query either as strings for indexed locations or Wikidata QIDs
-
-        time_lvl : str
-            The time level over which queries will be made
-            Note: see data.query_time for options
-
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
             A tuple or list that defines the start and end dates to be queried
-            Note 1: if None, then only the most recent data for the time_lvl will be queried
+            Note 1: if None, then only the most recent data for the interval will be queried
             Note 2: if True, then the full timespan from 1-1-1 to the current day will be queried 
             Note 3: passing a single entry will query for that date only
+
+        interval : str (default=None)
+            The time interval over which queries will be made
+            Note 1: see data.time_utils for options
+            Note 2: if None, then only the most recent data will be queried
 
         climate_props : str or list (contains strs) : optional (default=False)
             String representations of data/climate modules for data_utils.query_repo_dir
@@ -106,14 +107,14 @@ def query(ents_dict=None,
 
     # Baseline args that do not have imbedded lower level functional arguments
     # These are passed directly
-    baseline_args = ['ents_dict', 'depth', 'locations', 
-                     'time_lvl', 'timespan', 'verbose']
+    baseline_args = ['ents_dict', 'locations', 'depth', 
+                     'timespan', 'interval', 'verbose']
     
     if type(locations) == lctn_utils.LocationsDict:
         if depth == None:
             depth = locations.get_depth()
-        # if time_lvl == None:
-        #     time_lvl = locations.get_time_lvl()
+        # if interval == None:
+        #     interval = locations.get_interval()
         # if timespan == None:
         #     timespan = locations.get_timespan()
 
@@ -137,20 +138,20 @@ def query(ents_dict=None,
         if sub_directory == 'electoral_poll' or sub_directory == 'electoral_result':
             sub_directory += 's'
         
+        query_params['ents_dict'] = literal_eval(str(ents_dict._print()))
         query_params['dir_name'] = sub_directory
-        query_params['depth'] = depth
         if type(locations) == lctn_utils.LocationsDict:
             query_params['locations'] = literal_eval(str(locations._print()))
         else:
             query_params['locations'] = locations
-        query_params['ents_dict'] = literal_eval(str(ents_dict._print()))
-        query_params['time_lvl'] = time_lvl
-        
+        query_params['depth'] = depth
+
         # The following is necessary for passing tuples with datetime.date objects to literal_evel
         # Convert to a tuple of tuples, and then back again in the lower fxns via time_utils.make_timespan() in data_utils.gen_base_df()
         timespan = f"{timespan}".replace('datetime.date', '')
         timespan = literal_eval(timespan)
         query_params['timespan'] = timespan
+        query_params['interval'] = interval
 
         if verbose == 'full':
             query_params['verbose'] = True
@@ -180,9 +181,9 @@ def query(ents_dict=None,
         # Pass the created dictionary as kwargs for data_utils.query_repo_dir
         if df_merge is not None:
             # geo cols are queried as a list, and time as a string
-            if time_lvl is not None:
+            if interval is not None:
                 merge_on = lctn_utils.depth_to_cols(depth=depth) + \
-                    [time_utils.t_lvl_to_col_name(time_lvl=time_lvl)]
+                    [time_utils.interval_to_col_name(interval=interval)]
             else:
                 merge_on = lctn_utils.depth_to_cols(depth=depth)
             

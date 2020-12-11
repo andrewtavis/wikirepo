@@ -1029,11 +1029,11 @@ def iter_set_dict(dictionary, key, sub_key, value):
 
 
 def gen_lctns_dict(ents_dict=None,
+                   locations=None,
                    depth=0,
-                   locations=None, 
                    sub_lctns=True,
-                   time_lvl=None, 
                    timespan=None,
+                   interval=None, 
                 #    multicore=True,
                    verbose=True):
     """
@@ -1046,25 +1046,25 @@ def gen_lctns_dict(ents_dict=None,
         ents_dict : wd_utils.EntitiesDict : optional (default=None)
             A dictionary with keys being Wikidata QIDs and values being their entities
 
+        locations : str or list (contains strs) : optional (default=None)
+            The name of a location or list of location names
+
         depth : int (default=0, no sub_locations)
             The depth from the given lbls or qids that data should go
             Note: this uses 'P150' (contains administrative territorial entity)
 
-        locations : str or list (contains strs) : optional (default=None)
-            The name of a location or list of location names
-
         sub_lctns : str or list (contains strs) : optional (default=None)
             sub_locations to subset by or not subset by adding '~' as the first character
-
-        time_lvl : str
-            The time level over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
 
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
             A tuple or list that defines the start and end dates to be queried
             Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried 
             Note 2: passing a single entry will query for that date only
+
+        interval : str
+            The time interval over which queries will be made
+            Note 1: see data.time_utils for options
+            Note 2: if None, then only the most recent data will be queried
 
         verbose : bool (default=True)
             Whether to show a tqdm progress bar for the creation of the dictionary
@@ -1105,8 +1105,8 @@ def gen_lctns_dict(ents_dict=None,
                                  depth=depth,
                                  current_depth=current_depth, 
                                  sub_lctns=sub_lctns,
-                                 time_lvl=time_lvl, 
                                  timespan=timespan,
+                                 interval=interval,
                                 #  multicore=multicore,
                                  verbose=verbose):
         """
@@ -1117,7 +1117,7 @@ def gen_lctns_dict(ents_dict=None,
         depth_keys = get_qids_at_depth(lctns_dict=lctns_dict, depth=current_depth)
 
         disable = not verbose
-        if time_lvl == None:
+        if interval == None:
             # Assuming that the user wants the current sub-locations
             def get_most_frequent_dict(ents_dict, lctns_dict, qid, pid):
                 """
@@ -1158,7 +1158,7 @@ def gen_lctns_dict(ents_dict=None,
                                             for sub in [[wd_utils.get_prop_id(ents_dict, qid, pid, i), 
                                                         wd_utils.get_prop_lbl(ents_dict, qid, pid, i),
                                                         wd_utils.get_prop_timespan_intersection(ents_dict, qid, pid, 
-                                                                                                i, time_lvl, timespan)] 
+                                                                                                i, timespan, interval)] 
                                                         for i in range(len(wd_utils.get_prop(ents_dict, qid, pid)))] 
                                             if (sub_lctns ==True 
                                                 or (sub_lctns != True and sub[1] in sub_lctns)
@@ -1202,8 +1202,8 @@ def gen_lctns_dict(ents_dict=None,
                                                         depth=depth,
                                                         current_depth=current_depth, 
                                                         sub_lctns=sub_lctns,
-                                                        time_lvl=time_lvl, 
                                                         timespan=timespan,
+                                                        interval=interval, 
                                                         # multicore=multicore,
                                                         verbose=verbose)
     
@@ -1266,7 +1266,7 @@ class LocationsDict(dict):
     """
     A dictionary for storing WikiData locations
 
-    Keywords are QIDs, and values are dictionaries of depth, time_lvl, and timespan specific information
+    Keywords are QIDs, and values are dictionaries of depth, interval, and timespan specific information
     """
     __slots__ = ()
 
@@ -1282,7 +1282,7 @@ class LocationsDict(dict):
         - Keys are QIDs
         - Values are dictionaries containing:
             - lbl: the location's label
-            - valid_timespan: the timespan that the location is valid for given a time_lvl and timespan
+            - valid_timespan: the timespan that the location is valid for given a interval and timespan
             - sub_lctns: equivalent dictionary objects for sub-locatioons given a depth
 
             Note: the last two are optional
@@ -1317,11 +1317,11 @@ class LocationsDict(dict):
         """
         return derive_depth(self, depth=0)
 
-    # def get_time_lvl(self):
+    # def get_interval(self):
     #     """
-    #     The time_lvl of the LocationsDict
+    #     The interval of the LocationsDict
     #     """
-    #     return self['time_lvl']
+    #     return self['interval']
 
     # def get_timespan(self):
     #     """
@@ -1329,18 +1329,18 @@ class LocationsDict(dict):
     #     """
     #     return self['timespan']
 
-    # def get_lctn_dict_specs(self, depth, time_lvl, timespan):
+    # def get_lctn_dict_specs(self, depth, timespan, interval):
     #     """
-    #     Combines get_depth, get_time_lvl, and get_timespan of a LocationsDict
+    #     Combines get_depth, get_interval, and get_timespan of a LocationsDict
     #     """
     #     if depth == None:
     #         depth = self.get_depth()
-    #     if time_lvl == None:
-    #         time_lvl = self.get_time_lvl()
+    #     if interval == None:
+    #         interval = self.get_interval()
     #     if timespan == None:
     #         timespan = self.get_timespan()
             
-    #     return depth, time_lvl, timespan
+    #     return depth, timespan, interval
 
     def iter_key_items(self, kv):
         """

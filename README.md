@@ -40,12 +40,12 @@ Each query needs the following inputs:
     - A depth of 0 is the locations themselves
     - Greater depths correspond to lower geographic levels (states of countries, etc.)
     - A dictionary of locations is generated for lower depths (see second example below)
-- **time_lvl**: `yearly`, `monthly`, `weekly`, or `daily` as strings
+- **timespan**: start and end `datetime.date` objects defining when data should come from
+- **interval**: `yearly`, `monthly`, `weekly`, or `daily` as strings
     - If not provided, then the most recent data will be retrieved with annotation for when it's from
-- **timespan**: start and end `datetime.date` objects to be subsetted based on `time_lvl`
 - **Further arguments**: the names of modules in [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data) directories
     - These are passed to arguments corresponding to their directories
-    - Data will be queried for these properties for the given `locations`, `depth`, `time_lvl` and `timespan`, with results being merged as dataframe columns
+    - Data will be queried for these properties for the given `locations`, `depth`, `timespan` and `interval`, with results being merged as dataframe columns
 
 Queries are also able to access information in Wikidata sub-pages for locations. For example: if inflation rate is not found on the location's main page, then wikirepo checks the location's economic topic page as [inflation_rate.py](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/economic/inflation_rate.py) is found in [wikirepo/data/economic](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/economic) (see [Germany](https://www.wikidata.org/wiki/Q183) and [economy of Germany](https://www.wikidata.org/wiki/Q8046)).
 
@@ -65,12 +65,12 @@ ents_dict = wd_utils.EntitiesDict()
 countries = ["Germany", "United States of America", "People's Republic of China"]
 # countries = ["Q183", "Q30", "Q148"] # we could also pass QIDs
 depth = 0
-time_lvl = 'yearly'
 timespan = (date(2009,1,1), date(2010,1,1))
+interval = 'yearly'
 
 df = wikirepo.data.query(ents_dict=ents_dict, 
                          locations=countries, depth=depth,
-                         time_lvl=time_lvl, timespan=timespan,
+                         timespan=timespan, interval=interval, 
                          climate_props=False,
                          demographic_props=['population', 'life_expectancy'], 
                          economic_props='median_income', 
@@ -109,25 +109,25 @@ from wikirepo.data import lctn_utils, wd_utils
 from datetime import date
 
 ents_dict = wd_utils.EntitiesDict()
-depth = 2 # 2 for counties, 1 for states and territories
 country = "United States of America"
 # country = "Q30" # we could also pass its QID
+depth = 2 # 2 for counties, 1 for states and territories
 sub_lctns = True # for all
-time_lvl = 'yearly'
 # Only valid sub-locations given the timespan will be queried
 timespan = (date(2016,1,1), date(2018,1,1))
+interval = 'yearly'
 
 us_counties_dict = lctn_utils.gen_lctns_dict(ents_dict=ents_dict,
+                                             locations=country,
                                              depth=depth,
-                                             locations=country, 
                                              sub_lctns=sub_lctns,
-                                             time_lvl=time_lvl, 
                                              timespan=timespan,
+                                             interval=interval, 
                                              verbose=True)
 
 df = wikirepo.data.query(ents_dict=ents_dict, 
                          locations=us_counties_dict, depth=depth,
-                         time_lvl=time_lvl, timespan=timespan,
+                         timespan=timespan, interval=interval, 
                          climate_props=False,
                          demographic_props='population', 
                          economic_props=False, 
@@ -155,9 +155,58 @@ df[df['population'].notnull()].head(6)
 
 ### Upload Data (WIP)
 
-[wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py) will be the core of the eventual wikirepo upload process. The goal is to reocrd edits that a user makes to a prveviously queried dataframe such that these changes can then be pushed back to Wikidata. This process could be as simple as making changes to a `df.copy()` of a queried dataframe, and then using [pandas](https://github.com/pandas-dev/pandas) to compare the new and original dataframes after the user has added information that they have access to. With the addition of login credentials as a wikirepo feature (WIP), the unique information in the edited dataframe could then be uploaded to Wikidata for all to use.
+[wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py) will be the core of the eventual wikirepo upload feature. The goal is to reocrd edits that a user makes to a prveviously queried or baseline dataframe such that these changes can then be pushed back to Wikidata. With the addition of Wikidata login credentials as a wikirepo feature (WIP), the unique information in the edited dataframe could then be uploaded to Wikidata for all to use.
 
-The same process used to query information from Wikidata could be reversed for the upload process. Dataframe columns could be linked to their corresponding Wikidata properties, whether the time qualifiers are a [points in time](https://www.wikidata.org/wiki/Property:P585) or spans using [start time](https://www.wikidata.org/wiki/Property:P580) and [end time](https://www.wikidata.org/wiki/Property:P582) could be derived through the defined variables, and other necessary qualifiers for proper data indexing could also be included. Source information could also be added in corresponding columns to the given property edits.
+The same process used to query information from Wikidata could be reversed for the upload process. Dataframe columns could be linked to their corresponding Wikidata properties, whether the time qualifiers are a [points in time](https://www.wikidata.org/wiki/Property:P585) or spans using [start time](https://www.wikidata.org/wiki/Property:P580) and [end time](https://www.wikidata.org/wiki/Property:P582) could be derived through the defined variables in the module header, and other necessary qualifiers for proper data indexing could also be included. Source information could also be added in corresponding columns to the given property edits.
+
+`Pseudocode` for how this process could function follows:
+
+In the first example, changes are made to a `df.copy()` of a queried dataframe. [pandas](https://github.com/pandas-dev/pandas) is then used to compare the new and original dataframes after the user has added information that they have access to.
+
+```python
+import wikirepo
+from wikirepo.data import lctn_utils, wd_utils
+from datetime import date
+
+ents_dict = wd_utils.EntitiesDict()
+country = "Country Name"
+depth = 2
+sub_lctns = True
+timespan = (date(2000,1,1), date(2018,1,1))
+interval = 'yearly'
+
+lctns_dict = lctn_utils.gen_lctns_dict()
+
+df = wikirepo.data.query()
+df_copy = df.copy()
+
+# The user checks for NaNs and adds data
+
+df_edits = pd.concat([df, df_copy]).drop_duplicates(keep=False)
+
+wikirepo.data.upload(df_edits)
+```
+
+In the next examople `data.data_utils.gen_base_df` is used to create a dataframe with dimensions that match a time series that the user has access to. The data is then added to the column that corresponds to the property to which it should be added. Souce information could be added via a structured dictionary generated for the user.
+
+```python
+import wikirepo
+from wikirepo.data import data_utils, wd_utils
+from datetime import date
+
+locations = "Country Name"
+depth = 0
+timespan = (date(1990,1,1), date(2010,1,1))
+interval = 'weekly'
+
+base_df = data_utils.gen_base_df()
+base_df['data'] = matching_time_series_data
+
+source_data = wd_utils.gen_source_dict('Source Information')
+base_df['data_source'] = [source_data] * len(base_df)
+
+wikirepo.data.upload(base_df)
+```
 
 Put simply: a full featured [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py) function would realize the potential of a single read-write repository for all public information.
 
@@ -167,11 +216,11 @@ Put simply: a full featured [wikirepo.data.upload](https://github.com/andrewtavi
 
 ### Query Maps
 
-As in [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py), passing the `depth`, `locations`, `time_lvl` and `timespan` arguments could access GeoJSON files stored on Wikidata, thus providing mapping files in parallel to the user's data. These files could then be leveraged using existing Python plotting libraries to provide detailed presentations of geographic analysis.
+As in [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py), passing the `locations`, `depth`, `timespan` and `interval` arguments could access GeoJSON files stored on Wikidata, thus providing mapping files in parallel to the user's data. These files could then be leveraged using existing Python plotting libraries to provide detailed presentations of geographic analysis.
 
 ### Upload Maps
 
-Similar to the potential of adding statistics through [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py), GeoJSON map files could also be uploaded to Wikidata using appropriate arguments. The potential exists for a myriad of variable maps given `depth`, `locations`, `time_lvl` and `timespan` information that would allow all wikirepo users to get the exact mapping file that they need for their given task.
+Similar to the potential of adding statistics through [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py), GeoJSON map files could also be uploaded to Wikidata using appropriate arguments. The potential exists for a myriad of variable maps given `locations`, `depth`, `timespan` and `interval` information that would allow all wikirepo users to get the exact mapping file that they need for their given task.
 
 # To-Do
 
@@ -181,7 +230,7 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 
 - Climate statistics could be added to [data/climate](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/climate)
     - This would allow for easy modeling of global warming and its effects
-    - Planning would be needed for whether lower `time_lvl` intervals would be necessary, or just include daily averages
+    - Planning would be needed for whether lower intervals would be necessary, or just include daily averages
 - Those for electoral [polling](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/electoral_polls) and [results](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/electoral_results) for locations
     - This would allow direct access to all needed election information in a single function call
 - A property that links political parties and their regions in [data/political](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/political)

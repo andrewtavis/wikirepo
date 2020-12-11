@@ -76,31 +76,32 @@ def _get_dir_fxns_dict(dir_name=None):
     return fxns_dict
 
 
-def _check_data_assertions(time_lvl=None, timespan=None, **kwargs):
+def _check_data_assertions(timespan=None, interval=None, **kwargs):
     """
     Checks standardized data assertions across functions given local functional arguments
     
     Parameters
     ----------
-        time_lvl : str
-            The time level over which queries will be made
-            Note: see data.time_utils for options
-
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
             A tuple or list that defines the start and end dates to be queried
             Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried 
             Note 2: passing a single entry will query for that date only
 
+        interval : str
+            The time interval over which queries will be made
+            Note 1: see data.time_utils for options
+            Note 2: if None, then only the most recent data will be queried
+
     Returns
     -------
         The results of a series of standardized assertions
     """
-    assert (time_lvl == None) or (time_lvl in time_utils.incl_time_lvls()), \
-        "Please provide None for no time level or a value for 'time_lvl' from the following list of possible arguments: " + \
-            ', '.join(time_utils.incl_time_lvls()) + '.'
+    assert (interval == None) or (interval in time_utils.incl_intervals()), \
+        "Please provide None for no time interval or a value for 'interval' from the following list of possible arguments: " + \
+            ', '.join(time_utils.incl_intervals()) + '.'
 
     if timespan != None:
-        assert time_lvl != None, "A 'timespan' has been provided, but no value for the 'time_lvl' by which it should be segmented."
+        assert interval != None, "A 'timespan' has been provided, but no value for the 'interval' by which it should be segmented."
 
 
 def _get_max_workers(multicore):
@@ -134,32 +135,32 @@ def incl_dir_idxs(dir_name=None, descriptions=False):
     return list(_get_dir_fxns_dict(dir_name).keys())
 
 
-def gen_base_df(depth=None, 
-                locations=None, 
-                time_lvl=None, 
+def gen_base_df(locations=None,
+                depth=None, 
                 timespan=None, 
+                interval=None, 
                 col_name='data'):
     """
     Generates a baseline dataframe to be filled with queried data
 
     Parameters
     ----------
-        depth : int (default=None)
-            The depth from the given lbls or qids that data should go
-            Note: this uses 'P150' (contains administrative territorial entity)
-
         locations : str, list, or lctn_utils.LocationsDict (contains strs) : optional (default=None)
             The locations to query
 
-        time_lvl : str
-            The time level over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
+        depth : int (default=None)
+            The depth from the given lbls or qids that data should go
+            Note: this uses 'P150' (contains administrative territorial entity)
 
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
             A tuple or list that defines the start and end dates to be queried
             Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried 
             Note 2: passing a single entry will query for that date only
+
+        interval : str
+            The time interval over which queries will be made
+            Note 1: see data.time_utils for options
+            Note 2: if None, then only the most recent data will be queried
 
         col_name : str (default=data)
             The name of the column into which queried data should be merged
@@ -189,8 +190,8 @@ def gen_base_df(depth=None,
     qid_cols = lctn_utils.depth_to_qid_cols(depth=depth)
     df_cols += qid_cols
     
-    if time_lvl:
-        df_cols += [time_utils.t_lvl_to_col_name(time_lvl)]
+    if interval:
+        df_cols += [time_utils.interval_to_col_name(interval)]
 
     base_df = pd.DataFrame(columns=df_cols)
     for col in qid_cols:
@@ -248,8 +249,8 @@ def gen_base_df(depth=None,
         
         current_depth += 1
 
-    if time_lvl:
-        time_col = time_utils.t_lvl_to_col_name(time_lvl=time_lvl)
+    if interval:
+        time_col = time_utils.interval_to_col_name(interval=interval)
 
         if type(locations) == lctn_utils.LocationsDict or type(locations) == dict:
             # Find the valis times for the sub_lctn and assign them
@@ -266,12 +267,12 @@ def gen_base_df(depth=None,
 
         elif type(locations) == list:
             base_df[time_col] = \
-                [time_utils.make_timespan(time_lvl=time_lvl, timespan=timespan)] * len(base_df)
+                [time_utils.make_timespan(interval=interval, timespan=timespan)] * len(base_df)
             
             base_df = base_df.explode(time_col)
             base_df = time_utils.truncate_date_col(df=base_df, 
                                                    col=time_col, 
-                                                   time_lvl=time_lvl)
+                                                   interval=interval)
 
     if col_name != None:
         base_df[col_name] = [np.nan] * len(base_df)
@@ -287,9 +288,9 @@ def gen_base_df(depth=None,
 
 
 def assign_to_column(df=None, 
-                     depth=None, 
-                     locations=None, 
-                     time_lvl=None, 
+                     locations=None,
+                     depth=None,
+                     interval=None,
                      col_name='data', 
                      props=None, 
                      assign='all',
@@ -302,15 +303,15 @@ def assign_to_column(df=None,
         df : pd.DataFrmae
             A df (likely base_df) to which values should be assigned
 
+        locations : str, list, or lctn_utils.LocationsDict (contains strs) : optional (default=None)
+            The locations to query
+
         depth : int (default=None)
             The depth from the given lbls or qids that data should go
             Note: this uses 'P150' (contains administrative territorial entity)
 
-        locations : str, list, or lctn_utils.LocationsDict (contains strs) : optional (default=None)
-            The locations to query
-
-        time_lvl : str
-            The time level over which queries will be made
+        interval : str
+            The time interval over which queries will be made
             Note 1: see data.time_utils for options
             Note 2: if None, then only the most recent data will be queried
 
@@ -356,15 +357,15 @@ def assign_to_column(df=None,
                     if type(props[q][t]) == list:
                         # Multiple values to assign
                         df.loc[df[(df[assignment_col] == q) \
-                            & (df[time_utils.t_lvl_to_col_name(time_lvl)] == t)].index[0], col_name] \
+                            & (df[time_utils.interval_to_col_name(interval)] == t)].index[0], col_name] \
                                 = ', '.join([str(i) for i in props[q][t]])
                     
                     else:
                         df.loc[df[(df[assignment_col] == q) \
-                            & (df[time_utils.t_lvl_to_col_name(time_lvl)] == t)].index[0], col_name] \
+                            & (df[time_utils.interval_to_col_name(interval)] == t)].index[0], col_name] \
                                 = props[q][t]
 
-    elif assign == 'most_recent': # time_lvl and timespan are None
+    elif assign == 'most_recent': # interval and timespan are None
         # Assign the most recent value formatted with the date it's coming from
         for q in df[assignment_col.unique()]:
             if type(q) == str: # is a valid location
@@ -425,10 +426,10 @@ def assign_to_column(df=None,
     return df
 
 
-def gen_base_and_assign_to_column(depth=None, 
-                                  locations=None, 
-                                  time_lvl=None, 
+def gen_base_and_assign_to_column(locations=None,
+                                  depth=None, 
                                   timespan=None, 
+                                  interval=None, 
                                   col_name='data', 
                                   props=None, 
                                   assign=None,
@@ -436,16 +437,16 @@ def gen_base_and_assign_to_column(depth=None,
     """
     Combines data_utils.gen_base_df and data_utils.assign_to_column
     """
-    df = gen_base_df(depth=depth, 
-                     locations=locations, 
-                     time_lvl=time_lvl, 
+    df = gen_base_df(locations=locations,
+                     depth=depth, 
                      timespan=timespan, 
+                     interval=interval, 
                      col_name=col_name)
 
-    df = assign_to_column(df=df, 
+    df = assign_to_column(df=df,
+                          locations=locations,
                           depth=depth, 
-                          locations=locations, 
-                          time_lvl=time_lvl, 
+                          interval=interval, 
                           col_name=col_name, 
                           props=props, 
                           assign=assign,
@@ -454,11 +455,11 @@ def gen_base_and_assign_to_column(depth=None,
     return df
 
 
-def assign_to_cols(df=None, 
-                   depth=None, 
+def assign_to_cols(df=None,
                    locations=None,
+                   depth=None, 
                    sub_pid=None, 
-                   time_lvl=None, 
+                   interval=None, 
                    col_prefix='d', 
                    props=None, 
                    assign='all',
@@ -471,18 +472,18 @@ def assign_to_cols(df=None,
         df : pd.DataFrmae
             A df (likely base_df) to which values should be assigned
 
+        locations : str, list, or lctn_utils.LocationsDict (contains strs) : optional (default=None)
+            The locations to query
+
         depth : int (default=None)
             The depth from the given lbls or qids that data should go
             Note: this uses 'P150' (contains administrative territorial entity)
 
-        locations : str, list, or lctn_utils.LocationsDict (contains strs) : optional (default=None)
-            The locations to query
-
         sub_pid : str (default=None)
             The Wikidata property that subsets time values
 
-        time_lvl : str
-            The time level over which queries will be made
+        interval : str
+            The time interval over which queries will be made
             Note 1: see data.time_utils for options
             Note 2: if None, then only the most recent data will be queried
 
@@ -532,10 +533,10 @@ def assign_to_cols(df=None,
                             df[sub_col] = [np.nan] * len(df)
                         
                         df.loc[df[(df[assignment_col] == q) \
-                            & (df[time_utils.t_lvl_to_col_name(time_lvl)] == t)].index[0], sub_col] \
+                            & (df[time_utils.interval_to_col_name(interval)] == t)].index[0], sub_col] \
                                 = props[q][t][k]
 
-    elif assign == 'most_recent': # time_lvl and timespan are None
+    elif assign == 'most_recent': # interval and timespan are None
         # Assign the most recent value formatted with the date it's coming from
         for q in df[assignment_col]:
             if type(q) == str: # is a valid location
@@ -577,11 +578,11 @@ def assign_to_cols(df=None,
     return df
 
 
-def gen_base_and_assign_to_cols(depth=None, 
-                                locations=None,
-                                sub_pid=None, 
-                                time_lvl=None, 
+def gen_base_and_assign_to_cols(locations=None,
+                                depth=None, 
+                                sub_pid=None,
                                 timespan=None,
+                                interval=None, 
                                 col_name=None,
                                 col_prefix='d', 
                                 props=None, 
@@ -590,17 +591,17 @@ def gen_base_and_assign_to_cols(depth=None,
     """
     Combines data_utils.gen_base_df and data_utils.assign_to_cols
     """
-    df = gen_base_df(depth=depth, 
-                     locations=locations, 
-                     time_lvl=time_lvl, 
+    df = gen_base_df(locations=locations,
+                     depth=depth, 
                      timespan=timespan, 
+                     interval=interval, 
                      col_name=None) # col_name is None to prevent a data col
 
-    df = assign_to_cols(df=df, 
-                        depth=depth, 
+    df = assign_to_cols(df=df,
                         locations=locations, 
+                        depth=depth, 
                         sub_pid=sub_pid,
-                        time_lvl=time_lvl, 
+                        interval=interval, 
                         col_prefix=col_prefix, # prefixed columns are instead assigned
                         props=props, 
                         assign=assign,
@@ -611,14 +612,14 @@ def gen_base_and_assign_to_cols(depth=None,
 
 def query_wd_prop(dir_name=None,
                   ents_dict=None,
+                  locations=None,
+                  depth=None,
+                  timespan=None, 
+                  interval=None, 
                   pid=None,
                   sub_pid=None,
                   col_name=None,
                   col_prefix=None,
-                  depth=None,
-                  locations=None, 
-                  time_lvl=None, 
-                  timespan=None,
                   ignore_char='',
                   span=False):
     """
@@ -632,6 +633,23 @@ def query_wd_prop(dir_name=None,
         ents_dict : wd_utils.EntitiesDict : optional (default=None)
             A dictionary with keys being Wikidata QIDs and values being their entities
 
+        locations : str, list, or lctn_utils.LocationsDict (contains strs) : optional (default=None)
+            The locations to query
+
+        depth : int (default=None)
+            The depth from the given lbls or qids that data should go
+            Note: this uses 'P150' (contains administrative territorial entity)
+
+        timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
+            A tuple or list that defines the start and end dates to be queried
+            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried 
+            Note 2: passing a single entry will query for that date only
+
+        interval : str
+            The time interval over which queries will be made
+            Note 1: see data.time_utils for options
+            Note 2: if None, then only the most recent data will be queried
+
         pid : str (default=None)
             The Wikidata property that is being queried
 
@@ -644,23 +662,6 @@ def query_wd_prop(dir_name=None,
         col_prefix : str (default=None)
             The prefix for columns that are a created from sub_pid values
             Note: only use col_name or col_prefix
-
-        depth : int (default=None)
-            The depth from the given lbls or qids that data should go
-            Note: this uses 'P150' (contains administrative territorial entity)
-
-        locations : str, list, or lctn_utils.LocationsDict (contains strs) : optional (default=None)
-            The locations to query
-
-        time_lvl : str
-            The time level over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
-
-        timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
-            A tuple or list that defines the start and end dates to be queried
-            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried 
-            Note 2: passing a single entry will query for that date only
 
         ignore_char : str
             Characters in the output that should be ignored
@@ -695,27 +696,27 @@ def query_wd_prop(dir_name=None,
                                                   qids=qids, 
                                                   pid=pid,
                                                   sub_pid=sub_pid,
-                                                  time_lvl=time_lvl, 
                                                   timespan=timespan, 
+                                                  interval=interval,
                                                   ignore_char=ignore_char,
                                                   span=span)
         
         # Assignment via a single column col_name
-        if time_lvl is not None:
-            df = gen_base_and_assign_to_column(depth=depth, 
-                                               locations=locations, 
-                                               time_lvl=time_lvl, 
+        if interval is not None:
+            df = gen_base_and_assign_to_column(locations=locations,
+                                               depth=depth, 
                                                timespan=timespan,
+                                               interval=interval,
                                                col_name=col_name,
                                                props=t_to_p_dict, 
                                                assign='all',
                                                span=span)
 
         else:
-            df = gen_base_and_assign_to_column(depth=depth, 
-                                               locations=locations, 
-                                               time_lvl=time_lvl, 
+            df = gen_base_and_assign_to_column(locations=locations,
+                                               depth=depth, 
                                                timespan=timespan,
+                                               interval=interval, 
                                                col_name=col_name,
                                                props=t_to_p_dict, 
                                                assign='most_recent',
@@ -727,18 +728,18 @@ def query_wd_prop(dir_name=None,
                                                        qids=qids, 
                                                        pid=pid,
                                                        sub_pid=sub_pid,
-                                                       time_lvl=time_lvl, 
                                                        timespan=timespan, 
+                                                       interval=interval, 
                                                        ignore_char=ignore_char,
                                                        span=span)
 
         # Assignment via generated columns prefixed as col_prefix
-        if time_lvl is not None:
-            df = gen_base_and_assign_to_cols(depth=depth, 
-                                             locations=locations,
-                                             sub_pid=sub_pid, 
-                                             time_lvl=time_lvl, 
+        if interval is not None:
+            df = gen_base_and_assign_to_cols(locations=locations,
+                                             depth=depth, 
+                                             sub_pid=sub_pid,
                                              timespan=timespan,
+                                             interval=interval, 
                                              col_name=col_name, # col_name is None to disable single column
                                              col_prefix=col_prefix,
                                              props=t_to_p_dict, 
@@ -746,11 +747,11 @@ def query_wd_prop(dir_name=None,
                                              span=span)
 
         else:
-            df = gen_base_and_assign_to_cols(depth=depth, 
-                                             locations=locations,
-                                             sub_pid=sub_pid, 
-                                             time_lvl=time_lvl, 
+            df = gen_base_and_assign_to_cols(locations=locations,
+                                             depth=depth, 
+                                             sub_pid=sub_pid,
                                              timespan=timespan,
+                                             interval=interval, 
                                              col_name=col_name, # col_name is None to disable single column
                                              col_prefix=col_prefix,
                                              props=t_to_p_dict, 
@@ -761,15 +762,15 @@ def query_wd_prop(dir_name=None,
 
 
 def query_repo_dir(dir_name=None, 
-                  ents_dict=None,
-                  depth=None, 
-                  locations=None, 
-                  time_lvl=None, 
-                  timespan=None,
-                  verbose=True, 
-                  **kwargs):
+                   ents_dict=None,
+                   locations=None,
+                   depth=None, 
+                   timespan=None,
+                   interval=None, 
+                   verbose=True, 
+                   **kwargs):
     """
-    Generates a df of statistics for given a psk directory and geographic as well as time levels
+    Generates a df of statistics for given a psk directory and geographic as well as time intervals
 
     Parameters
     ----------
@@ -779,22 +780,22 @@ def query_repo_dir(dir_name=None,
         ents_dict : wd_utils.EntitiesDict : optional (default=None)
             A dictionary with keys being Wikidata QIDs and values being their entities
 
-        depth : int (default=None)
-            The depth from the given lbls or qids that data should go
-            Note: this uses 'P150' (contains administrative territorial entity)
-
         locations : str, list, or lctn_utils.LocationsDict (contains strs) : optional (default=None)
             The locations to query
 
-        time_lvl : str
-            The time level over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
+        depth : int (default=None)
+            The depth from the given lbls or qids that data should go
+            Note: this uses 'P150' (contains administrative territorial entity)
 
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
             A tuple or list that defines the start and end dates to be queried
             Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried 
             Note 2: passing a single entry will query for that date only
+
+        interval : str
+            The time interval over which queries will be made
+            Note 1: see data.time_utils for options
+            Note 2: if None, then only the most recent data will be queried
 
         verbose : bool (default=True)
             Whether to show a tqdm progress bar for the query
@@ -820,24 +821,24 @@ def query_repo_dir(dir_name=None,
         if df_data is None:
             df_data, ents_dict = module_fxns[query_fxn](dir_name=dir_name,
                                                         ents_dict=ents_dict,
-                                                        depth=depth,
                                                         locations=locations,
-                                                        time_lvl=time_lvl, 
-                                                        timespan=timespan)
+                                                        depth=depth,
+                                                        timespan=timespan,
+                                                        interval=interval)
         
         else:
-            if time_lvl:
+            if interval:
                 merge_on = lctn_utils.depth_to_cols(depth) + \
-                            [time_utils.t_lvl_to_col_name(time_lvl)]
+                            [time_utils.interval_to_col_name(interval)]
             else:
                 merge_on = lctn_utils.depth_to_cols(depth)
 
             df_props, ents_dict = module_fxns[query_fxn](dir_name=dir_name,
                                                          ents_dict=ents_dict,
-                                                         depth=depth,
                                                          locations=locations,
-                                                         time_lvl=time_lvl, 
-                                                         timespan=timespan)
+                                                         depth=depth,
+                                                         timespan=timespan,
+                                                         interval=interval)
 
             df_data = pd.merge(df_data, df_props, on=merge_on)
 

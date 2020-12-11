@@ -4,10 +4,10 @@
 # Contents
 # --------
 #   0. No Class
-#       t_lvl_to_col_name
+#       interval_to_col_name
 #       truncate_date
 #       truncate_date_col
-#       incl_time_lvls
+#       incl_intervals
 #       make_timespan
 #       latest_date
 #       earliest_date
@@ -18,41 +18,41 @@
 from datetime import datetime, date
 from dateutil.rrule import rrule, YEARLY, MONTHLY, WEEKLY, DAILY
 
-def t_lvl_to_col_name(time_lvl):
+def interval_to_col_name(interval):
     """
-    Queries the proper name of the column for timespans given a time level
+    Queries the proper name of the column for timespans given an interval
     """
-    time_lvl = time_lvl.lower()
+    interval = interval.lower()
     
-    if time_lvl == 'yearly':
+    if interval == 'yearly':
         return 'year'
-    elif time_lvl == 'monthly':
+    elif interval == 'monthly':
         return 'month'
-    elif time_lvl == 'weekly':
+    elif interval == 'weekly':
         return 'week'
-    elif time_lvl == 'daily':
+    elif interval == 'daily':
         return 'day'
 
 
-def truncate_date(d, time_lvl=None):
+def truncate_date(d, interval=None):
     """
-    Truncates a date object given a time_lvl
+    Truncates a date object given an interval
     """
-    if time_lvl is not None:
+    if interval is not None:
         if type(d) != str: # hasn't been formatted already
             if type(d) == tuple:
                 d = datetime.strptime(f"{d[0]}-{d[1]}-{d[2]}", '%Y-%m-%d').date()
 
-            if time_lvl == 'yearly':
+            if interval == 'yearly':
                 return d.strftime('%Y')
 
-            elif time_lvl == 'monthly':
+            elif interval == 'monthly':
                 return d.strftime('%Y-%m')
 
-            elif time_lvl == 'weekly':
+            elif interval == 'weekly':
                 return d.strftime('%Y-%W')
 
-            elif time_lvl == 'daily':
+            elif interval == 'daily':
                 return d.strftime('%Y-%m-%d')
         
         else:
@@ -62,46 +62,46 @@ def truncate_date(d, time_lvl=None):
         return d
 
 
-def truncate_date_col(df, col, time_lvl):
+def truncate_date_col(df, col, interval):
     """
-    Truncates the date column of a df based on a provided time_lvl
+    Truncates the date column of a df based on a provided interval
     """
-    df[col] = df[col].map(lambda x: truncate_date(d=x, time_lvl=time_lvl))
+    df[col] = df[col].map(lambda x: truncate_date(d=x, interval=interval))
 
     return df
 
 
-def incl_time_lvls():
+def incl_intervals():
     """
-    Queries the included time levels
+    Queries the included intervals
 
-    Note: timespans will not be able to be queried if their time level is not included
+    Note: timespans will not be able to be queried if their interval is not included
     """
     return ['yearly', 'monthly', 'weekly', 'daily']
 
 
-def make_timespan(time_lvl=None, timespan=None):
+def make_timespan(timespan=None, interval=None):
     """
     Queries a timespan given user input of strings, ints, or time values
       
     Parameters
     ----------
-        time_lvl : str
-            The time level over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
-
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
             A tuple or list that defines the start and end dates to be queried
             Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried 
             Note 2: passing a single entry will query for that date only
+
+        interval : str
+            The time interval over which queries will be made
+            Note 1: see data.time_utils for options
+            Note 2: if None, then only the most recent data will be queried
 
     Returns
     -------
         formatted_timespan : list (contains datetime.date)
             The timespan formatted going back in time
     """
-    if time_lvl == None and timespan == None:
+    if interval == None and timespan == None:
         # Most recent data wanted
         return
     
@@ -131,16 +131,16 @@ def make_timespan(time_lvl=None, timespan=None):
     elif type(timespan[1]) == tuple:
         end_dt = date(*timespan[1])
 
-    if time_lvl == 'yearly':
+    if interval == 'yearly':
         return [dt.date() for dt in rrule(YEARLY, dtstart=start_dt, until=end_dt)][::order]
 
-    elif time_lvl == 'monthly':
+    elif interval == 'monthly':
         return [dt.date() for dt in rrule(MONTHLY, dtstart=start_dt, until=end_dt)][::order]
 
-    elif time_lvl == 'weekly':
+    elif interval == 'weekly':
         return [dt.date() for dt in rrule(WEEKLY, dtstart=start_dt, until=end_dt)][::order]
 
-    elif time_lvl == 'daily':
+    elif interval == 'daily':
         return [dt.date() for dt in rrule(DAILY, dtstart=start_dt, until=end_dt)][::order]
 
 
@@ -164,15 +164,15 @@ def earliest_date(timespan):
         return timespan[1]
 
 
-def truncated_latest_date(time_lvl, timespan):
+def truncated_latest_date(timespan, interval):
     """
     Returns the truncated latest date in a timespan
     """
-    return truncate_date(latest_date(timespan), time_lvl=time_lvl)
+    return truncate_date(latest_date(timespan), interval=interval)
 
 
-def truncated_earliest_date(time_lvl, timespan):
+def truncated_earliest_date(timespan, interval):
     """
     Returns the truncated earliest date in a timespan
     """
-    return truncate_date(earliest_date(timespan), time_lvl=time_lvl)
+    return truncate_date(earliest_date(timespan), interval=interval)

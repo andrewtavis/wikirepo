@@ -325,16 +325,16 @@ def get_formatted_prop_end_t(ents_dict, qid, pid, i):
     return format_t(get_prop_end_t(get_prop(ents_dict=ents_dict, qid=qid, pid=pid), i))
 
 
-def get_prop_timespan_intersection(ents_dict, qid, pid, i, time_lvl, timespan):
+def get_prop_timespan_intersection(ents_dict, qid, pid, i, timespan, interval):
     """
     Combines get_formatted_prop_start_end_t and prop_start_end_to_timespan
     """
-    included_times = time_utils.make_timespan(time_lvl=time_lvl, timespan=timespan)
+    included_times = time_utils.make_timespan(timespan=timespan, interval=interval)
 
     start_t = get_formatted_prop_start_t(ents_dict, qid, pid, i)
     end_t = get_formatted_prop_end_t(ents_dict, qid, pid, i)
 
-    if time_lvl == None and timespan == None:
+    if interval == None and timespan == None:
         # We want the most recent data, so return the end date if it exists, or today's date
         if start_t == None and end_t != None:
             return
@@ -343,10 +343,10 @@ def get_prop_timespan_intersection(ents_dict, qid, pid, i, time_lvl, timespan):
             return
 
         elif start_t == None and end_t == None:
-            prop_t_intersection = [time_utils.truncate_date(date.today(), time_lvl='daily')]
+            prop_t_intersection = [time_utils.truncate_date(date.today(), interval='daily')]
 
         else:
-            prop_t_intersection = [time_utils.truncate_date(date.today(), time_lvl='daily')]
+            prop_t_intersection = [time_utils.truncate_date(date.today(), interval='daily')]
         
     else:
         if start_t != None and end_t != None:
@@ -371,7 +371,7 @@ def get_prop_timespan_intersection(ents_dict, qid, pid, i, time_lvl, timespan):
             prop_t_intersection = included_times
 
     try:
-        prop_t_intersection = [time_utils.truncate_date(t, time_lvl=time_lvl) for t in prop_t_intersection]
+        prop_t_intersection = [time_utils.truncate_date(t, interval=interval) for t in prop_t_intersection]
     except:
         return
 
@@ -424,7 +424,7 @@ def check_for_pid_topic_page(dir_name=None,
                              qid=None,
                              orig_qid=None,
                              pid=None,
-                             time_lvl=None, 
+                             interval=None, 
                              timespan=None,
                              vd_or_vdd='vd'):
     """
@@ -447,15 +447,15 @@ def check_for_pid_topic_page(dir_name=None,
         pid : str (default=None)
             The Wikidata property that is being queried
 
-        time_lvl : str (default=None)
-            The time level over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
-
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
             A tuple or list that defines the start and end dates to be queried
             Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried 
             Note 2: passing a single entry will query for that date only
+
+        interval : str (default=None)
+            The time interval over which queries will be made
+            Note 1: see data.time_utils for options
+            Note 2: if None, then only the most recent data will be queried
 
         vd_or_vdd : str (default=vd)
             Whether the function is being called in val_dict or val_dict_dict
@@ -478,17 +478,17 @@ def check_for_pid_topic_page(dir_name=None,
 
     else:
         print_not_available(ents_dict=ents_dict, qid=qid, pid=pid, exrta_msg='')
-        # Assign no date for on time_lvl or the most recent time in the timespan with np.nan as a placeholder
-        if time_lvl == None and timespan == None:
+        # Assign no date for on interval or the most recent time in the timespan with np.nan as a placeholder
+        if interval == None and timespan == None:
             if vd_or_vdd == 'vd':
                 t_p_d = {'no date': np.nan}
             else:
                 t_p_d = {'no date': {'no date': np.nan}}
         else:
             if vd_or_vdd == 'vd':
-                t_p_d = {time_utils.truncated_latest_date(time_lvl=time_lvl, timespan=timespan): np.nan}
+                t_p_d = {time_utils.truncated_latest_date(timespan=timespan, interval=interval): np.nan}
             else:
-                t_p_d = {time_utils.truncated_latest_date(time_lvl=time_lvl, timespan=timespan): \
+                t_p_d = {time_utils.truncated_latest_date(timespan=timespan, interval=interval): \
                             {get_prop_val(ents_dict, qid, pid, i=0, ignore_char=''): np.nan}}
         
         skip_assignment = True
@@ -501,7 +501,7 @@ def t_to_prop_val_dict(dir_name=None,
                        qids=None, 
                        pid=None,
                        sub_pid=None,
-                       time_lvl=None, 
+                       interval=None, 
                        timespan=None, 
                        ignore_char='',
                        span=False):
@@ -527,15 +527,15 @@ def t_to_prop_val_dict(dir_name=None,
         sub_pid : str (default=None)
             The Wikidata property that subsets time values
 
-        time_lvl : str (default=None)
-            The time level over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
-
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
             A tuple or list that defines the start and end dates to be queried
             Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried 
             Note 2: passing a single entry will query for that date only
+
+        interval : str (default=None)
+            The time interval over which queries will be made
+            Note 1: see data.time_utils for options
+            Note 2: if None, then only the most recent data will be queried
 
         ignore_char : str (default='', no character to ignore)
             Characters in the output that should be ignored
@@ -550,9 +550,9 @@ def t_to_prop_val_dict(dir_name=None,
     """
     qids = utils._make_var_list(qids)[0]
 
-    if time_lvl != None:
-        included_times = [time_utils.truncate_date(t, time_lvl=time_lvl) \
-                            for t in time_utils.make_timespan(time_lvl=time_lvl, timespan=timespan)]
+    if interval != None:
+        included_times = [time_utils.truncate_date(t, interval=interval) \
+                            for t in time_utils.make_timespan(timespan=timespan, interval=interval)]
     else:
         # Triggers acceptance of a all values so that the most recent can be selected
         included_times = None
@@ -568,14 +568,14 @@ def t_to_prop_val_dict(dir_name=None,
                                                                            qid=q,
                                                                            orig_qid=orig_qid,
                                                                            pid=pid,
-                                                                           time_lvl=time_lvl, 
                                                                            timespan=timespan,
+                                                                           interval=interval, 
                                                                            vd_or_vdd = 'vd')
 
         if skip_assignment == False:
             if span:
                 for i in range(len(get_prop(ents_dict, q, pid))):
-                    prop_t_intersection = get_prop_timespan_intersection(ents_dict, q, pid, i, time_lvl, timespan)
+                    prop_t_intersection = get_prop_timespan_intersection(ents_dict, q, pid, i, timespan, interval)
                     if prop_t_intersection != None:
                         for t in prop_t_intersection:
                             if t in t_p_d.keys():
@@ -588,14 +588,14 @@ def t_to_prop_val_dict(dir_name=None,
             else:
                 for i in range(len(get_prop(ents_dict, q, pid))):
                     try:
-                        t = time_utils.truncate_date(get_formatted_prop_t(ents_dict, q, pid, i), time_lvl=time_lvl)
+                        t = time_utils.truncate_date(get_formatted_prop_t(ents_dict, q, pid, i), interval=interval)
                     except:
-                        if time_lvl == None and timespan == None:
+                        if interval == None and timespan == None:
                             t = 'no date'
 
                         else: 
                             # Assign the most recent time in the timespan
-                            t = time_utils.truncated_latest_date(time_lvl=time_lvl, timespan=timespan)
+                            t = time_utils.truncated_latest_date(timespan=timespan, interval=interval)
 
                     if (included_times != None and t in included_times) or (included_times == None):
                         t_p_d[t] = get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
@@ -613,7 +613,7 @@ def t_to_prop_val_dict_dict(dir_name=None,
                             qids=None, 
                             pid=None, 
                             sub_pid=None,
-                            time_lvl=None, 
+                            interval=None, 
                             timespan=None, 
                             ignore_char='',
                             span=False):
@@ -639,15 +639,15 @@ def t_to_prop_val_dict_dict(dir_name=None,
         sub_pid : str (default=None)
             The Wikidata property that subsets time values
 
-        time_lvl : str (default=None)
-            The time level over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
-
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
             A tuple or list that defines the start and end dates to be queried
             Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried 
             Note 2: passing a single entry will query for that date only
+
+        interval : str (default=None)
+            The time interval over which queries will be made
+            Note 1: see data.time_utils for options
+            Note 2: if None, then only the most recent data will be queried
 
         ignore_char : str (default='', no character to ignore)
             Characters in the output that should be ignored
@@ -663,9 +663,9 @@ def t_to_prop_val_dict_dict(dir_name=None,
     qids = utils._make_var_list(qids)[0]
 
 
-    if time_lvl != None:
-        included_times = [time_utils.truncate_date(t, time_lvl=time_lvl) \
-                            for t in time_utils.make_timespan(time_lvl=time_lvl, timespan=timespan)]
+    if interval != None:
+        included_times = [time_utils.truncate_date(t, interval=interval) \
+                            for t in time_utils.make_timespan(timespan=timespan, interval=interval)]
     else:
         # Triggers acceptance of a all values so that the most recent can be selected
         included_times = None
@@ -681,8 +681,8 @@ def t_to_prop_val_dict_dict(dir_name=None,
                                                                            qid=q, 
                                                                            orig_qid=orig_qid,
                                                                            pid=pid,
-                                                                           time_lvl=time_lvl, 
                                                                            timespan=timespan,
+                                                                           interval=interval, 
                                                                            vd_or_vdd = 'vdd')
         
         if skip_assignment == False:
@@ -692,7 +692,7 @@ def t_to_prop_val_dict_dict(dir_name=None,
                         prop_t_intersection = included_times
                     
                     else:
-                        prop_t_intersection = get_prop_timespan_intersection(ents_dict, q, pid, i, time_lvl, timespan)
+                        prop_t_intersection = get_prop_timespan_intersection(ents_dict, q, pid, i, timespan, interval)
 
                     if prop_t_intersection != None:
                         for t in prop_t_intersection:
@@ -708,14 +708,14 @@ def t_to_prop_val_dict_dict(dir_name=None,
             else:
                 for i in range(len(get_prop(ents_dict, q, pid))):
                     try:
-                        t = time_utils.truncate_date(get_formatted_prop_t(ents_dict, q, pid, i), time_lvl=time_lvl)
+                        t = time_utils.truncate_date(get_formatted_prop_t(ents_dict, q, pid, i), interval=interval)
                     except:
-                        if time_lvl == None and timespan == None:
+                        if interval == None and timespan == None:
                             t = 'no date'
 
                         else: 
                             # Assign the most recent time in the timespan
-                            t = time_utils.truncated_latest_date(time_lvl=time_lvl, timespan=timespan)
+                            t = time_utils.truncated_latest_date(timespan=timespan, interval=interval)
 
                     if (included_times != None and t in included_times) or (included_times == None):
                         if t not in t_p_d.keys():
