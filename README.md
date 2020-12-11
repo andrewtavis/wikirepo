@@ -168,6 +168,8 @@ import wikirepo
 from wikirepo.data import lctn_utils, wd_utils
 from datetime import date
 
+credentials = wd_utils.login()
+
 ents_dict = wd_utils.EntitiesDict()
 country = "Country Name"
 depth = 2
@@ -184,7 +186,7 @@ df_copy = df.copy()
 
 df_edits = pd.concat([df, df_copy]).drop_duplicates(keep=False)
 
-wikirepo.data.upload(df_edits)
+wikirepo.data.upload(df_edits, credentials)
 ```
 
 In the next examople `data.data_utils.gen_base_df` is used to create a dataframe with dimensions that match a time series that the user has access to. The data is then added to the column that corresponds to the property to which it should be added. Souce information could be added via a structured dictionary generated for the user.
@@ -193,6 +195,8 @@ In the next examople `data.data_utils.gen_base_df` is used to create a dataframe
 import wikirepo
 from wikirepo.data import data_utils, wd_utils
 from datetime import date
+
+credentials = wd_utils.login()
 
 locations = "Country Name"
 depth = 0
@@ -205,7 +209,7 @@ base_df['data'] = matching_time_series_data
 source_data = wd_utils.gen_source_dict('Source Information')
 base_df['data_source'] = [source_data] * len(base_df)
 
-wikirepo.data.upload(base_df)
+wikirepo.data.upload(base_df, credentials)
 ```
 
 Put simply: a full featured [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py) function would realize the potential of a single read-write repository for all public information.
