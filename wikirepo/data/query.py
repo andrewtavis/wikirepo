@@ -22,15 +22,15 @@ def query(ents_dict=None,
           depth=None, 
           timespan=None,
           interval=None, 
-          climate_props=False,
-          demographic_props=False, 
-          economic_props=False, 
-          electoral_poll_props=False,
-          electoral_result_props=False, 
-          geographic_props=False, 
-          institutional_props=False,
-          political_props=False,
-          misc_props=False,
+          climate_props=None,
+          demographic_props=None, 
+          economic_props=None, 
+          electoral_poll_props=None,
+          electoral_result_props=None, 
+          geographic_props=None, 
+          institutional_props=None,
+          political_props=None,
+          misc_props=None,
         #   multicore=True,
           verbose=True):
     """
@@ -59,31 +59,31 @@ def query(ents_dict=None,
             Note 1: see data.time_utils for options
             Note 2: if None, then only the most recent data will be queried
 
-        climate_props : str or list (contains strs) : optional (default=False)
+        climate_props : str or list (contains strs) : optional (default=None)
             String representations of data/climate modules for data_utils.query_repo_dir
 
-        demographic_props : str or list (contains strs) : optional (default=False)
+        demographic_props : str or list (contains strs) : optional (default=None)
             String representations of data/demographic modules for data_utils.query_repo_dir
 
-        economic_props : str or list (contains strs) : optional (default=False)
+        economic_props : str or list (contains strs) : optional (default=None)
             String representations of data/economic modules for data_utils.query_repo_dir
 
-        electoral_poll_props : str or list (contains strs) : optional (default=False)
+        electoral_poll_props : str or list (contains strs) : optional (default=None)
             String representations of data/electoral_polls modules for data_utils.query_repo_dir
 
-        electoral_result_props : str or list (contains strs) : optional (default=False)
+        electoral_result_props : str or list (contains strs) : optional (default=None)
             String representations of data/electoral_results modules for data_utils.query_repo_dir
 
-        geographic_props : str or list (contains strs) : optional (default=False)
+        geographic_props : str or list (contains strs) : optional (default=None)
             String representations of data/geographic modules for data_utils.query_repo_dir
 
-        institutional_props : str or list (contains strs) : optional (default=False)
+        institutional_props : str or list (contains strs) : optional (default=None)
             String representations of data/institutional modules for data_utils.query_repo_dir
 
-        political_props : str or list (contains strs) : optional (default=False)
+        political_props : str or list (contains strs) : optional (default=None)
             String representations of data/political modules for data_utils.query_repo_dir
 
-        misc_props : str or list (contains strs) : optional (default=False)
+        misc_props : str or list (contains strs) : optional (default=None)
             String representations of data/misc (miscellaneous) modules for data_utils.query_repo_dir
 
         verbose : bool (default=True)
@@ -119,8 +119,8 @@ def query(ents_dict=None,
         #     timespan = locations.get_timespan()
 
     query_args = [arg for arg in local_args.keys() \
-                    if (arg not in baseline_args) and (local_args[arg] != False \
-                                                        and local_args[arg] != None)]
+                    if (arg not in baseline_args) and (local_args[arg] != None \
+                                                        and local_args[arg] != False)]
 
     # Initialize a merge df, a dictionary of parameters, and an entities dictionary
     df_merge = None

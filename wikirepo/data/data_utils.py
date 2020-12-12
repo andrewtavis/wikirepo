@@ -420,7 +420,7 @@ def assign_to_column(df=None,
         ValueError("An invalid argument was passed to the 'assign' argument - please choose from one from " + ', '.join(valid_assigns)) + '.'
 
     df.replace(to_replace='nan', value=np.nan, inplace=True)
-    # QID columns will be transfered for all properties, but all except one will be dropped
+    # QID columns will be transferred for all properties, but all except one will be dropped
     df.rename(columns={assignment_col: 'qid'}, inplace=True)
 
     return df
@@ -572,7 +572,7 @@ def assign_to_cols(df=None,
         ValueError("An invalid argument was passed to the 'assign' argument - please choose from one from " + ', '.join(valid_assigns)) + '.'
 
     df.replace(to_replace='nan', value=np.nan, inplace=True)
-    # QID columns will be transfered for all properties, but all except one will be dropped
+    # QID columns will be transferred for all properties, but all except one will be dropped
     df.rename(columns={assignment_col: 'qid'}, inplace=True)
 
     return df

@@ -105,7 +105,7 @@ def make_timespan(timespan=None, interval=None):
         # Most recent data wanted
         return
     
-    order = -1 # defauly order is decreasing in time
+    order = -1 # default order is decreasing in time
 
     if timespan == None:
         timespan = (date.today(), date.today())

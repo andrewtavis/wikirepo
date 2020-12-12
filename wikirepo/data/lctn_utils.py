@@ -870,7 +870,7 @@ def incl_lctn_lbls(lctn_lvls=False):
     valid_args = ['world', 'continent', 'country', 'region']
 
     assert sorted(list(set(valid_args) | set(lctn_lvls))) == sorted(valid_args), \
-        "Invalid levels were provided to the 'lctn_lvls' arguemnt. Valid options are: " + \
+        "Invalid levels were provided to the 'lctn_lvls' argument. Valid options are: " + \
             ', '.join(valid_args) + '.'
 
     incl_lctns = []
@@ -903,7 +903,7 @@ def incl_lctn_ids():
 
 def lctn_lbl_to_qid(locations):
     """
-    Retuns the Wikidata QID for given location(s)
+    Returns the Wikidata QID for given location(s)
 
     Parameters
     ----------
@@ -927,7 +927,7 @@ def lctn_lbl_to_qid(locations):
 
 def qid_to_lctn_lbl(qids):
     """
-    Retuns the Wikidata label for given QID(s)
+    Returns the Wikidata label for given QID(s)
 
     Parameters
     ----------
@@ -1283,7 +1283,7 @@ class LocationsDict(dict):
         - Values are dictionaries containing:
             - lbl: the location's label
             - valid_timespan: the timespan that the location is valid for given a interval and timespan
-            - sub_lctns: equivalent dictionary objects for sub-locatioons given a depth
+            - sub_lctns: equivalent dictionary objects for sub-locations given a depth
 
             Note: the last two are optional
     
@@ -1309,7 +1309,7 @@ class LocationsDict(dict):
     #     """
     #     Provides a dict of location labels in the LocationsDict
     #     """
-    #     return # a dictionary created by a recurseive lookup of those elements that have the key 'lbl'
+    #     return # a dictionary created by a recursive lookup of those elements that have the key 'lbl'
 
     def get_depth(self):
         """
