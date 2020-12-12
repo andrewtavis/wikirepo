@@ -189,7 +189,7 @@ df_edits = pd.concat([df, df_copy]).drop_duplicates(keep=False)
 wikirepo.data.upload(df_edits, credentials)
 ```
 
-In the next example `data.data_utils.gen_base_df` is used to create a dataframe with dimensions that match a time series that the user has access to. The data is then added to the column that corresponds to the property to which it should be added. Source information could be added via a structured dictionary generated for the user.
+In the next example `data.data_utils.gen_base_df` is used to create a dataframe with dimensions that match a time series that the user has access to. The data is then added to the column that corresponds to the property to which it should be added. Source information could further be added via a structured dictionary generated for the user.
 
 ```python
 import wikirepo
@@ -250,6 +250,7 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 ### Further Ways to Help
 
 - Integrating current Python tools with wikirepo structures for uploads to Wikidata
+- Adding a query of property descriptions to `data.data_utils.incl_dir_idxs`
 - Adding multiprocessing support to the [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py) process and `data.lctn_utils.gen_lctns_dict`
 - Optimizing [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py):
     - Potentially converting `EntitiesDict` and `LocationsDict` to slotted object classes for memory savings
