@@ -155,7 +155,7 @@ df[df['population'].notnull()].head(6)
 
 ### Upload Data (WIP)
 
-[wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py) will be the core of the eventual wikirepo upload feature. The goal is to reocrd edits that a user makes to a prveviously queried or baseline dataframe such that these changes can then be pushed back to Wikidata. With the addition of Wikidata login credentials as a wikirepo feature (WIP), the unique information in the edited dataframe could then be uploaded to Wikidata for all to use.
+[wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py) will be the core of the eventual wikirepo upload feature. The goal is to record edits that a user makes to a previously queried or baseline dataframe such that these changes can then be pushed back to Wikidata. With the addition of Wikidata login credentials as a wikirepo feature (WIP), the unique information in the edited dataframe could then be uploaded to Wikidata for all to use.
 
 The same process used to query information from Wikidata could be reversed for the upload process. Dataframe columns could be linked to their corresponding Wikidata properties, whether the time qualifiers are a [points in time](https://www.wikidata.org/wiki/Property:P585) or spans using [start time](https://www.wikidata.org/wiki/Property:P580) and [end time](https://www.wikidata.org/wiki/Property:P582) could be derived through the defined variables in the module header, and other necessary qualifiers for proper data indexing could also be included. Source information could also be added in corresponding columns to the given property edits.
 
@@ -189,7 +189,7 @@ df_edits = pd.concat([df, df_copy]).drop_duplicates(keep=False)
 wikirepo.data.upload(df_edits, credentials)
 ```
 
-In the next examople `data.data_utils.gen_base_df` is used to create a dataframe with dimensions that match a time series that the user has access to. The data is then added to the column that corresponds to the property to which it should be added. Souce information could be added via a structured dictionary generated for the user.
+In the next example `data.data_utils.gen_base_df` is used to create a dataframe with dimensions that match a time series that the user has access to. The data is then added to the column that corresponds to the property to which it should be added. Source information could be added via a structured dictionary generated for the user.
 
 ```python
 import wikirepo
