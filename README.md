@@ -200,11 +200,12 @@ credentials = wd_utils.login()
 
 locations = "Country Name"
 depth = 0
-timespan = (date(1990,1,1), date(2010,1,1))
+# The user defines the time parameters based on their data
+timespan = (date(1995,1,2), date(2010,1,2)) # (first Monday, last Sunday)
 interval = 'weekly'
 
 base_df = data_utils.gen_base_df()
-base_df['data'] = matching_time_series_data
+base_df['data'] = data_for_matching_time_series
 
 source_data = wd_utils.gen_source_dict('Source Information')
 base_df['data_source'] = [source_data] * len(base_df)
