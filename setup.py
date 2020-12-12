@@ -9,7 +9,7 @@ with open("README.md", "r") as fh:
 
 setup_args = dict(
     name='wikirepo',
-    version='0.0.2.2',
+    version='0.0.2.3',
     description='Python based Wikidata framework for easy dataframe extraction',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -27,7 +27,7 @@ install_requires = [
     'matplotlib',
     'seaborn',
     'wikidata',
-    'dateutil',
+    'python-dateutil',
     'tqdm'
 ]
 
