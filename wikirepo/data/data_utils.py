@@ -370,7 +370,7 @@ def assign_to_column(df=None,
 
     elif assign == 'most_recent': # interval and timespan are None
         # Assign the most recent value formatted with the date it's coming from
-        for q in df[assignment_col.unique()]:
+        for q in df[assignment_col].unique():
             if type(q) == str: # is a valid location
                 if len(props[q].keys()) == 1:
                     # Select the singular value even if it is 'no date'
