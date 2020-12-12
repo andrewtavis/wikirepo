@@ -59,7 +59,10 @@ def _get_dir_fxns_dict(dir_name=None):
     modules = os.listdir(target_directory)
     target_modules = [m[:-3] for m in modules if (m[:len('__')] != '__')]
 
-    import_path = 'wikirepo.' + target_directory.split('wikirepo/')[2].replace('/', '.') + '.'
+    try:
+        import_path = 'wikirepo.' + target_directory.split('wikirepo/')[2].replace('/', '.') + '.'
+    except:
+        import_path = 'wikirepo.' + target_directory.split('wikirepo/')[1].replace('/', '.') + '.'
 
     fxns_dict = {}
     for mod in target_modules:
