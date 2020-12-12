@@ -41,8 +41,8 @@ Each query needs the following inputs:
     - Greater depths correspond to lower geographic levels (states of countries, etc.)
     - A dictionary of locations is generated for lower depths (see second example below)
 - **timespan**: start and end `datetime.date` objects defining when data should come from
-- **interval**: `yearly`, `monthly`, `weekly`, or `daily` as strings
     - If not provided, then the most recent data will be retrieved with annotation for when it's from
+- **interval**: `yearly`, `monthly`, `weekly`, or `daily` as strings
 - **Further arguments**: the names of modules in [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data) directories
     - These are passed to arguments corresponding to their directories
     - Data will be queried for these properties for the given `locations`, `depth`, `timespan` and `interval`, with results being merged as dataframe columns
