@@ -252,6 +252,7 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 - Integrating current Python tools with wikirepo structures for uploads to Wikidata
 - Adding a query of property descriptions to `data.data_utils.incl_dir_idxs`
 - Adding multiprocessing support to the [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py) process and `data.lctn_utils.gen_lctns_dict`
+- Potentially converting [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py) and `data.lctn_utils.gen_lctns_dict` over to generated Wikidata SPARQL queries 
 - Optimizing [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py):
     - Potentially converting `EntitiesDict` and `LocationsDict` to slotted object classes for memory savings
     - Deriving and optimizing other slow parts of the query process
