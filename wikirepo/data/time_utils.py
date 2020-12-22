@@ -1,37 +1,38 @@
-# =============================================================================
-# Functions querying time information
-#
-# Contents
-# --------
-#   0. No Class
-#       interval_to_col_name
-#       truncate_date
-#       truncate_date_col
-#       incl_intervals
-#       make_timespan
-#       latest_date
-#       earliest_date
-#       truncated_latest_date
-#       truncated_earliest_date
-# =============================================================================
+"""
+Functions querying time information
+
+Contents
+--------
+  0. No Class
+      interval_to_col_name
+      truncate_date
+      truncate_date_col
+      incl_intervals
+      make_timespan
+      latest_date
+      earliest_date
+      truncated_latest_date
+      truncated_earliest_date
+"""
 
 from datetime import datetime, date
 from dateutil.rrule import rrule, YEARLY, MONTHLY, WEEKLY, DAILY
+
 
 def interval_to_col_name(interval):
     """
     Queries the proper name of the column for timespans given an interval
     """
     interval = interval.lower()
-    
-    if interval == 'yearly':
-        return 'year'
-    elif interval == 'monthly':
-        return 'month'
-    elif interval == 'weekly':
-        return 'week'
-    elif interval == 'daily':
-        return 'day'
+
+    if interval == "yearly":
+        return "year"
+    elif interval == "monthly":
+        return "month"
+    elif interval == "weekly":
+        return "week"
+    elif interval == "daily":
+        return "day"
 
 
 def truncate_date(d, interval=None):
@@ -39,22 +40,22 @@ def truncate_date(d, interval=None):
     Truncates a date object given an interval
     """
     if interval is not None:
-        if type(d) != str: # hasn't been formatted already
+        if type(d) != str:  # hasn't been formatted already
             if type(d) == tuple:
-                d = datetime.strptime(f"{d[0]}-{d[1]}-{d[2]}", '%Y-%m-%d').date()
+                d = datetime.strptime(f"{d[0]}-{d[1]}-{d[2]}", "%Y-%m-%d").date()
 
-            if interval == 'yearly':
-                return d.strftime('%Y')
+            if interval == "yearly":
+                return d.strftime("%Y")
 
-            elif interval == 'monthly':
-                return d.strftime('%Y-%m')
+            elif interval == "monthly":
+                return d.strftime("%Y-%m")
 
-            elif interval == 'weekly':
-                return d.strftime('%Y-%W')
+            elif interval == "weekly":
+                return d.strftime("%Y-%W")
 
-            elif interval == 'daily':
-                return d.strftime('%Y-%m-%d')
-        
+            elif interval == "daily":
+                return d.strftime("%Y-%m-%d")
+
         else:
             return d
 
@@ -77,18 +78,18 @@ def incl_intervals():
 
     Note: timespans will not be able to be queried if their interval is not included
     """
-    return ['yearly', 'monthly', 'weekly', 'daily']
+    return ["yearly", "monthly", "weekly", "daily"]
 
 
 def make_timespan(timespan=None, interval=None):
     """
     Queries a timespan given user input of strings, ints, or time values
-      
+
     Parameters
     ----------
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
             A tuple or list that defines the start and end dates to be queried
-            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried 
+            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried
             Note 2: passing a single entry will query for that date only
 
         interval : str
@@ -104,8 +105,8 @@ def make_timespan(timespan=None, interval=None):
     if interval == None and timespan == None:
         # Most recent data wanted
         return
-    
-    order = -1 # default order is decreasing in time
+
+    order = -1  # default order is decreasing in time
 
     if timespan == None:
         timespan = (date.today(), date.today())
@@ -117,10 +118,12 @@ def make_timespan(timespan=None, interval=None):
         timespan = (timespan, timespan)
     elif timespan[0] > timespan[1]:
         timespan = (timespan[1], timespan[0])
-        order = 1 # user wants the dates to be increasing in df rows instead of the default
+        order = (
+            1  # user wants the dates to be increasing in df rows instead of the default
+        )
     else:
         ValueError("An invalid value was passed to the 'timespan' argument.")
-    
+
     if type(timespan[0]) == date:
         start_dt = timespan[0]
     elif type(timespan[0]) == tuple:
@@ -131,17 +134,25 @@ def make_timespan(timespan=None, interval=None):
     elif type(timespan[1]) == tuple:
         end_dt = date(*timespan[1])
 
-    if interval == 'yearly':
-        return [dt.date() for dt in rrule(YEARLY, dtstart=start_dt, until=end_dt)][::order]
+    if interval == "yearly":
+        return [dt.date() for dt in rrule(YEARLY, dtstart=start_dt, until=end_dt)][
+            ::order
+        ]
 
-    elif interval == 'monthly':
-        return [dt.date() for dt in rrule(MONTHLY, dtstart=start_dt, until=end_dt)][::order]
+    elif interval == "monthly":
+        return [dt.date() for dt in rrule(MONTHLY, dtstart=start_dt, until=end_dt)][
+            ::order
+        ]
 
-    elif interval == 'weekly':
-        return [dt.date() for dt in rrule(WEEKLY, dtstart=start_dt, until=end_dt)][::order]
+    elif interval == "weekly":
+        return [dt.date() for dt in rrule(WEEKLY, dtstart=start_dt, until=end_dt)][
+            ::order
+        ]
 
-    elif interval == 'daily':
-        return [dt.date() for dt in rrule(DAILY, dtstart=start_dt, until=end_dt)][::order]
+    elif interval == "daily":
+        return [dt.date() for dt in rrule(DAILY, dtstart=start_dt, until=end_dt)][
+            ::order
+        ]
 
 
 def latest_date(timespan):

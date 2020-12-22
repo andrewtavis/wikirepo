@@ -1,48 +1,48 @@
-# =============================================================================
-# Utility functions for accessing and storing Wikidata information
-#
-# Contents
-# --------
-#   0. No Class
-#       check_in_ents_dict
-#       load_ent
-#       is_wd_id
-#       prop_has_many_entries
-#
-#       get_lbl
-#       get_prop
-#       get_prop_id
-#       get_prop_lbl
-#       get_prop_val
-#       prop_has_qualifiers
-#       get_qualifiers
-#       get_prop_qualifier_val
-#       get_val
-#
-#       get_prop_t
-#       get_prop_start_t
-#       get_prop_end_t
-#       format_t
-#       get_formatted_prop_t
-#       get_formatted_prop_start_t
-#       get_formatted_prop_end_t
-#       get_prop_timespan_intersection
-#       get_formatted_prop_start_end_t
-#       prop_start_end_to_timespan
-#       get_prop_timespan
-#
-#       dir_to_topic_page
-#       check_for_pid_sub_page
-#       t_to_prop_val_dict
-#       t_to_prop_val_dict_dict
-#
-#   1. EntitiesDict
-#       __init__
-#       __repr__
-#       __str__
-#       key_lbls
-#       _print
-# =============================================================================
+"""
+Utility functions for accessing and storing Wikidata information
+
+Contents
+--------
+  0. No Class
+      check_in_ents_dict
+      load_ent
+      is_wd_id
+      prop_has_many_entries
+
+      get_lbl
+      get_prop
+      get_prop_id
+      get_prop_lbl
+      get_prop_val
+      prop_has_qualifiers
+      get_qualifiers
+      get_prop_qualifier_val
+      get_val
+
+      get_prop_t
+      get_prop_start_t
+      get_prop_end_t
+      format_t
+      get_formatted_prop_t
+      get_formatted_prop_start_t
+      get_formatted_prop_end_t
+      get_prop_timespan_intersection
+      get_formatted_prop_start_end_t
+      prop_start_end_to_timespan
+      get_prop_timespan
+
+      dir_to_topic_page
+      check_for_pid_sub_page
+      t_to_prop_val_dict
+      t_to_prop_val_dict_dict
+
+  1. EntitiesDict
+      __init__
+      __repr__
+      __str__
+      key_lbls
+      _print
+"""
 
 import numpy as np
 from datetime import datetime
@@ -54,6 +54,7 @@ from wikirepo import utils
 from wikirepo.data import time_utils
 
 client = Client()
+
 
 def check_in_ents_dict(ents_dict, qid):
     """
@@ -67,7 +68,7 @@ def load_ent(ents_dict, pq_id):
     """
     Loads an entity
     """
-    if pq_id[0] == 'Q':
+    if pq_id[0] == "Q":
         if pq_id not in ents_dict.keys():
             check_in_ents_dict(ents_dict, pq_id)
         return ents_dict[pq_id]
@@ -80,10 +81,10 @@ def is_wd_id(var):
     """
     Checks whether a variable is a Wikidata id
     """
-    if var[0] == 'Q' and var.split('Q')[1].isnumeric(): # check if it's a QID
+    if var[0] == "Q" and var.split("Q")[1].isnumeric():  # check if it's a QID
         return True
 
-    if var[0] == 'P' and var.split('P')[1].isnumeric(): # check if it's a PID
+    if var[0] == "P" and var.split("P")[1].isnumeric():  # check if it's a PID
         return True
 
     return False
@@ -100,11 +101,13 @@ def prop_has_many_entries(prop_ent):
         return False
 
 
-def print_not_available(ents_dict=None, qid=None, pid=None, exrta_msg=''):
+def print_not_available(ents_dict=None, qid=None, pid=None, exrta_msg=""):
     """
     Notify the user that a given property is not available for a given subject
     """
-    print(f"{get_lbl(ents_dict, qid)} '{qid}' currently does not have the '{get_lbl(ents_dict, pid)}' property '{pid}'{exrta_msg}.")
+    print(
+        f"{get_lbl(ents_dict, qid)} '{qid}' currently does not have the '{get_lbl(ents_dict, pid)}' property '{pid}'{exrta_msg}."
+    )
 
 
 def get_lbl(ents_dict=None, pq_id=None):
@@ -113,139 +116,145 @@ def get_lbl(ents_dict=None, pq_id=None):
     """
     if ents_dict == None and pq_id == None:
         return
-        
+
     try:
-        return load_ent(ents_dict, pq_id)['labels']['en']['value']
+        return load_ent(ents_dict, pq_id)["labels"]["en"]["value"]
     except:
-        return load_ent(ents_dict, pq_id)['labels']['de']['value'] 
+        return load_ent(ents_dict, pq_id)["labels"]["de"]["value"]
 
 
 def get_prop(ents_dict, qid, pid):
     """
     Gets property information from a Wikidata entity
     """
-    check_in_ents_dict(ents_dict=ents_dict, qid=qid) # checks for all further functions
-    return ents_dict[qid]['claims'][pid]
+    check_in_ents_dict(ents_dict=ents_dict, qid=qid)  # checks for all further functions
+    return ents_dict[qid]["claims"][pid]
 
 
 def get_prop_id(ents_dict, qid, pid, i):
     """
     Gets the qid of an indexed property label of a Wikidata entity
     """
-    return get_prop(ents_dict=ents_dict, qid=qid, pid=pid)[i]['mainsnak']['datavalue']['value']['id']
+    return get_prop(ents_dict=ents_dict, qid=qid, pid=pid)[i]["mainsnak"]["datavalue"][
+        "value"
+    ]["id"]
 
 
 def get_prop_lbl(ents_dict, qid, pid, i):
     """
     Gets a label of an indexed property label of a Wikidata entity
     """
-    return get_lbl(ents_dict=ents_dict, pq_id=get_prop_id(ents_dict=ents_dict, 
-                                                            qid=qid, 
-                                                            pid=pid, 
-                                                            i=i))
+    return get_lbl(
+        ents_dict=ents_dict,
+        pq_id=get_prop_id(ents_dict=ents_dict, qid=qid, pid=pid, i=i),
+    )
 
 
-def get_prop_val(ents_dict, qid, pid, i, ignore_char=''):
+def get_prop_val(ents_dict, qid, pid, i, ignore_char=""):
     """
     Gets a values of an indexed property label of a Wikidata entity
     """
     try:
         # Check to see if the value is a QID
-        val = get_lbl(ents_dict=ents_dict, 
-                       pq_id=get_prop(ents_dict=ents_dict, 
-                                      qid=qid, 
-                                      pid=pid)[i]['mainsnak']['datavalue']['value']['id']).replace(ignore_char, '')
+        val = get_lbl(
+            ents_dict=ents_dict,
+            pq_id=get_prop(ents_dict=ents_dict, qid=qid, pid=pid)[i]["mainsnak"][
+                "datavalue"
+            ]["value"]["id"],
+        ).replace(ignore_char, "")
         return val
 
     except:
         pass
 
     try:
-        val = get_prop(ents_dict=ents_dict, 
-                       qid=qid, 
-                       pid=pid)[i]['mainsnak']['datavalue']['value']['amount'].replace(ignore_char, '')
+        val = get_prop(ents_dict=ents_dict, qid=qid, pid=pid)[i]["mainsnak"][
+            "datavalue"
+        ]["value"]["amount"].replace(ignore_char, "")
         try:
             return int(val)
         except:
             pass
         try:
-           return float(val)  
+            return float(val)
         except:
             return val
     except:
         pass
 
     try:
-        val = get_prop(ents_dict=ents_dict, 
-                       qid=qid, 
-                       pid=pid)[i]['mainsnak']['datavalue']['value'].replace(ignore_char, '')
+        val = get_prop(ents_dict=ents_dict, qid=qid, pid=pid)[i]["mainsnak"][
+            "datavalue"
+        ]["value"].replace(ignore_char, "")
         try:
             return int(val)
         except:
             pass
         try:
-            return float(val)  
+            return float(val)
         except:
             return val
     except:
         # Property has no datavalue at the given index
         return np.nan
-    
-        
+
+
 def prop_has_qualifiers(ents_dict, qid, pid, i):
     """
     Checks if the property has qualifiers
     """
-    return 'qualifiers' in get_prop(ents_dict=ents_dict, qid=qid, pid=pid)[i].keys()
+    return "qualifiers" in get_prop(ents_dict=ents_dict, qid=qid, pid=pid)[i].keys()
 
 
 def get_qualifiers(ents_dict, qid, pid, i):
     """
     Gets the qualifiers of a property of a Wikidata entity
     """
-    return get_prop(ents_dict=ents_dict, qid=qid, pid=pid)[i]['qualifiers']
+    return get_prop(ents_dict=ents_dict, qid=qid, pid=pid)[i]["qualifiers"]
 
 
-def get_prop_qualifier_val(ents_dict, qid, pid, sub_pid, i, ignore_char=''):
+def get_prop_qualifier_val(ents_dict, qid, pid, sub_pid, i, ignore_char=""):
     """
     Gets a values of an indexed qualifier property label of a Wikidata entity
     """
     try:
         # Check to see if the value is a QID
-        val = get_lbl(ents_dict=ents_dict, 
-                       pq_id=get_prop(ents_dict=ents_dict, 
-                                       qid=qid, 
-                                       pid=pid)[i]['qualifiers'][sub_pid][0]['datavalue']['value']['id']).replace(ignore_char, '')
+        val = get_lbl(
+            ents_dict=ents_dict,
+            pq_id=get_prop(ents_dict=ents_dict, qid=qid, pid=pid)[i]["qualifiers"][
+                sub_pid
+            ][0]["datavalue"]["value"]["id"],
+        ).replace(ignore_char, "")
         return val
 
     except:
         pass
-    
+
     try:
-        val = get_prop(ents_dict=ents_dict, 
-                       qid=qid, 
-                       pid=pid)[i]['qualifiers'][sub_pid][0]['datavalue']['value']['amount'].replace(ignore_char, '')
+        val = get_prop(ents_dict=ents_dict, qid=qid, pid=pid)[i]["qualifiers"][sub_pid][
+            0
+        ]["datavalue"]["value"]["amount"].replace(ignore_char, "")
         try:
             return int(val)
         except:
             pass
         try:
-            return float(val)  
+            return float(val)
         except:
             return val
     except:
         pass
 
     try:
-        val = get_prop(ents_dict=ents_dict, 
-                       qid=qid, 
-                       pid=pid)[i]['qualifiers'][sub_pid][0]['datavalue']['value'].replace(ignore_char, '')
+        val = get_prop(ents_dict=ents_dict, qid=qid, pid=pid)[i]["qualifiers"][sub_pid][
+            0
+        ]["datavalue"]["value"].replace(ignore_char, "")
         try:
             return int(val)
         except:
             pass
         try:
-            return float(val)  
+            return float(val)
         except:
             return val
     except:
@@ -253,14 +262,14 @@ def get_prop_qualifier_val(ents_dict, qid, pid, sub_pid, i, ignore_char=''):
         return np.nan
 
 
-def get_val(ents_dict, qid, pid, sub_pid, i, ignore_char=''):
+def get_val(ents_dict, qid, pid, sub_pid, i, ignore_char=""):
     """
     Combines get_prop_val, get_prop_qualifier_val, and boolean assignment
     """
     if sub_pid == bool:
         return True
 
-    elif type(sub_pid) == str:   
+    elif type(sub_pid) == str:
         return get_prop_qualifier_val(ents_dict, qid, pid, sub_pid, i, ignore_char)
 
     else:
@@ -271,7 +280,7 @@ def get_prop_t(pid, i):
     """
     Gets a value of 'P585' (point in time) from a Wikidata property
     """
-    return pid[i]['qualifiers']['P585'][0]['datavalue']['value']['time']
+    return pid[i]["qualifiers"]["P585"][0]["datavalue"]["value"]["time"]
 
 
 def get_prop_start_t(pid, i):
@@ -279,7 +288,7 @@ def get_prop_start_t(pid, i):
     Gets a value of 'P580' (start time) from a Wikidata property
     """
     try:
-        return pid[i]['qualifiers']['P580'][0]['datavalue']['value']['time']
+        return pid[i]["qualifiers"]["P580"][0]["datavalue"]["value"]["time"]
     except:
         return
 
@@ -289,7 +298,7 @@ def get_prop_end_t(pid, i):
     Gets a value of 'P582' (end time) from a Wikidata property
     """
     try:
-        return pid[i]['qualifiers']['P582'][0]['datavalue']['value']['time']
+        return pid[i]["qualifiers"]["P582"][0]["datavalue"]["value"]["time"]
     except:
         return
 
@@ -299,7 +308,7 @@ def format_t(t):
     Formats the date strings of a Wikidata entry
     """
     if t != None:
-        return datetime.strptime(t[1:11].replace('-00', '-01'), '%Y-%m-%d').date()
+        return datetime.strptime(t[1:11].replace("-00", "-01"), "%Y-%m-%d").date()
     else:
         return t
 
@@ -315,7 +324,9 @@ def get_formatted_prop_start_t(ents_dict, qid, pid, i):
     """
     Gets the formatted 'P580' (start time) from a Wikidata property
     """
-    return format_t(get_prop_start_t(get_prop(ents_dict=ents_dict, qid=qid, pid=pid), i))
+    return format_t(
+        get_prop_start_t(get_prop(ents_dict=ents_dict, qid=qid, pid=pid), i)
+    )
 
 
 def get_formatted_prop_end_t(ents_dict, qid, pid, i):
@@ -343,18 +354,26 @@ def get_prop_timespan_intersection(ents_dict, qid, pid, i, timespan, interval):
             return
 
         elif start_t == None and end_t == None:
-            prop_t_intersection = [time_utils.truncate_date(date.today(), interval='daily')]
+            prop_t_intersection = [
+                time_utils.truncate_date(date.today(), interval="daily")
+            ]
 
         else:
-            prop_t_intersection = [time_utils.truncate_date(date.today(), interval='daily')]
-        
+            prop_t_intersection = [
+                time_utils.truncate_date(date.today(), interval="daily")
+            ]
+
     else:
         if start_t != None and end_t != None:
-            if all(start_t > t for t in included_times) or all(end_t < t for t in included_times):
+            if all(start_t > t for t in included_times) or all(
+                end_t < t for t in included_times
+            ):
                 return
 
             else:
-                prop_t_intersection = [t for t in included_times if t >= start_t and t <= end_t]
+                prop_t_intersection = [
+                    t for t in included_times if t >= start_t and t <= end_t
+                ]
 
         elif start_t != None and end_t == None:
             if all(start_t > t for t in included_times):
@@ -371,16 +390,16 @@ def get_prop_timespan_intersection(ents_dict, qid, pid, i, timespan, interval):
             prop_t_intersection = included_times
 
     try:
-        prop_t_intersection = [time_utils.truncate_date(t, interval=interval) for t in prop_t_intersection]
+        prop_t_intersection = [
+            time_utils.truncate_date(t, interval=interval) for t in prop_t_intersection
+        ]
     except:
         return
 
     return prop_t_intersection
 
 
-def dir_to_topic_page(dir_name=None, 
-                      ents_dict=None, 
-                      qid=None):
+def dir_to_topic_page(dir_name=None, ents_dict=None, qid=None):
     """
     Allows for the checking of subject entities for a given QID
 
@@ -401,15 +420,14 @@ def dir_to_topic_page(dir_name=None,
             The qid for an existing topic for the location or None to cancel later steps
     """
     # Needs sub-topics for other wikirepo directories
-    name_to_topic_pid_dict = {'economic': 'P8744',
-                              'geographic': 'P2633'}
+    name_to_topic_pid_dict = {"economic": "P8744", "geographic": "P2633"}
 
     if dir_name in name_to_topic_pid_dict.keys():
         topic_pid = name_to_topic_pid_dict[dir_name]
 
-        if topic_pid in load_ent(ents_dict, qid)['claims'].keys():
+        if topic_pid in load_ent(ents_dict, qid)["claims"].keys():
             topic_qid = get_prop_id(ents_dict, qid, topic_pid, i=0)
-            
+
             return topic_qid
 
         else:
@@ -419,14 +437,16 @@ def dir_to_topic_page(dir_name=None,
         return
 
 
-def check_for_pid_topic_page(dir_name=None,
-                             ents_dict=None, 
-                             qid=None,
-                             orig_qid=None,
-                             pid=None,
-                             interval=None, 
-                             timespan=None,
-                             vd_or_vdd='vd'):
+def check_for_pid_topic_page(
+    dir_name=None,
+    ents_dict=None,
+    qid=None,
+    orig_qid=None,
+    pid=None,
+    interval=None,
+    timespan=None,
+    vd_or_vdd="vd",
+):
     """
     Tries to find a topic-page for the topic of the current directory and return the needed variables
 
@@ -449,7 +469,7 @@ def check_for_pid_topic_page(dir_name=None,
 
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
             A tuple or list that defines the start and end dates to be queried
-            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried 
+            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried
             Note 2: passing a single entry will query for that date only
 
         interval : str (default=None)
@@ -470,41 +490,50 @@ def check_for_pid_topic_page(dir_name=None,
 
     t_p_d = {}
     skip_assignment = False
-    if topic_qid != None and pid in load_ent(ents_dict, topic_qid)['claims'].keys():
+    if topic_qid != None and pid in load_ent(ents_dict, topic_qid)["claims"].keys():
         # A sub-page for the location that has the property exists
         # Save the original QID for assignment and replace with the topic page for access
         orig_qid = qid
         qid = topic_qid
 
     else:
-        print_not_available(ents_dict=ents_dict, qid=qid, pid=pid, exrta_msg='')
+        print_not_available(ents_dict=ents_dict, qid=qid, pid=pid, exrta_msg="")
         # Assign no date for on interval or the most recent time in the timespan with np.nan as a placeholder
         if interval == None and timespan == None:
-            if vd_or_vdd == 'vd':
-                t_p_d = {'no date': np.nan}
+            if vd_or_vdd == "vd":
+                t_p_d = {"no date": np.nan}
             else:
-                t_p_d = {'no date': {'no date': np.nan}}
+                t_p_d = {"no date": {"no date": np.nan}}
         else:
-            if vd_or_vdd == 'vd':
-                t_p_d = {time_utils.truncated_latest_date(timespan=timespan, interval=interval): np.nan}
+            if vd_or_vdd == "vd":
+                t_p_d = {
+                    time_utils.truncated_latest_date(
+                        timespan=timespan, interval=interval
+                    ): np.nan
+                }
             else:
-                t_p_d = {time_utils.truncated_latest_date(timespan=timespan, interval=interval): \
-                            {get_prop_val(ents_dict, qid, pid, i=0, ignore_char=''): np.nan}}
-        
+                t_p_d = {
+                    time_utils.truncated_latest_date(
+                        timespan=timespan, interval=interval
+                    ): {get_prop_val(ents_dict, qid, pid, i=0, ignore_char=""): np.nan}
+                }
+
         skip_assignment = True
 
     return qid, orig_qid, t_p_d, skip_assignment
 
 
-def t_to_prop_val_dict(dir_name=None,
-                       ents_dict=None, 
-                       qids=None, 
-                       pid=None,
-                       sub_pid=None,
-                       interval=None, 
-                       timespan=None, 
-                       ignore_char='',
-                       span=False):
+def t_to_prop_val_dict(
+    dir_name=None,
+    ents_dict=None,
+    qids=None,
+    pid=None,
+    sub_pid=None,
+    interval=None,
+    timespan=None,
+    ignore_char="",
+    span=False,
+):
     """
     Gets a dictionary of property value(s) indexed by time(s) from a locational entity
 
@@ -529,7 +558,7 @@ def t_to_prop_val_dict(dir_name=None,
 
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
             A tuple or list that defines the start and end dates to be queried
-            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried 
+            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried
             Note 2: passing a single entry will query for that date only
 
         interval : str (default=None)
@@ -551,8 +580,10 @@ def t_to_prop_val_dict(dir_name=None,
     qids = utils._make_var_list(qids)[0]
 
     if interval != None:
-        included_times = [time_utils.truncate_date(t, interval=interval) \
-                            for t in time_utils.make_timespan(timespan=timespan, interval=interval)]
+        included_times = [
+            time_utils.truncate_date(t, interval=interval)
+            for t in time_utils.make_timespan(timespan=timespan, interval=interval)
+        ]
     else:
         # Triggers acceptance of a all values so that the most recent can be selected
         included_times = None
@@ -562,44 +593,59 @@ def t_to_prop_val_dict(dir_name=None,
         t_p_d = {}
         orig_qid = None
         skip_assignment = False
-        if pid not in load_ent(ents_dict, q)['claims'].keys():
-            q, orig_qid, t_p_d, skip_assignment = check_for_pid_topic_page(dir_name=dir_name,
-                                                                           ents_dict=ents_dict, 
-                                                                           qid=q,
-                                                                           orig_qid=orig_qid,
-                                                                           pid=pid,
-                                                                           timespan=timespan,
-                                                                           interval=interval, 
-                                                                           vd_or_vdd = 'vd')
+        if pid not in load_ent(ents_dict, q)["claims"].keys():
+            q, orig_qid, t_p_d, skip_assignment = check_for_pid_topic_page(
+                dir_name=dir_name,
+                ents_dict=ents_dict,
+                qid=q,
+                orig_qid=orig_qid,
+                pid=pid,
+                timespan=timespan,
+                interval=interval,
+                vd_or_vdd="vd",
+            )
 
         if skip_assignment == False:
             if span:
                 for i in range(len(get_prop(ents_dict, q, pid))):
-                    prop_t_intersection = get_prop_timespan_intersection(ents_dict, q, pid, i, timespan, interval)
+                    prop_t_intersection = get_prop_timespan_intersection(
+                        ents_dict, q, pid, i, timespan, interval
+                    )
                     if prop_t_intersection != None:
                         for t in prop_t_intersection:
                             if t in t_p_d.keys():
                                 t_p_d[t] = str(t_p_d[t])
-                                t_p_d[t] += ', ' + str(get_val(ents_dict, q, pid, sub_pid, i, ignore_char))
-                            
+                                t_p_d[t] += ", " + str(
+                                    get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
+                                )
+
                             else:
-                                t_p_d[t] = get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
+                                t_p_d[t] = get_val(
+                                    ents_dict, q, pid, sub_pid, i, ignore_char
+                                )
 
             else:
                 for i in range(len(get_prop(ents_dict, q, pid))):
                     try:
-                        t = time_utils.truncate_date(get_formatted_prop_t(ents_dict, q, pid, i), interval=interval)
+                        t = time_utils.truncate_date(
+                            get_formatted_prop_t(ents_dict, q, pid, i),
+                            interval=interval,
+                        )
                     except:
                         if interval == None and timespan == None:
-                            t = 'no date'
+                            t = "no date"
 
-                        else: 
+                        else:
                             # Assign the most recent time in the timespan
-                            t = time_utils.truncated_latest_date(timespan=timespan, interval=interval)
+                            t = time_utils.truncated_latest_date(
+                                timespan=timespan, interval=interval
+                            )
 
-                    if (included_times != None and t in included_times) or (included_times == None):
+                    if (included_times != None and t in included_times) or (
+                        included_times == None
+                    ):
                         t_p_d[t] = get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
-            
+
         if orig_qid == None:
             t_prop_dict[q] = t_p_d
         else:
@@ -608,15 +654,17 @@ def t_to_prop_val_dict(dir_name=None,
     return t_prop_dict
 
 
-def t_to_prop_val_dict_dict(dir_name=None,
-                            ents_dict=None, 
-                            qids=None, 
-                            pid=None, 
-                            sub_pid=None,
-                            interval=None, 
-                            timespan=None, 
-                            ignore_char='',
-                            span=False):
+def t_to_prop_val_dict_dict(
+    dir_name=None,
+    ents_dict=None,
+    qids=None,
+    pid=None,
+    sub_pid=None,
+    interval=None,
+    timespan=None,
+    ignore_char="",
+    span=False,
+):
     """
     Gets a dictionary of dictionaries of multiple property values that are indexed by time(s) from a locational entity
 
@@ -641,7 +689,7 @@ def t_to_prop_val_dict_dict(dir_name=None,
 
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
             A tuple or list that defines the start and end dates to be queried
-            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried 
+            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried
             Note 2: passing a single entry will query for that date only
 
         interval : str (default=None)
@@ -662,10 +710,11 @@ def t_to_prop_val_dict_dict(dir_name=None,
     """
     qids = utils._make_var_list(qids)[0]
 
-
     if interval != None:
-        included_times = [time_utils.truncate_date(t, interval=interval) \
-                            for t in time_utils.make_timespan(timespan=timespan, interval=interval)]
+        included_times = [
+            time_utils.truncate_date(t, interval=interval)
+            for t in time_utils.make_timespan(timespan=timespan, interval=interval)
+        ]
     else:
         # Triggers acceptance of a all values so that the most recent can be selected
         included_times = None
@@ -675,57 +724,72 @@ def t_to_prop_val_dict_dict(dir_name=None,
         t_p_d = {}
         orig_qid = None
         skip_assignment = False
-        if pid not in load_ent(ents_dict, q)['claims'].keys():
-            q, orig_qid, t_p_d, skip_assignment = check_for_pid_topic_page(dir_name=dir_name,
-                                                                           ents_dict=ents_dict, 
-                                                                           qid=q, 
-                                                                           orig_qid=orig_qid,
-                                                                           pid=pid,
-                                                                           timespan=timespan,
-                                                                           interval=interval, 
-                                                                           vd_or_vdd = 'vdd')
-        
+        if pid not in load_ent(ents_dict, q)["claims"].keys():
+            q, orig_qid, t_p_d, skip_assignment = check_for_pid_topic_page(
+                dir_name=dir_name,
+                ents_dict=ents_dict,
+                qid=q,
+                orig_qid=orig_qid,
+                pid=pid,
+                timespan=timespan,
+                interval=interval,
+                vd_or_vdd="vdd",
+            )
+
         if skip_assignment == False:
             if span:
                 for i in range(len(get_prop(ents_dict, q, pid))):
-                    if 'qualifiers' not in get_prop(ents_dict, q, pid)[i].keys():
+                    if "qualifiers" not in get_prop(ents_dict, q, pid)[i].keys():
                         prop_t_intersection = included_times
-                    
+
                     else:
-                        prop_t_intersection = get_prop_timespan_intersection(ents_dict, q, pid, i, timespan, interval)
+                        prop_t_intersection = get_prop_timespan_intersection(
+                            ents_dict, q, pid, i, timespan, interval
+                        )
 
                     if prop_t_intersection != None:
                         for t in prop_t_intersection:
                             if t not in t_p_d.keys():
                                 t_p_d[t] = {}
-                                t_p_d[t][get_prop_val(ents_dict, q, pid, i, ignore_char)] = \
-                                    get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
-                            
+                                t_p_d[t][
+                                    get_prop_val(ents_dict, q, pid, i, ignore_char)
+                                ] = get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
+
                             else:
-                                t_p_d[t][get_prop_val(ents_dict, q, pid, i, ignore_char)] = \
-                                    get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
+                                t_p_d[t][
+                                    get_prop_val(ents_dict, q, pid, i, ignore_char)
+                                ] = get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
 
             else:
                 for i in range(len(get_prop(ents_dict, q, pid))):
                     try:
-                        t = time_utils.truncate_date(get_formatted_prop_t(ents_dict, q, pid, i), interval=interval)
+                        t = time_utils.truncate_date(
+                            get_formatted_prop_t(ents_dict, q, pid, i),
+                            interval=interval,
+                        )
                     except:
                         if interval == None and timespan == None:
-                            t = 'no date'
+                            t = "no date"
 
-                        else: 
+                        else:
                             # Assign the most recent time in the timespan
-                            t = time_utils.truncated_latest_date(timespan=timespan, interval=interval)
+                            t = time_utils.truncated_latest_date(
+                                timespan=timespan, interval=interval
+                            )
 
-                    if (included_times != None and t in included_times) or (included_times == None):
+                    if (included_times != None and t in included_times) or (
+                        included_times == None
+                    ):
                         if t not in t_p_d.keys():
                             t_p_d[t] = {}
-                            t_p_d[t][get_prop_val(ents_dict, q, pid, i, ignore_char)] = \
-                                get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
+                            t_p_d[t][
+                                get_prop_val(ents_dict, q, pid, i, ignore_char)
+                            ] = get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
                         else:
-                            t_p_d[t][get_prop_val(ents_dict, q, pid, i, ignore_char)] = \
-                                get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
-        
+                            t_p_d[t][
+                                get_prop_val(ents_dict, q, pid, i, ignore_char)
+                            ] = get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
+
         if orig_qid == None:
             t_prop_dict[q] = t_p_d
         else:
@@ -740,6 +804,7 @@ class EntitiesDict(dict):
 
     Keywords are QIDs, and values are QID entities
     """
+
     __slots__ = ()
 
     def __init__(self, *args, **kwargs):
@@ -747,15 +812,15 @@ class EntitiesDict(dict):
 
     def __repr__(self):
         return "%s" % self.__class__
-    
+
     def __str__(self):
         return """
     The EntitiesDict class is meant to store WikiData entities.
         - Keys are QIDs
         - Values are QID entities
-    
+
     Because of the potential size, print() has been disabled.
-    
+
     All other dictionary methods are included, as well as:
         key_lbls - a list of labels of the QID keys
         _print - prints the full dictionary

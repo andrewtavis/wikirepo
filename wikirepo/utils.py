@@ -1,23 +1,24 @@
-# =============================================================================
-# Utility functions for general operations and coloration
-#
-# Contents
-# --------
-#   0. No Class
-#       _make_var_list
-#       _return_given_type
-#
-#       try_float
-#       round_if_int
-#       gen_list_of_lists
-#
-#       check_str_similarity
-#       check_str_args
-# =============================================================================
+"""
+Utility functions for general operations and coloration
+
+Contents
+--------
+  0. No Class
+      _make_var_list
+      _return_given_type
+
+      try_float
+      round_if_int
+      gen_list_of_lists
+
+      check_str_similarity
+      check_str_args
+"""
 
 from difflib import SequenceMatcher
 
 import pandas as pd
+
 
 def _make_var_list(var):
     """
@@ -39,10 +40,10 @@ def _return_given_type(var, var_was_str):
         # Check if there's only one element
         if len(var) == 1:
             return var[0]
-        
+
         else:
             return var
-    
+
     else:
         return var
 
@@ -67,11 +68,14 @@ def round_if_int(val):
 
 def gen_list_of_lists(original_list, new_structure):
     """Generates a list of lists with a given structure from a given list"""
-    assert len(original_list) == sum(new_structure), \
-    "The number of elements in the original list and desired structure don't match"
+    assert len(original_list) == sum(
+        new_structure
+    ), "The number of elements in the original list and desired structure don't match"
 
-    list_of_lists = [[original_list[i + sum(new_structure[:j])] for i in range(new_structure[j])] \
-                     for j in range(len(new_structure))]
+    list_of_lists = [
+        [original_list[i + sum(new_structure[:j])] for i in range(new_structure[j])]
+        for j in range(len(new_structure))
+    ]
 
     return list_of_lists
 
@@ -92,18 +96,22 @@ def check_str_args(arguments, valid_args):
         else:
             suggestions = []
             for v in valid_args:
-                similarity_score = round(check_str_similarity(str_1=arguments, str_2=v), 2)
+                similarity_score = round(
+                    check_str_similarity(str_1=arguments, str_2=v), 2
+                )
                 arg_and_score = (v, similarity_score)
                 suggestions.append(arg_and_score)
 
             ordered_suggestions = sorted(suggestions, key=lambda x: x[1], reverse=True)
-                            
+
             print(f"'{arguments}' is not a valid argument for the given function.")
             print(f"The closest valid options to '{arguments}' are:")
             for item in ordered_suggestions[:5]:
                 print(item)
 
-            raise ValueError("An invalid string has been passed to the 'locations' argument. Please check that all match their corresponding page names on Wikidata.")
+            raise ValueError(
+                "An invalid string has been passed to the 'locations' argument. Please check that all match their corresponding page names on Wikidata."
+            )
 
     elif type(arguments) == list:
         # Check arguments, and remove them if they're invalid
