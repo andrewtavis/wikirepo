@@ -1,0 +1,16 @@
+# This file may be used to create an environment using:
+# conda env create -f environment.yml
+name: causeinfer-dev
+channels:
+  - anaconda
+  - conda-forge
+  - defaults
+dependencies:
+  - numpy
+  - scipy
+  - pandas
+  - matplotlib
+  - seaborn
+  - wikidata
+  - python-dateutil
+  - tqdm
