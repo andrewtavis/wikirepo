@@ -4,15 +4,20 @@
 
 --------------------------------------
 
-[![PyPI Version](https://badge.fury.io/py/wikirepo.svg)](https://pypi.org/project/wikirepo/)
-[![Python Version](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8-blue.svg)](https://pypi.org/project/wikirepo/)
-[![GitHub](https://img.shields.io/github/license/andrewtavis/wikirepo.svg)](https://github.com/andrewtavis/wikirepo/blob/master/LICENSE)
+[![rtd](https://img.shields.io/readthedocs/wikirepo.svg?logo=read-the-docs)](http://wikirepo.readthedocs.io/en/latest/)
+[![travis](https://img.shields.io/travis/andrewtavis/wikirepo.svg?logo=travis-ci)](https://travis-ci.org/andrewtavis/wikirepo)
+[![codecov](https://codecov.io/gh/andrewtavis/wikirepo/branch/master/graphs/badge.svg)](https://codecov.io/gh/andrewtavis/wikirepo)
+[![pyversions](https://img.shields.io/pypi/pyversions/wikirepo.svg?logo=python)](https://pypi.org/project/wikirepo/)
+[![pypi](https://img.shields.io/pypi/v/wikirepo.svg)](https://pypi.org/project/wikirepo/)
+[![pypistatus](https://img.shields.io/pypi/status/wikirepo.svg)](https://pypi.org/project/wikirepo/)
+[![license](https://img.shields.io/github/license/andrewtavis/wikirepo.svg)](https://github.com/andrewtavis/wikirepo/blob/main/LICENSE)
+[![codestyle](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ### Python based Wikidata framework for easy dataframe extraction
 
 **Jump to:** [Data](#data) • [Maps (WIP)](#maps-wip) • [To-Do](#to-do)
 
-**wikirepo** is a Python package that provides a framework to easily source and leverage standardized [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) information. The goal is to create an intuitive interface so that Wikidata can function as a common read-write repository for public statistics. 
+**wikirepo** is a Python package that provides a framework to easily source and leverage standardized [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) information. The goal is to create an intuitive interface so that Wikidata can function as a common read-write repository for public statistics.
 
 # Installation via PyPi
 ```bash
@@ -29,7 +34,7 @@ wikirepo's data structure is built around [Wikidata.org](https://www.wikidata.or
 
 ### Query Data
 
-wikirepo's main access function, [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py), returns a `pandas.DataFrame` of locations and property data across time. 
+wikirepo's main access function, [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py), returns a `pandas.DataFrame` of locations and property data across time.
 
 Each query needs the following inputs:
 
@@ -68,21 +73,21 @@ depth = 0
 timespan = (date(2009,1,1), date(2010,1,1))
 interval = 'yearly'
 
-df = wikirepo.data.query(ents_dict=ents_dict, 
+df = wikirepo.data.query(ents_dict=ents_dict,
                          locations=countries, depth=depth,
-                         timespan=timespan, interval=interval, 
+                         timespan=timespan, interval=interval,
                          climate_props=None,
-                         demographic_props=['population', 'life_expectancy'], 
-                         economic_props='median_income', 
-                         electoral_poll_props=None, 
+                         demographic_props=['population', 'life_expectancy'],
+                         economic_props='median_income',
+                         electoral_poll_props=None,
                          electoral_result_props=None,
-                         geographic_props=None, 
+                         geographic_props=None,
                          institutional_props='human_dev_idx',
                          political_props='executive',
                          misc_props=None,
                          verbose=True)
 
-col_order = ['location', 'qid', 'year', 'executive', 'population', 
+col_order = ['location', 'qid', 'year', 'executive', 'population',
              'life_exp', 'human_dev_idx', 'median_income']
 df = df[col_order]
 
@@ -122,18 +127,18 @@ us_counties_dict = lctn_utils.gen_lctns_dict(ents_dict=ents_dict,
                                              depth=depth,
                                              sub_lctns=sub_lctns,
                                              timespan=timespan,
-                                             interval=interval, 
+                                             interval=interval,
                                              verbose=True)
 
-df = wikirepo.data.query(ents_dict=ents_dict, 
+df = wikirepo.data.query(ents_dict=ents_dict,
                          locations=us_counties_dict, depth=depth,
-                         timespan=timespan, interval=interval, 
+                         timespan=timespan, interval=interval,
                          climate_props=None,
-                         demographic_props='population', 
-                         economic_props=None, 
-                         electoral_poll_props=None, 
+                         demographic_props='population',
+                         economic_props=None,
+                         electoral_poll_props=None,
                          electoral_result_props=None,
-                         geographic_props='area', 
+                         geographic_props='area',
                          institutional_props='capital',
                          political_props=None,
                          misc_props=None,
@@ -252,7 +257,7 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 - Integrating current Python tools with wikirepo structures for uploads to Wikidata
 - Adding a query of property descriptions to `data.data_utils.incl_dir_idxs`
 - Adding multiprocessing support to the [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py) process and `data.lctn_utils.gen_lctns_dict`
-- Potentially converting [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py) and `data.lctn_utils.gen_lctns_dict` over to generated Wikidata SPARQL queries 
+- Potentially converting [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py) and `data.lctn_utils.gen_lctns_dict` over to generated Wikidata SPARQL queries
 - Optimizing [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py):
     - Potentially converting `EntitiesDict` and `LocationsDict` to slotted object classes for memory savings
     - Deriving and optimizing other slow parts of the query process
