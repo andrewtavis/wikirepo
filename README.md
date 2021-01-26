@@ -12,6 +12,7 @@
 [![pypistatus](https://img.shields.io/pypi/status/wikirepo.svg)](https://pypi.org/project/wikirepo/)
 [![license](https://img.shields.io/github/license/andrewtavis/wikirepo.svg)](https://github.com/andrewtavis/wikirepo/blob/main/LICENSE)
 [![codestyle](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![contributions](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/andrewtavis/wikirepo/blob/main/CONTRIBUTING.md)
 
 ### Python based Wikidata framework for easy dataframe extraction
 
