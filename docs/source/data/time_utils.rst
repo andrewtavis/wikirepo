@@ -3,6 +3,8 @@ time_utils
 
 The :py:mod:`data.time_utils` module provides utility functions for querying time information.
 
+**Functions**
+
 * :py:func:`wikirepo.data.time_utils.interval_to_col_name`
 * :py:func:`wikirepo.data.time_utils.truncate_date`
 * :py:func:`wikirepo.data.time_utils.truncate_date_col`

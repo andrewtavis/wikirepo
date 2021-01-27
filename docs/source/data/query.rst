@@ -6,6 +6,7 @@ The :py:mod:`data.query` module provides a function that calls and combines data
 Note: the purpose of this module is for a `wikirepo.data.query()` function call
 
 **Functions**
+
 * :py:func:`wikirepo.data.query.query`
 
 .. autofunction:: wikirepo.data.query.query

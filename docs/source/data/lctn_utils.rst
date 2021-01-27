@@ -4,6 +4,7 @@ lctn_utils
 The :py:mod:`data.lctn_utils` module provides functions for querying locations.
 
 **Functions**
+
 * :py:func:`wikirepo.data.lctn_utils.lctn_to_qid_dict`
 * :py:func:`wikirepo.data.lctn_utils.qid_to_lctn_dict`
 * :py:func:`wikirepo.data.lctn_utils.incl_lctn_lbls`
@@ -23,6 +24,7 @@ The :py:mod:`data.lctn_utils` module provides functions for querying locations.
 * :py:func:`wikirepo.data.lctn_utils.find_key_items`
 
 **Classes**
+
 * :py:class:`wikirepo.data.lctn_utils.LocationsDict`
 
 .. autofunction:: wikirepo.data.lctn_utils.lctn_to_qid_dict

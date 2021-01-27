@@ -4,6 +4,7 @@ data_utils
 The :py:mod:`data.data_utils` module provides utility functions for querying data.
 
 **Functions**
+
 * :py:func:`wikirepo.data.data_utils._get_fxn_idx`
 * :py:func:`wikirepo.data.data_utils._get_dir_fxns_dict`
 * :py:func:`wikirepo.data.data_utils._check_data_assertions`

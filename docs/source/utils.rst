@@ -4,6 +4,7 @@ utils
 The :py:mod:`utils` module provides utility functions for general operations.
 
 **Functions**
+
 * :py:func:`wikirepo.utils._make_var_list`
 * :py:func:`wikirepo.utils._return_given_type`
 * :py:func:`wikirepo.utils.try_float`
