@@ -50,6 +50,7 @@ Installation
    :caption: Contents:
 
    data/index
+   data_property_directories/index
    maps/index
    utils
    notes
