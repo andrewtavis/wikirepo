@@ -3,6 +3,7 @@ wd_utils
 
 The :py:mod:`data.wd_utils` module provides utility functions for accessing and storing Wikidata information.
 
+**Functions**
 * :py:func:`wikirepo.data.wd_utils.check_in_ents_dict`
 * :py:func:`wikirepo.data.wd_utils.load_ent`
 * :py:func:`wikirepo.data.wd_utils.is_wd_id`
@@ -35,6 +36,7 @@ The :py:mod:`data.wd_utils` module provides utility functions for accessing and 
 * :py:func:`wikirepo.data.wd_utils.t_to_prop_val_dict`
 * :py:func:`wikirepo.data.wd_utils.t_to_prop_val_dict_dict`
 
+**Classes**
 * :py:class:`wikirepo.data.wd_utils.EntitiesDict`
 
 .. autofunction:: wikirepo.data.wd_utils.check_in_ents_dict
