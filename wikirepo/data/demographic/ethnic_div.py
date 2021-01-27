@@ -1,10 +1,12 @@
 """
+Ethnic Diversity
+----------------
+
 Functions querying 'P172' (ethnic group) information
 
 This is done by querying 'P1107' (proportion) from each 'P172'
 
 Contents
---------
     0. No Class
         query_prop_data
 """

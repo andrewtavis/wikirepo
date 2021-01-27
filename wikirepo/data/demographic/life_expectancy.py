@@ -1,8 +1,10 @@
 """
+Life Expectancy
+---------------
+
 Functions querying 'P2250' (life expectancy) information
 
 Contents
---------
     0. No Class
         query_prop_data
 """
