@@ -5,7 +5,6 @@ The :py:mod:`data` directory comprises all functions for the wikirepo data query
 
 .. toctree::
    :maxdepth: 2
-   :caption: Data Property Directories:
 
    climate/index
    demographic/index
