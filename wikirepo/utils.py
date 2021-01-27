@@ -5,14 +5,12 @@ Utilities
 Utility functions for general operations
 
 Contents
-    _make_var_list
-    _return_given_type
-
-    try_float
-    round_if_int
-    gen_list_of_lists
-
-    check_str_similarity
+    _make_var_list,
+    _return_given_type,
+    try_float,
+    round_if_int,
+    gen_list_of_lists,
+    check_str_similarity,
     check_str_args
 """
 

@@ -5,42 +5,33 @@ Location Utilities
 Utility functions for querying locations
 
 Contents
-    lctn_to_qid_dict
-    qid_to_lctn_dict
-
-    incl_lctn_lbls
-    incl_lctn_ids
-    lctn_lbl_to_qid
-    qid_tp_lctn_lbl
-
-    depth_to_col_name
-    depth_to_cols
-    depth_to_qid_col_name
-    depth_to_qid_cols
-
-    find_qid_get_depth
-    get_qids_at_depth
-    iter_set_dict
-    gen_lctns_dict
-        assign_first_iteration
-            get_first_iter_dict
-        assign_another_iteration
-            get_most_frequent_dict
-            get_valid_timespan_dict
-
-    derive_depth
-    merge_lctn_dicts
+    lctn_to_qid_dict,
+    qid_to_lctn_dict,
+    incl_lctn_lbls,
+    incl_lctn_ids,
+    lctn_lbl_to_qid,
+    qid_tp_lctn_lbl,
+    depth_to_col_name,
+    depth_to_cols,
+    depth_to_qid_col_name,
+    depth_to_qid_cols,
+    find_qid_get_depth,
+    get_qids_at_depth,
+    iter_set_dict,
+    gen_lctns_dict,
+    derive_depth,
+    merge_lctn_dicts,
     find_key_items
 
     LocationsDict Class
-        __init__
-        __repr__
-        __str__
-        key_lbls_list
-        get_depth
-        iter_key_items
-        iter_set
-        get_qids_at_depth
+        __init__,
+        __repr__,
+        __str__,
+        key_lbls_list,
+        get_depth,
+        iter_key_items,
+        iter_set,
+        get_qids_at_depth,
         _print
 """
 
