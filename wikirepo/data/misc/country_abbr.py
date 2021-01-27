@@ -1,12 +1,13 @@
 """
+Country Abbreviation
+--------------------
+
 Functions querying 'P297' (ISO 3166-1 alpha-2 code) information
 
 This property is used to derive abbreviations for countries
 
 Contents
---------
-    0. No Class
-        query_prop_data
+    query_prop_data
 """
 
 from wikirepo.data import data_utils

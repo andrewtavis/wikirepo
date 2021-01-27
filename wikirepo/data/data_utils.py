@@ -1,28 +1,29 @@
 """
+Data Utilities
+--------------
+
 Utility functions for querying data
 
 Contents
---------
-    0. No Class
-        _get_fxn_idx
-        _get_dir_fxns_dict
-        _check_data_assertions
-        _get_max_workers
+    _get_fxn_idx
+    _get_dir_fxns_dict
+    _check_data_assertions
+    _get_max_workers
 
-        incl_dir_idxs
-        gen_base_df
-        assign_to_column
-        gen_base_and_assign_to_column
-        assign_to_cols
-        gen_base_and_assign_to_cols
+    incl_dir_idxs
+    gen_base_df
+    assign_to_column
+    gen_base_and_assign_to_column
+    assign_to_cols
+    gen_base_and_assign_to_cols
 
-        query_wd_prop
-        query_repo_dir
+    query_wd_prop
+    query_repo_dir
 
-        interp_by_subset
-        sum_df_prop_vals
-        split_col_val_dates
-        count_df_prop_vals
+    interp_by_subset
+    sum_df_prop_vals
+    split_col_val_dates
+    count_df_prop_vals
 """
 
 import os

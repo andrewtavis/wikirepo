@@ -1,8 +1,9 @@
 """
+Lower House Round 1
+-------------------
+
 Functions querying 'PXYZ' (first round lower house election results) information
 
 Contents
---------
-    0. No Class
-        query_prop_data
+    query_prop_data
 """

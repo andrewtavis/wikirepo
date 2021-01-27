@@ -1,13 +1,14 @@
 """
+Freedom House Category
+----------------------
+
 Functions querying 'PXYZ' (freedom house category) information
 
 This is done via 'P1552' (has quality) applied to regions
 Idealy a property would be created for this that would allow it to be traced over time
 
 Contents
---------
-    0. No Class
-        query_prop_data
+    query_prop_data
 """
 
 from wikirepo.data import data_utils

@@ -9,7 +9,7 @@ with open("README.md", "r") as fh:
 
 setup_args = dict(
     name="wikirepo",
-    version="0.0.2.7",
+    version="0.0.2.8",
     author="Andrew Tavis McAllister",
     author_email="andrew.t.mcallister@gmail.com",
     classifiers=[

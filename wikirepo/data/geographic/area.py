@@ -1,10 +1,11 @@
 """
+Area
+----
+
 Functions querying 'P2046' (area) information
 
 Contents
---------
-    0. No Class
-        query_prop_data
+    query_prop_data
 """
 
 from wikirepo.data import data_utils

@@ -1,10 +1,11 @@
 """
+BTI Status Index
+----------------
+
 Functions querying 'P8477' (BTI Status Index) information
 
 Contents
---------
-    0. No Class
-        query_prop_data
+    query_prop_data
 """
 
 from wikirepo.data import data_utils

@@ -5,11 +5,6 @@ geographic
 
 Modules included in `wikirepo/data/geographic <https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/geographic>`_ follow, with full details of needed property parameters being shown in the linked source codes:
 
-* :py:module:`wikirepo.data.geographic.area`
-* :py:module:`wikirepo.data.geographic.continent`
-* :py:module:`wikirepo.data.geographic.country`
-
-
 .. automodule:: wikirepo.data.geographic.area
    :members:
 .. automodule:: wikirepo.data.geographic.continent

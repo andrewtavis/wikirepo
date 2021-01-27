@@ -1,10 +1,11 @@
 """
+Purchasing Power Parity GDP per Capita
+--------------------------------------
+
 Functions querying 'P2299' (PPP GDP per capita) information
 
 Contents
---------
-    0. No Class
-        query_prop_data
+    query_prop_data
 """
 
 from wikirepo.data import data_utils

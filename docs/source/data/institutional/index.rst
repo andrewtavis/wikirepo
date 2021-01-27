@@ -5,13 +5,6 @@ institutional
 
 Modules included in `wikirepo/data/institutional <https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/institutional>`_ follow, with full details of needed property parameters being shown in the linked source codes:
 
-* :py:module:`wikirepo.data.institutional.bti_gov_idx`
-* :py:module:`wikirepo.data.institutional.bti_status_idx`
-* :py:module:`wikirepo.data.institutional.capital`
-* :py:module:`wikirepo.data.institutional.fh_category`
-* :py:module:`wikirepo.data.institutional.human_dev_idx`
-* :py:module:`wikirepo.data.institutional.org_membership`
-
 .. automodule:: wikirepo.data.institutional.bti_gov_idx
    :members:
 .. automodule:: wikirepo.data.institutional.bti_status_idx

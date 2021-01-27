@@ -1,10 +1,11 @@
 """
+Executive
+---------
+
 Functions querying 'P6' (head of government) information
 
 Contents
---------
-    0. No Class
-        query_prop_data
+    query_prop_data
 """
 
 from wikirepo.data import data_utils

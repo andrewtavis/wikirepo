@@ -1,12 +1,13 @@
 """
+Sub-Country Abbreviation
+------------------------
+
 Functions querying 'P300' (ISO 3166-2 code) information
 
 This property is used to derive abbreviations for country sub-regions
 
 Contents
---------
-    0. No Class
-        query_prop_data
+    query_prop_data
 """
 
 from wikirepo.data import data_utils
