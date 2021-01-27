@@ -33,7 +33,7 @@
 .. |contributions| image:: https://img.shields.io/badge/contributions-welcome-brightgreen.svg
     :target: https://github.com/andrewtavis/wikirepo/blob/main/CONTRIBUTING.md
 
-Political elections, appointment, analysis and visualization in Python
+Python based Wikidata framework for easy dataframe extraction
 
 Installation
 ------------
@@ -49,6 +49,9 @@ Installation
    :maxdepth: 2
    :caption: Contents:
 
+   data/index
+   maps/index
+   utils
    notes
 
 Project Indices

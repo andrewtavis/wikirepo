@@ -3,16 +3,16 @@ Functions querying time information
 
 Contents
 --------
-  0. No Class
-      interval_to_col_name
-      truncate_date
-      truncate_date_col
-      incl_intervals
-      make_timespan
-      latest_date
-      earliest_date
-      truncated_latest_date
-      truncated_earliest_date
+    0. No Class
+        interval_to_col_name
+        truncate_date
+        truncate_date_col
+        incl_intervals
+        make_timespan
+        latest_date
+        earliest_date
+        truncated_latest_date
+        truncated_earliest_date
 """
 
 from datetime import datetime, date

@@ -3,8 +3,8 @@ Functions querying 'P30' (continent) information
 
 Contents
 --------
-  0. No Class
-      query_prop_data
+    0. No Class
+        query_prop_data
 """
 
 from wikirepo.data import data_utils

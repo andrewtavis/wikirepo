@@ -3,45 +3,45 @@ Utility functions for accessing and storing Wikidata information
 
 Contents
 --------
-  0. No Class
-      check_in_ents_dict
-      load_ent
-      is_wd_id
-      prop_has_many_entries
+    0. No Class
+        check_in_ents_dict
+        load_ent
+        is_wd_id
+        prop_has_many_entries
 
-      get_lbl
-      get_prop
-      get_prop_id
-      get_prop_lbl
-      get_prop_val
-      prop_has_qualifiers
-      get_qualifiers
-      get_prop_qualifier_val
-      get_val
+        get_lbl
+        get_prop
+        get_prop_id
+        get_prop_lbl
+        get_prop_val
+        prop_has_qualifiers
+        get_qualifiers
+        get_prop_qualifier_val
+        get_val
 
-      get_prop_t
-      get_prop_start_t
-      get_prop_end_t
-      format_t
-      get_formatted_prop_t
-      get_formatted_prop_start_t
-      get_formatted_prop_end_t
-      get_prop_timespan_intersection
-      get_formatted_prop_start_end_t
-      prop_start_end_to_timespan
-      get_prop_timespan
+        get_prop_t
+        get_prop_start_t
+        get_prop_end_t
+        format_t
+        get_formatted_prop_t
+        get_formatted_prop_start_t
+        get_formatted_prop_end_t
+        get_prop_timespan_intersection
+        get_formatted_prop_start_end_t
+        prop_start_end_to_timespan
+        get_prop_timespan
 
-      dir_to_topic_page
-      check_for_pid_sub_page
-      t_to_prop_val_dict
-      t_to_prop_val_dict_dict
+        dir_to_topic_page
+        check_for_pid_sub_page
+        t_to_prop_val_dict
+        t_to_prop_val_dict_dict
 
-  1. EntitiesDict
-      __init__
-      __repr__
-      __str__
-      key_lbls
-      _print
+    1. EntitiesDict
+        __init__
+        __repr__
+        __str__
+        key_lbls
+        _print
 """
 
 import numpy as np

@@ -6,8 +6,8 @@ Idealy a property would be created for this that would allow it to be traced ove
 
 Contents
 --------
-  0. No Class
-      query_prop_data
+    0. No Class
+        query_prop_data
 """
 
 from wikirepo.data import data_utils

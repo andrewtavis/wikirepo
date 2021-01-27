@@ -1,18 +1,18 @@
 """
-Utility functions for general operations and coloration
+Utility functions for general operations
 
 Contents
 --------
-  0. No Class
-      _make_var_list
-      _return_given_type
+    0. No Class
+        _make_var_list
+        _return_given_type
 
-      try_float
-      round_if_int
-      gen_list_of_lists
+        try_float
+        round_if_int
+        gen_list_of_lists
 
-      check_str_similarity
-      check_str_args
+        check_str_similarity
+        check_str_args
 """
 
 from difflib import SequenceMatcher

@@ -5,8 +5,8 @@ This property is used to derive abbreviations for country sub-regions
 
 Contents
 --------
-  0. No Class
-      query_prop_data
+    0. No Class
+        query_prop_data
 """
 
 from wikirepo.data import data_utils

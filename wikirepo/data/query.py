@@ -1,12 +1,12 @@
 """
-A function that calls and cobmines data from Wikidata
+A function that calls and combines data from Wikidata
 
 Note: the purpose of this module is for a wikirepo.data.query() function call
 
 Contents
 --------
-  0. No Class
-      query
+    0. No Class
+        query
 """
 
 from ast import literal_eval
