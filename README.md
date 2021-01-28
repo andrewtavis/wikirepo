@@ -31,11 +31,11 @@ import wikirepo
 
 # Data
 
-wikirepo's data structure is built around [Wikidata.org](https://www.wikidata.org/wiki/Wikidata:Main_Page). Human-readable access to Wikidata statistics is achieved through converting requests into Wikidata's Quantity IDs (QIDs) and Property IDs (PIDs), with the Python package [wikidata](https://github.com/dahlia/wikidata) serving as a basis for data loading and indexing.
+wikirepo's data structure is built around [Wikidata.org](https://www.wikidata.org/wiki/Wikidata:Main_Page). Human-readable access to Wikidata statistics is achieved through converting requests into Wikidata's Quantity IDs (QIDs) and Property IDs (PIDs), with the Python package [wikidata](https://github.com/dahlia/wikidata) serving as a basis for data loading and indexing. See the [documentation](https://wikirepo.readthedocs.io/en/latest/) for a structured overview of the currently available properties.
 
 ### Query Data
 
-wikirepo's main access function, [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py), returns a `pandas.DataFrame` of locations and property data across time. See the [documentation](https://wikirepo.readthedocs.io/en/latest/) for a structured overview of the currently available properties.
+wikirepo's main access function, [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py), returns a `pandas.DataFrame` of locations and property data across time.
 
 Each query needs the following inputs:
 
@@ -71,25 +71,37 @@ ents_dict = wd_utils.EntitiesDict()
 countries = ["Germany", "United States of America", "People's Republic of China"]
 # countries = ["Q183", "Q30", "Q148"] # we could also pass QIDs
 depth = 0
-timespan = (date(2009,1,1), date(2010,1,1))
-interval = 'yearly'
+timespan = (date(2009, 1, 1), date(2010, 1, 1))
+interval = "yearly"
 
-df = wikirepo.data.query(ents_dict=ents_dict,
-                         locations=countries, depth=depth,
-                         timespan=timespan, interval=interval,
-                         climate_props=None,
-                         demographic_props=['population', 'life_expectancy'],
-                         economic_props='median_income',
-                         electoral_poll_props=None,
-                         electoral_result_props=None,
-                         geographic_props=None,
-                         institutional_props='human_dev_idx',
-                         political_props='executive',
-                         misc_props=None,
-                         verbose=True)
+df = wikirepo.data.query(
+    ents_dict=ents_dict,
+    locations=countries,
+    depth=depth,
+    timespan=timespan,
+    interval=interval,
+    climate_props=None,
+    demographic_props=["population", "life_expectancy"],
+    economic_props="median_income",
+    electoral_poll_props=None,
+    electoral_result_props=None,
+    geographic_props=None,
+    institutional_props="human_dev_idx",
+    political_props="executive",
+    misc_props=None,
+    verbose=True,
+)
 
-col_order = ['location', 'qid', 'year', 'executive', 'population',
-             'life_exp', 'human_dev_idx', 'median_income']
+col_order = [
+    "location",
+    "qid",
+    "year",
+    "executive",
+    "population",
+    "life_exp",
+    "human_dev_idx",
+    "median_income",
+]
 df = df[col_order]
 
 df.head(6)
@@ -117,35 +129,41 @@ from datetime import date
 ents_dict = wd_utils.EntitiesDict()
 country = "United States of America"
 # country = "Q30" # we could also pass its QID
-depth = 2 # 2 for counties, 1 for states and territories
-sub_lctns = True # for all
+depth = 2  # 2 for counties, 1 for states and territories
+sub_lctns = True  # for all
 # Only valid sub-locations given the timespan will be queried
-timespan = (date(2016,1,1), date(2018,1,1))
-interval = 'yearly'
+timespan = (date(2016, 1, 1), date(2018, 1, 1))
+interval = "yearly"
 
-us_counties_dict = lctn_utils.gen_lctns_dict(ents_dict=ents_dict,
-                                             locations=country,
-                                             depth=depth,
-                                             sub_lctns=sub_lctns,
-                                             timespan=timespan,
-                                             interval=interval,
-                                             verbose=True)
+us_counties_dict = lctn_utils.gen_lctns_dict(
+    ents_dict=ents_dict,
+    locations=country,
+    depth=depth,
+    sub_lctns=sub_lctns,
+    timespan=timespan,
+    interval=interval,
+    verbose=True,
+)
 
-df = wikirepo.data.query(ents_dict=ents_dict,
-                         locations=us_counties_dict, depth=depth,
-                         timespan=timespan, interval=interval,
-                         climate_props=None,
-                         demographic_props='population',
-                         economic_props=None,
-                         electoral_poll_props=None,
-                         electoral_result_props=None,
-                         geographic_props='area',
-                         institutional_props='capital',
-                         political_props=None,
-                         misc_props=None,
-                         verbose=True)
+df = wikirepo.data.query(
+    ents_dict=ents_dict,
+    locations=us_counties_dict,
+    depth=depth,
+    timespan=timespan,
+    interval=interval,
+    climate_props=None,
+    demographic_props="population",
+    economic_props=None,
+    electoral_poll_props=None,
+    electoral_result_props=None,
+    geographic_props="area",
+    institutional_props="capital",
+    political_props=None,
+    misc_props=None,
+    verbose=True,
+)
 
-df[df['population'].notnull()].head(6)
+df[df["population"].notnull()].head(6)
 ```
 
 | location                 | sub_lctn   | sub_sub_lctn        | qid     |   year |       population |   area_km2 | capital      |
