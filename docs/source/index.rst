@@ -1,6 +1,5 @@
 .. image:: https://raw.githubusercontent.com/andrewtavis/wikirepo/main/resources/wikirepo_logo_transparent.png
-    :width: 568
-    :height: 342
+    :scale: 60 %
     :target: https://github.com/andrewtavis/wikirepo
 ============
 
