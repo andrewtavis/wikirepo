@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://github.com/andrewtavis/wikirepo"><img src="https://raw.githubusercontent.com/andrewtavis/wikirepo/master/resources/wikirepo_logo_transparent.png" width=60% height=60%></a>
+  <a href="https://github.com/andrewtavis/wikirepo"><img src="https://raw.githubusercontent.com/andrewtavis/wikirepo/master/resources/wikirepo_logo_transparent.png" width=506 height=304></a>
 </div>
 
 --------------------------------------
@@ -13,10 +13,12 @@
 [![license](https://img.shields.io/github/license/andrewtavis/wikirepo.svg)](https://github.com/andrewtavis/wikirepo/blob/main/LICENSE)
 [![codestyle](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![contributions](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/andrewtavis/wikirepo/blob/main/CONTRIBUTING.md)
+[![coc](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](https://github.com/andrewtavis/wikirepo/blob/main/.github/CODE_OF_CONDUCT.md)
 
 ### Python based Wikidata framework for easy dataframe extraction
 
-**Jump to:** [Data](#data) • [Maps (WIP)](#maps-wip) • [To-Do](#to-do)
+[//]: # "The '-' after the section links is needed to make them work on GH (because of ↩s)"
+**Jump to:**<a id="jumpto"></a> [Data](#data-) • [Maps (WIP)](#maps-wip-) • [To-Do](#to-do-)
 
 **wikirepo** is a Python package that provides a framework to easily source and leverage standardized [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) information. The goal is to create an intuitive interface so that Wikidata can function as a common read-write repository for public statistics.
 
@@ -29,7 +31,7 @@ pip install wikirepo
 import wikirepo
 ```
 
-# Data
+# Data [`↩`](#jumpto)
 
 wikirepo's data structure is built around [Wikidata.org](https://www.wikidata.org/wiki/Wikidata:Main_Page). Human-readable access to Wikidata statistics is achieved through converting requests into Wikidata's Quantity IDs (QIDs) and Property IDs (PIDs), with the Python package [wikidata](https://github.com/dahlia/wikidata) serving as a basis for data loading and indexing. See the [documentation](https://wikirepo.readthedocs.io/en/latest/) for a structured overview of the currently available properties.
 
@@ -239,7 +241,7 @@ wikirepo.data.upload(base_df, credentials)
 
 Put simply: a full featured [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py) function would realize the potential of a single read-write repository for all public information.
 
-# Maps (WIP)
+# Maps (WIP) [`↩`](#jumpto)
 
 [wikirepo/maps](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/maps) is a further goal of the project, as it combines wikirepo's focus on easy to access open source data and quick high level analytics.
 
@@ -251,7 +253,7 @@ As in [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wi
 
 Similar to the potential of adding statistics through [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py), GeoJSON map files could also be uploaded to Wikidata using appropriate arguments. The potential exists for a myriad of variable maps given `locations`, `depth`, `timespan` and `interval` information that would allow all wikirepo users to get the exact mapping file that they need for their given task.
 
-# To-Do
+# To-Do [`↩`](#jumpto)
 
 ### Expanding Wikidata
 

@@ -1,9 +1,11 @@
 .. image:: https://raw.githubusercontent.com/andrewtavis/wikirepo/main/resources/wikirepo_logo_transparent.png
-    :scale: 60 %
+    :width: 506
+    :height: 304
+    :align: center
     :target: https://github.com/andrewtavis/wikirepo
 ============
 
-|rtd| |travis| |codecov| |pyversions| |pypi| |pypistatus| |license| |codestyle| |contributions|
+|rtd| |travis| |codecov| |pyversions| |pypi| |pypistatus| |license| |codestyle| |contributions| |coc|
 
 .. |rtd| image:: https://img.shields.io/readthedocs/wikirepo.svg?logo=read-the-docs
     :target: http://wikirepo.readthedocs.io/en/latest/
@@ -31,6 +33,9 @@
 
 .. |contributions| image:: https://img.shields.io/badge/contributions-welcome-brightgreen.svg
     :target: https://github.com/andrewtavis/wikirepo/blob/main/CONTRIBUTING.md
+
+.. |coc| image:: https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg
+    :target: https://github.com/andrewtavis/wikirepo/blob/main/.github/CODE_OF_CONDUCT.md
 
 Python based Wikidata framework for easy dataframe extraction
 
