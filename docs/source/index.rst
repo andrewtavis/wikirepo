@@ -45,6 +45,12 @@ Installation
 
     pip install wikirepo
 
+.. code-block:: shell
+
+    git clone https://github.com/andrewtavis/wikirepo.git
+    cd wikirepo
+    python setup.py install
+
 .. code-block:: python
 
     import wikirepo
