@@ -5,21 +5,21 @@
     :target: https://github.com/andrewtavis/wikirepo
 ============
 
-|rtd| |travis| |codecov| |pyversions| |pypi| |pypistatus| |license| |codestyle| |contributions| |coc|
+|rtd| |ci| |codecov| |pyversions| |pypi| |pypistatus| |license| |contributions| |coc| |codestyle|
 
 .. |rtd| image:: https://img.shields.io/readthedocs/wikirepo.svg?logo=read-the-docs
     :target: http://wikirepo.readthedocs.io/en/latest/
 
-.. |travis| image:: https://img.shields.io/travis/andrewtavis/wikirepo.svg?logo=travis-ci
-    :target: https://travis-ci.org/andrewtavis/wikirepo
+.. |ci| image:: https://img.shields.io/github/workflow/status/andrewtavis/wikirepo/CI?logo=github
+    :target: https://github.com/andrewtavis/wikirepo/actions?query=workflow%3ACI
 
-.. |codecov| image:: https://codecov.io/gh/andrewtavis/wikirepo/branch/master/graphs/badge.svg
+.. |codecov| image:: https://codecov.io/gh/andrewtavis/wikirepo/branch/main/graphs/badge.svg
     :target: https://codecov.io/gh/andrewtavis/wikirepo
 
-.. |pyversions| image:: https://img.shields.io/pypi/pyversions/wikirepo.svg?logo=python
+.. |pyversions| image:: https://img.shields.io/pypi/pyversions/wikirepo.svg?logo=python&logoColor=FFD43B&color=306998
     :target: https://pypi.org/project/wikirepo/
 
-.. |pypi| image:: https://badge.fury.io/py/wikirepo.svg
+.. |pypi| image:: https://img.shields.io/pypi/v/wikirepo.svg?color=4B8BBE
     :target: https://pypi.org/project/wikirepo/
 
 .. |pypistatus| image:: https://img.shields.io/pypi/status/wikirepo.svg
@@ -28,14 +28,14 @@
 .. |license| image:: https://img.shields.io/github/license/andrewtavis/wikirepo.svg
     :target: https://github.com/andrewtavis/wikirepo/blob/main/LICENSE
 
+.. |contributions| image:: https://img.shields.io/badge/contributions-welcome-brightgreen.svg
+    :target: https://github.com/andrewtavis/wikirepo/blob/main/.github/CONTRIBUTING.md
+
+.. |coc| image:: https://img.shields.io/badge/coc-contributor%20convent-ff69b4.svg
+    :target: https://github.com/andrewtavis/wikirepo/blob/main/.github/CODE_OF_CONDUCT.md
+
 .. |codestyle| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
-
-.. |contributions| image:: https://img.shields.io/badge/contributions-welcome-brightgreen.svg
-    :target: https://github.com/andrewtavis/wikirepo/blob/main/CONTRIBUTING.md
-
-.. |coc| image:: https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg
-    :target: https://github.com/andrewtavis/wikirepo/blob/main/.github/CODE_OF_CONDUCT.md
 
 Python based Wikidata framework for easy dataframe extraction
 

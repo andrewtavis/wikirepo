@@ -1,11 +1,8 @@
-# This file may be used to create an environment using:
-# conda env create -f environment.yml
 name: wikirepo-dev
 channels:
   - anaconda
   - conda-forge
   - defaults
-
 dependencies:
   - appdirs=1.4.4
   - attrs=20.3.0

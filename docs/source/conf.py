@@ -122,13 +122,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (
-        master_doc,
-        "wikirepo.tex",
-        "wikirepo Documentation",
-        "andrewtavis",
-        "manual",
-    )
+    (master_doc, "wikirepo.tex", "wikirepo Documentation", "andrewtavis", "manual",)
 ]
 
 
@@ -151,7 +145,7 @@ texinfo_documents = [
         "wikirepo Documentation",
         author,
         "wikirepo",
-        "Political elections, appointment, analysis and visualization in Python",
+        "Python based Wikidata framework for easy dataframe extraction",
         "Miscellaneous",
     )
 ]

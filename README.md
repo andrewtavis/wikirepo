@@ -5,15 +5,15 @@
 --------------------------------------
 
 [![rtd](https://img.shields.io/readthedocs/wikirepo.svg?logo=read-the-docs)](http://wikirepo.readthedocs.io/en/latest/)
-[![travis](https://img.shields.io/travis/andrewtavis/wikirepo.svg?logo=travis-ci)](https://travis-ci.org/andrewtavis/wikirepo)
-[![codecov](https://codecov.io/gh/andrewtavis/wikirepo/branch/master/graphs/badge.svg)](https://codecov.io/gh/andrewtavis/wikirepo)
-[![pyversions](https://img.shields.io/pypi/pyversions/wikirepo.svg?logo=python)](https://pypi.org/project/wikirepo/)
-[![pypi](https://img.shields.io/pypi/v/wikirepo.svg)](https://pypi.org/project/wikirepo/)
+[![ci](https://img.shields.io/github/workflow/status/andrewtavis/wikirepo/CI?logo=github)](https://github.com/andrewtavis/wikirepo/actions?query=workflow%3ACI)
+[![codecov](https://codecov.io/gh/andrewtavis/wikirepo/branch/main/graphs/badge.svg)](https://codecov.io/gh/andrewtavis/wikirepo)
+[![pyversions](https://img.shields.io/pypi/pyversions/wikirepo.svg?logo=python&logoColor=FFD43B&color=306998)](https://pypi.org/project/wikirepo/)
+[![pypi](https://img.shields.io/pypi/v/wikirepo.svg?color=4B8BBE)](https://pypi.org/project/wikirepo/)
 [![pypistatus](https://img.shields.io/pypi/status/wikirepo.svg)](https://pypi.org/project/wikirepo/)
 [![license](https://img.shields.io/github/license/andrewtavis/wikirepo.svg)](https://github.com/andrewtavis/wikirepo/blob/main/LICENSE)
+[![contributions](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/andrewtavis/wikirepo/blob/main/.github/CONTRIBUTING.md)
+[![coc](https://img.shields.io/badge/coc-contributor%20convent-ff69b4.svg)](https://github.com/andrewtavis/wikirepo/blob/main/.github/CODE_OF_CONDUCT.md)
 [![codestyle](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![contributions](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/andrewtavis/wikirepo/blob/main/CONTRIBUTING.md)
-[![coc](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](https://github.com/andrewtavis/wikirepo/blob/main/.github/CODE_OF_CONDUCT.md)
 
 ### Python based Wikidata framework for easy dataframe extraction
 
