@@ -31,4 +31,5 @@ wikirepo-dev
 
 # Testing files
 ###############
+.coverage
 _*.ipynb
