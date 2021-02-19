@@ -40,6 +40,13 @@ def truncate_date(d, interval=None):
     """
     Truncates a date object given an interval
     """
+    assert type(interval) == str or interval == None, (
+        "'interval' argument must be None or one of ".join(i for i in incl_intervals())
+        + "."
+    )
+    if interval != None:
+        interval = interval.lower()
+
     if interval is not None:
         if type(d) != str:  # hasn't been formatted already
             if type(d) == tuple:
@@ -89,13 +96,18 @@ def make_timespan(timespan=None, interval=None):
     Parameters
     ----------
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
+
             A tuple or list that defines the start and end dates to be queried
+
             Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried
+
             Note 2: passing a single entry will query for that date only
 
         interval : str
             The time interval over which queries will be made
+
             Note 1: see data.time_utils for options
+
             Note 2: if None, then only the most recent data will be queried
 
     Returns
@@ -111,12 +123,13 @@ def make_timespan(timespan=None, interval=None):
 
     if timespan == None:
         timespan = (date.today(), date.today())
-    if timespan == True:
+
+    elif timespan == True:
         timespan = (date.min, date.today())
-    elif len(timespan) == 1:
-        timespan = (timespan[0], timespan[0])
+
     elif type(timespan) == date:
         timespan = (timespan, timespan)
+
     elif timespan[0] > timespan[1]:
         timespan = (timespan[1], timespan[0])
         order = (
@@ -154,6 +167,14 @@ def make_timespan(timespan=None, interval=None):
         return [dt.date() for dt in rrule(DAILY, dtstart=start_dt, until=end_dt)][
             ::order
         ]
+
+    else:
+        ValueError(
+            "An invalid value was passed to the 'interval' argument. Please choose one of ".join(
+                i for i in incl_intervals()
+            )
+            + "."
+        )
 
 
 def latest_date(timespan):

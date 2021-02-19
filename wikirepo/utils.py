@@ -109,7 +109,7 @@ def check_str_args(arguments, valid_args):
                 print(item)
 
             raise ValueError(
-                "An invalid string has been passed to the 'locations' argument. Please check that all match their corresponding page names on Wikidata."
+                "An invalid string has been passed to the. Please check that all match their corresponding page names on Wikidata."
             )
 
     elif type(arguments) == list:
