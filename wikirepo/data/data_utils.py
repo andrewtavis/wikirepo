@@ -62,9 +62,13 @@ def _get_dir_fxns_dict(dir_name=None):
 
     try:
         import_path = (
+            "wikirepo." + target_directory.split("wikirepo/")[3].replace("/", ".") + "."
+        )
+    except IndexError:
+        import_path = (
             "wikirepo." + target_directory.split("wikirepo/")[2].replace("/", ".") + "."
         )
-    except:
+    except IndexError:
         import_path = (
             "wikirepo." + target_directory.split("wikirepo/")[1].replace("/", ".") + "."
         )
