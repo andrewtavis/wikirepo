@@ -56,9 +56,12 @@ def _get_dir_fxns_dict(dir_name=None):
             A dictionary with keys being module names and contents being dictionaries of standardized indexes and functions
     """
     data_directory = os.path.dirname(os.path.abspath(__file__))
+    print(data_directory)
     target_directory = data_directory + "/" + dir_name
+    print(target_directory)
     modules = os.listdir(target_directory)
     target_modules = [m[:-3] for m in modules if (m[: len("__")] != "__")]
+    print(target_modules)
 
     try:
         import_path = (

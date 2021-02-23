@@ -71,6 +71,35 @@ df = wikirepo.data.query(
     verbose=True,
 )
 
+entities_dict_bundeslands = wd_utils.EntitiesDict()
+depth = 1
+sub_lctns = True
+bundeslands_dict = lctn_utils.gen_lctns_dict(
+    ents_dict=entities_dict_bundeslands,
+    depth=depth,
+    locations=countries,
+    sub_lctns=sub_lctns,
+    timespan=timespan,
+    interval=interval,
+    verbose=True,
+)
+df_bundeslands = wikirepo.data.query(
+    ents_dict=entities_dict_bundeslands,
+    locations=bundeslands_dict,
+    depth=depth,
+    timespan=timespan,
+    interval=interval,
+    demographic_props="population",
+    economic_props=False,
+    electoral_poll_props=False,
+    electoral_result_props=False,
+    geographic_props=False,
+    institutional_props="capital",
+    political_props=False,
+    misc_props="sub_country_abbr",
+    verbose=True,
+)
+
 
 @pytest.fixture(params=[entities_dict])
 def ents_dict(request):
