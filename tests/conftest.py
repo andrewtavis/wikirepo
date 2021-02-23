@@ -3,7 +3,10 @@ Fixtures
 --------
 """
 
+from datetime import date
 import pytest
+
+import wikirepo
 
 from wikirepo import utils
 from wikirepo.data import data_utils
@@ -45,6 +48,50 @@ from wikirepo.data.misc import sub_country_abbr
 from wikirepo.data.political import executive
 
 
-@pytest.fixture(params=[[]])
-def fixture_name(request):
+entities_dict = wd_utils.EntitiesDict()
+countries = ["Germany"]
+depth = 0
+timespan = (date(2009, 1, 1), date(2010, 1, 1))
+interval = "yearly"
+
+df = wikirepo.data.query(
+    ents_dict=entities_dict,
+    locations=countries,
+    depth=depth,
+    timespan=timespan,
+    interval=interval,
+    demographic_props="population",
+    economic_props="total_reserves",
+    electoral_poll_props=False,
+    electoral_result_props=False,
+    geographic_props="continent",
+    institutional_props="capital",
+    political_props="executive",
+    misc_props="country_abbr",
+    verbose=True,
+)
+
+
+@pytest.fixture(params=[entities_dict])
+def ents_dict(request):
+    return request.param
+
+
+@pytest.fixture(params=[df])
+def df(request):
+    return request.param
+
+
+@pytest.fixture(params=["Q183"])
+def qid(request):
+    return request.param
+
+
+@pytest.fixture(params=["P1082"])
+def pop_pid(request):
+    return request.param
+
+
+@pytest.fixture(params=["P6"])
+def exec_pid(request):
     return request.param

@@ -5,8 +5,8 @@ Wiki Data Utilities
 Utility functions for accessing and storing Wikidata information
 
 Contents
-    check_in_ents_dict,
     load_ent,
+    check_in_ents_dict,
     is_wd_id,
     prop_has_many_entries,
     get_lbl,
@@ -54,14 +54,6 @@ from wikirepo.data import time_utils
 client = Client()
 
 
-def check_in_ents_dict(ents_dict, qid):
-    """
-    Checks an the provided entity dictionary and adds to it if not present
-    """
-    if ents_dict is not None and qid not in ents_dict.keys():
-        ents_dict[qid] = client.get(qid, load=True).data
-
-
 def load_ent(ents_dict, pq_id):
     """
     Loads an entity
@@ -73,6 +65,14 @@ def load_ent(ents_dict, pq_id):
 
     else:
         return client.get(pq_id, load=True).data
+
+
+def check_in_ents_dict(ents_dict, qid):
+    """
+    Checks an the provided entity dictionary and adds to it if not present
+    """
+    if ents_dict is not None and qid not in ents_dict.keys():
+        ents_dict[qid] = client.get(qid, load=True).data
 
 
 def is_wd_id(var):
