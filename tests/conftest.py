@@ -54,6 +54,7 @@ depth = 0
 timespan = (date(2009, 1, 1), date(2010, 1, 1))
 interval = "yearly"
 
+# Test of values for a given timespan
 df = wikirepo.data.query(
     ents_dict=entities_dict,
     locations=countries,
@@ -94,6 +95,48 @@ df = wikirepo.data.query(
     verbose=True,
 )
 
+# Test of most recent values
+df = wikirepo.data.query(
+    ents_dict=entities_dict,
+    locations=countries,
+    depth=depth,
+    timespan=None,
+    interval=None,
+    demographic_props=[
+        "ethnic_div",
+        "life_expectancy",
+        "literacy",
+        "out_of_school_children",
+        "population",
+    ],
+    economic_props=[
+        "gdp_ppp",
+        "gini",
+        "inflation_rate",
+        "median_income",
+        "nom_gdp_per_cap",
+        "nom_gdp",
+        "ppp_gdp_per_cap",
+        "total_reserves",
+        "unemployment",
+    ],
+    electoral_poll_props=False,
+    electoral_result_props=False,
+    geographic_props=["area", "continent", "country",],
+    institutional_props=[
+        "bti_gov_idx",
+        "bti_status_idx",
+        "capital",
+        "fh_category",
+        "human_dev_idx",
+        "org_membership",
+    ],
+    political_props="executive",
+    misc_props="country_abbr",
+    verbose=True,
+)
+df = data_utils.split_col_val_dates(df, col="population")
+
 entities_dict_bundeslands = wd_utils.EntitiesDict()
 depth = 1
 sub_lctns = True
@@ -129,7 +172,12 @@ def ents_dict(request):
     return request.param
 
 
-@pytest.fixture(params=[df])
+@pytest.fixture(params=[bundeslands_dict])
+def lctns_dict(request):
+    return request.param
+
+
+@pytest.fixture(params=[df_bundeslands])
 def df(request):
     return request.param
 
