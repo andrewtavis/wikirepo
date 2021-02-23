@@ -1,3 +1,20 @@
+### wikirepo 0.1.0 (Feb 23, 2021)
+
+First stable release of wikirepo
+
+Additions include:
+
+- Full documentation of the package
+
+- Virtual environment files
+
+- Bug fixes
+
+- Extensive testing of all modules with GH Actions and Codecov
+
+- Code of conduct and contribution guidelines
+
+
 ### wikirepo 0.0.2 (Dec 8, 2020)
 
 The minimum viable product of wikirepo:
