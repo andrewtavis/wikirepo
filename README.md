@@ -24,7 +24,7 @@
 
 # Installation
 
-wikirepo can be downloaded from pypi via pip our sourced directly from this repository:
+wikirepo can be downloaded from pypi via pip or sourced directly from this repository:
 
 ```bash
 pip install wikirepo
@@ -297,7 +297,7 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 - Testing for wikirepo
 - A read the docs page
 
-# Similar Packages
+# Similar Projects
 <details><summary><strong>Python<strong></summary>
 <p>
 
