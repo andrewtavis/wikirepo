@@ -20,7 +20,7 @@ import wikirepo
 # -- Project information -----------------------------------------------------
 
 project = "wikirepo"
-copyright = "2021, wikirepo developers (BSD License)"
+copyright = "2020-2021, wikirepo developers (BSD License)"
 author = "wikirepo developers"
 
 # The full version, including alpha/beta/rc tags

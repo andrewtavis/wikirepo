@@ -108,9 +108,7 @@ def check_str_args(arguments, valid_args):
             for item in ordered_suggestions[:5]:
                 print(item)
 
-            raise ValueError(
-                "An invalid string has been passed to the. Please check that all match their corresponding page names on Wikidata."
-            )
+            raise ValueError("An invalid string has been passed.")
 
     elif type(arguments) == list:
         # Check arguments, and remove them if they're invalid
