@@ -52,6 +52,7 @@ Each query needs the following inputs:
 
 - **locations**: the locations that data should be queried for
     - Strings are accepted for `Earth`, continents, and countries
+    - All countries is possible through `wikirepo.data.incl_lctn_lbls(lctn_lvls='country')`
     - The user can also pass Wikidata QIDs directly
 - **depth**: the geographic level of the given locations to query
     - A depth of 0 is the locations themselves
@@ -81,6 +82,7 @@ ents_dict = wd_utils.EntitiesDict()
 # Strings must match their Wikidata English page names
 countries = ["Germany", "United States of America", "People's Republic of China"]
 # countries = ["Q183", "Q30", "Q148"] # we could also pass QIDs
+# data.incl_lctn_lbls(lctn_lvls='country') # or all countries`
 depth = 0
 timespan = (date(2009, 1, 1), date(2010, 1, 1))
 interval = "yearly"

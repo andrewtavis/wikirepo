@@ -932,7 +932,7 @@ def gen_lctns_dict(
                         ents_dict=ents_dict,
                         qid=qid,
                         pid=pid,
-                        exrta_msg=" to derive sub_lctns",
+                        extra_msg=" to derive sub_lctns",
                     )
                     subs_info = {}
 
@@ -986,7 +986,7 @@ def gen_lctns_dict(
                         ents_dict=ents_dict,
                         qid=qid,
                         pid=pid,
-                        exrta_msg=" to derive sub_lctns",
+                        extra_msg=" to derive sub_lctns",
                     )
                     subs_info = {}
 

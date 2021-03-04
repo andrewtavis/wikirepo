@@ -99,12 +99,12 @@ def prop_has_many_entries(prop_ent):
         return False
 
 
-def print_not_available(ents_dict=None, qid=None, pid=None, exrta_msg=""):
+def print_not_available(ents_dict=None, qid=None, pid=None, extra_msg=""):
     """
     Notify the user that a given property is not available for a given subject
     """
     print(
-        f"{get_lbl(ents_dict, qid)} '{qid}' currently does not have the '{get_lbl(ents_dict, pid)}' property '{pid}'{exrta_msg}."
+        f"{get_lbl(ents_dict, qid)} '{qid}' currently does not have the '{get_lbl(ents_dict, pid)}' property '{pid}'{extra_msg}."
     )
 
 
@@ -495,7 +495,7 @@ def check_for_pid_topic_page(
         qid = topic_qid
 
     else:
-        print_not_available(ents_dict=ents_dict, qid=qid, pid=pid, exrta_msg="")
+        print_not_available(ents_dict=ents_dict, qid=qid, pid=pid, extra_msg="")
         # Assign no date for on interval or the most recent time in the timespan with np.nan as a placeholder
         if interval == None and timespan == None:
             if vd_or_vdd == "vd":
