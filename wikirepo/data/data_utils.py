@@ -924,8 +924,7 @@ def query_repo_dir(
     ]
 
     df_data = None
-    disable = not verbose
-    for mod in tqdm(modules_to_query, desc=dir_name.capitalize(), disable=disable):
+    for mod in tqdm(modules_to_query, desc=dir_name.capitalize(), disable=not verbose):
         module_fxns = _get_dir_fxns_dict(dir_name)[mod]
         query_fxn = [
             f for f in list(module_fxns.keys()) if f[: len("query_")] == "query_"

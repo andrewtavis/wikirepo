@@ -145,9 +145,8 @@ def query(
     if type(locations) == str:
         locations = [locations]
 
-    disable = not verbose
     for arg in tqdm(
-        query_args, desc="Directories queried", unit="dir", disable=disable
+        query_args, desc="Directories queried", unit="dir", disable=not verbose
     ):
         sub_directory = arg[: -len("_props")]
 

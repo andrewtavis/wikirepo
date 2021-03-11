@@ -866,8 +866,9 @@ def gen_lctns_dict(
         def get_first_iter_dict(ents_dict, lctns_dict, qid):
             lctns_dict[qid] = {"lbl": wd_utils.get_lbl(ents_dict, qid)}
 
-        disable = not verbose
-        for q in tqdm(qids, desc="Depth 0 derived", total=len(qids), disable=disable):
+        for q in tqdm(
+            qids, desc="Depth 0 derived", total=len(qids), disable=not verbose
+        ):
             get_first_iter_dict(ents_dict, lctns_dict, q)
 
     def assign_another_iteration(
@@ -889,7 +890,6 @@ def gen_lctns_dict(
 
         depth_keys = get_qids_at_depth(lctns_dict=lctns_dict, depth=current_depth)
 
-        disable = not verbose
         if interval == None:
             # Assuming that the user wants the current sub-locations
             def get_most_frequent_dict(ents_dict, lctns_dict, qid, pid):
@@ -944,7 +944,7 @@ def gen_lctns_dict(
                 depth_keys,
                 desc=f"Depth {current_depth + 1} derived",
                 total=len(depth_keys),
-                disable=disable,
+                disable=not verbose,
             ):
                 get_most_frequent_dict(ents_dict, lctns_dict, q, pid)
 
@@ -998,7 +998,7 @@ def gen_lctns_dict(
                 depth_keys,
                 desc=f"Depth {current_depth + 1} derived",
                 total=len(depth_keys),
-                disable=disable,
+                disable=not verbose,
             ):
                 get_valid_timespan_dict(ents_dict, lctns_dict, q, pid)
 
