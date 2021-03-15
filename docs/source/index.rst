@@ -26,10 +26,7 @@
     :target: https://pypi.org/project/wikirepo/
 
 .. |license| image:: https://img.shields.io/github/license/andrewtavis/wikirepo.svg
-    :target: https://github.com/andrewtavis/wikirepo/blob/main/LICENSE
-
-.. |contributions| image:: https://img.shields.io/badge/contributions-welcome-brightgreen.svg
-    :target: https://github.com/andrewtavis/wikirepo/blob/main/.github/CONTRIBUTING.md
+    :target: https://github.com/andrewtavis/wikirepo/blob/main/LICENSE.txt
 
 .. |coc| image:: https://img.shields.io/badge/coc-Contributor%20Covenant-ff69b4.svg
     :target: https://github.com/andrewtavis/wikirepo/blob/main/.github/CODE_OF_CONDUCT.md

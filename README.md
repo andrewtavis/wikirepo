@@ -10,8 +10,7 @@
 [![pyversions](https://img.shields.io/pypi/pyversions/wikirepo.svg?logo=python&logoColor=FFD43B&color=306998)](https://pypi.org/project/wikirepo/)
 [![pypi](https://img.shields.io/pypi/v/wikirepo.svg?color=4B8BBE)](https://pypi.org/project/wikirepo/)
 [![pypistatus](https://img.shields.io/pypi/status/wikirepo.svg)](https://pypi.org/project/wikirepo/)
-[![license](https://img.shields.io/github/license/andrewtavis/wikirepo.svg)](https://github.com/andrewtavis/wikirepo/blob/main/LICENSE)
-[![contributions](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/andrewtavis/wikirepo/blob/main/.github/CONTRIBUTING.md)
+[![license](https://img.shields.io/github/license/andrewtavis/wikirepo.svg)](https://github.com/andrewtavis/wikirepo/blob/main/LICENSE.txt)
 [![coc](https://img.shields.io/badge/coc-Contributor%20Covenant-ff69b4.svg)](https://github.com/andrewtavis/wikirepo/blob/main/.github/CODE_OF_CONDUCT.md)
 [![codestyle](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
