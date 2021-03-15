@@ -5,7 +5,7 @@
     :target: https://github.com/andrewtavis/wikirepo
 ============
 
-|rtd| |ci| |codecov| |pyversions| |pypi| |pypistatus| |license| |contributions| |coc| |codestyle|
+|rtd| |ci| |codecov| |pyversions| |pypi| |pypistatus| |license| |coc| |codestyle|
 
 .. |rtd| image:: https://img.shields.io/readthedocs/wikirepo.svg?logo=read-the-docs
     :target: http://wikirepo.readthedocs.io/en/latest/
