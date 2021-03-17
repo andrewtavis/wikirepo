@@ -22,7 +22,7 @@
 
 # Installation
 
-wikirepo can be downloaded from pypi via pip or sourced directly from this repository:
+wikirepo can be downloaded from PyPI via pip or sourced directly from this repository:
 
 ```bash
 pip install wikirepo
