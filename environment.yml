@@ -7,27 +7,37 @@ dependencies:
   - appdirs=1.4.4
   - appnope=0.1.2
   - argon2-cffi=20.1.0
+  - astroid=2.5
   - async_generator=1.10
   - attrs=20.3.0
   - backcall=0.2.0
   - black=19.10b0
   - blas=1.0
   - bleach=3.3.0
+  - brotlipy=0.7.0
   - ca-certificates=2021.1.19
   - certifi=2020.12.5
   - cffi=1.14.5
   - click=7.1.2
-  - coverage=5.4
+  - cmarkgfm=0.4.2
+  - colorama=0.4.4
+  - coverage=5.5
+  - cryptography=3.4.6
   - cycler=0.10.0
   - decorator=4.4.2
-  - defusedxml=0.6.0
+  - defusedxml=0.7.1
+  - docutils=0.16
   - freetype=2.10.4
+  - future=0.18.2
+  - idna=2.10
   - importlib-metadata=2.0.0
   - importlib_metadata=2.0.0
   - iniconfig=1.1.1
   - intel-openmp=2019.4
   - ipykernel=5.3.4
   - ipython_genutils=0.2.0
+  - ipywidgets=7.6.3
+  - isort=5.7.0
   - jedi=0.17.2
   - jinja2=2.11.3
   - jpeg=9b
@@ -35,7 +45,10 @@ dependencies:
   - jupyter_client=6.1.7
   - jupyter_core=4.7.1
   - jupyterlab_pygments=0.1.2
+  - jupyterlab_widgets=1.0.0
+  - keyring=22.3.0
   - kiwisolver=1.3.1
+  - lazy-object-proxy=1.5.2
   - lcms2=2.11
   - libcxx=10.0.0
   - libedit=3.1.20191231
@@ -48,6 +61,7 @@ dependencies:
   - markupsafe=1.1.1
   - matplotlib=3.3.2
   - matplotlib-base=3.3.2
+  - mccabe=0.6.1
   - mistune=0.8.4
   - mkl=2019.4
   - mkl-service=2.3.0
@@ -59,21 +73,21 @@ dependencies:
   - nbconvert=6.0.7
   - nbformat=5.1.2
   - ncurses=6.2
+  - nest-asyncio=1.5.1
   - notebook=6.2.0
   - numpy=1.19.2
   - numpy-base=1.19.2
   - olefile=0.46
-  - openssl=1.1.1i
+  - openssl=1.1.1j
   - packaging=20.9
-  - pandas=1.2.1
-  - pandoc=2.11
+  - pandoc=2.12
   - pandocfilters=1.4.3
   - parso=0.7.0
   - pathspec=0.7.0
   - patsy=0.5.1
   - pexpect=4.8.0
   - pickleshare=0.7.5
-  - pillow=8.1.0
+  - pillow=8.1.2
   - pip=20.3.3
   - pluggy=0.13.1
   - prometheus_client=0.9.0
@@ -81,9 +95,12 @@ dependencies:
   - ptyprocess=0.7.0
   - py=1.10.0
   - pycparser=2.20
-  - pygments=2.7.4
+  - pygments=2.8.1
+  - pylint=2.6.0
+  - pyopenssl=20.0.1
   - pyparsing=2.4.7
   - pyrsistent=0.17.3
+  - pysocks=1.7.1
   - pytest=6.2.2
   - pytest-cov=2.11.1
   - python=3.7.9
@@ -92,7 +109,12 @@ dependencies:
   - pytz=2021.1
   - pyzmq=20.0.0
   - readline=8.1
+  - readme_renderer=24.0
   - regex=2020.11.13
+  - requests=2.25.1
+  - requests-toolbelt=0.9.1
+  - rfc3986=1.4.0
+  - rope=0.18.0
   - scipy=1.5.2
   - seaborn=0.11.1
   - seaborn-base=0.11.1
@@ -100,25 +122,51 @@ dependencies:
   - setuptools=52.0.0
   - six=1.15.0
   - sqlite=3.33.0
-  - statsmodels=0.12.0
+  - statsmodels=0.12.2
   - testpath=0.4.4
   - tk=8.6.10
   - toml=0.10.1
   - tornado=6.1
   - tqdm=4.56.0
   - traitlets=5.0.5
+  - twine=3.3.0
   - typed-ast=1.4.2
   - typing_extensions=3.7.4.3
+  - urllib3=1.26.4
   - wcwidth=0.2.5
   - webencodings=0.5.1
   - wheel=0.36.2
+  - widgetsnbextension=3.5.1
+  - wrapt=1.12.1
   - xz=5.2.5
-  - zeromq=4.3.3
+  - zeromq=4.3.4
   - zipp=3.4.0
   - zlib=1.2.11
   - zstd=1.4.5
   - pip:
+    - aiohttp==3.7.3
+    - aiohttp-cors==0.7.0
+    - aioredis==1.3.1
+    - alabaster==0.7.12
+    - async-timeout==3.0.1
+    - babel==2.9.0
+    - blessings==1.7
+    - cachetools==4.2.1
+    - chardet==3.0.4
+    - cloudpickle==1.6.0
+    - colorful==0.5.4
+    - dask==2.19.0
+    - distributed==2.19.0
     - entrypoints==0.3
+    - filelock==3.0.12
+    - google-api-core==1.26.0
+    - google-auth==1.27.0
+    - googleapis-common-protos==1.52.0
+    - gpustat==0.6.0
+    - grpcio==1.35.0
+    - heapdict==1.0.1
+    - hiredis==1.1.0
+    - imagesize==1.2.0
     - ipython==7.10.0
     - jupyter-contrib-core==0.3.3
     - jupyter-contrib-nbextensions==0.5.1
@@ -126,8 +174,39 @@ dependencies:
     - jupyter-latex-envs==1.4.6
     - jupyter-nbextensions-configurator==0.4.1
     - lxml==4.6.2
+    - modin==0.8.3
+    - msgpack==1.0.2
+    - multidict==5.1.0
     - nbclient==0.5.2
-    - nest-asyncio==1.5.1
+    - nvidia-ml-py3==7.352.0
+    - opencensus==0.7.12
+    - opencensus-context==0.1.2
+    - pandas==1.1.5
+    - pkginfo==1.7.0
+    - protobuf==3.15.1
+    - psutil==5.8.0
+    - py-spy==0.3.4
+    - pyarrow==1.0.0
+    - pyasn1==0.4.8
+    - pyasn1-modules==0.2.8
     - pyyaml==5.4.1
+    - ray==1.2.0
+    - redis==3.5.3
+    - rsa==4.7.1
+    - snowballstemmer==2.1.0
+    - sortedcontainers==2.3.0
+    - sphinx==3.5.1
+    - sphinx-rtd-theme==0.5.1
+    - sphinxcontrib-applehelp==1.0.2
+    - sphinxcontrib-devhelp==1.0.2
+    - sphinxcontrib-htmlhelp==1.0.3
+    - sphinxcontrib-jsmath==1.0.1
+    - sphinxcontrib-qthelp==1.0.3
+    - sphinxcontrib-serializinghtml==1.1.4
+    - tblib==1.7.0
     - terminado==0.9.2
+    - toolz==0.11.1
     - wikidata==0.7.0
+    - wikirepo==0.1.0
+    - yarl==1.6.3
+    - zict==2.0.0
