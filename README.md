@@ -100,6 +100,7 @@ df = wikirepo.data.query(
     geographic_props=None,
     institutional_props="human_dev_idx",
     political_props="executive",
+    misc_props=None,
     verbose=True,
 )
 
@@ -170,6 +171,7 @@ df = wikirepo.data.query(
     geographic_props="area",
     institutional_props="capital",
     political_props=None,
+    misc_props=None,
     verbose=True,
 )
 
