@@ -2,14 +2,16 @@ try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
-from setuptools import find_namespace_packages
+from setuptools import find_packages
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup_args = dict(
     name="wikirepo",
-    version="0.1.1.2",
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
+    version="0.1.1.3",
     author="Andrew Tavis McAllister",
     author_email="andrew.t.mcallister@gmail.com",
     classifiers=[
@@ -28,7 +30,6 @@ setup_args = dict(
     description="Python based Wikidata framework for easy dataframe extraction",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    packages=find_namespace_packages(),
     license="new BSD",
     url="https://github.com/andrewtavis/wikirepo",
 )

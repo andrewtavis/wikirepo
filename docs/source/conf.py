@@ -24,7 +24,7 @@ copyright = "2020-2021, wikirepo developers (BSD License)"
 author = "wikirepo developers"
 
 # The full version, including alpha/beta/rc tags
-release = "0.1.1.2"
+release = "0.1.1.3"
 
 
 # -- General configuration ---------------------------------------------------
