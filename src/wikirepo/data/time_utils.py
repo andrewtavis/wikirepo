@@ -44,14 +44,14 @@ def truncate_date(d, interval=None):
         "'interval' argument must be None or one of ".join(i for i in incl_intervals())
         + "."
     )
-    if interval != None:
-        interval = interval.lower()
 
     if interval is not None:
         if type(d) != str:  # hasn't been formatted already
             if type(d) == tuple:
                 d = datetime.strptime(f"{d[0]}-{d[1]}-{d[2]}", "%Y-%m-%d").date()
 
+            interval = interval.lower()
+            
             if interval == "yearly":
                 return d.strftime("%Y")
 
