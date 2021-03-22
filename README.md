@@ -17,7 +17,7 @@
 
 ### Python based Wikidata framework for easy dataframe extraction
 
-**Contents:**<a id="contents"></a> [Data](#data) • [Maps (WIP)](#maps-wip) • [To-Do](#to-do)
+**Contents:**<a id="contents"></a> [Data](#data) • [Maps (WIP)](#maps-wip) • [Examples](#examples) • [To-Do](#to-do)
 
 **wikirepo** is a Python package that provides a framework to easily source and leverage standardized [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) information. The goal is to create an intuitive interface so that Wikidata can function as a common read-write repository for public statistics.
 
@@ -262,6 +262,15 @@ As in [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wi
 ### Upload Maps
 
 Similar to the potential of adding statistics through [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/upload.py), GeoJSON map files could also be uploaded to Wikidata using appropriate arguments. The potential exists for a myriad of variable maps given `locations`, `depth`, `timespan` and `interval` information that would allow all wikirepo users to get the exact mapping file that they need for their given task.
+
+# Examples [`↩`](#contents) <a id="examples"></a>
+
+wikirepo can be used as a foundation for countless projects, with its usefulness and practicality only improving as more properties are added and more data is uploaded to [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page).
+
+Current usage examples include:
+
+- The Python package [poli-sci-kit](https://github.com/andrewtavis/poli-sci-kit) includes examples of how to use wikirepo as a basis for political election and parliamentary appointment analysis. Those examples can be found in the [examples for poli-sci-kit](https://github.com/andrewtavis/poli-sci-kit/tree/main/examples) or on [Google Colab](https://colab.research.google.com/github/andrewtavis/poli-sci-kit).
+- Pull requests with other examples will gladly be accepted
 
 # To-Do [`↩`](#contents) <a id="to-do"></a>
 
