@@ -269,7 +269,7 @@ wikirepo can be used as a foundation for countless projects, with its usefulness
 
 Current usage examples include:
 
-- Sample notebooks for the Python package [poli-sci-kit](https://github.com/andrewtavis/poli-sci-kit) show how to use wikirepo as a basis for political election and parliamentary appointment analysis. Those notebooks can be found in the [examples for poli-sci-kit](https://github.com/andrewtavis/poli-sci-kit/tree/main/examples) or on [Google Colab](https://colab.research.google.com/github/andrewtavis/poli-sci-kit).
+- Sample notebooks for the Python package [poli-sci-kit](https://github.com/andrewtavis/poli-sci-kit) show how to use wikirepo as a basis for political election and parliamentary appointment analysis, with these notebooks being found in the [examples for poli-sci-kit](https://github.com/andrewtavis/poli-sci-kit/tree/main/examples) or on [Google Colab](https://colab.research.google.com/github/andrewtavis/poli-sci-kit)
 - Pull requests with other examples will gladly be accepted
 
 # To-Do [`↩`](#contents) <a id="to-do"></a>
