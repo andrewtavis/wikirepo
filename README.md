@@ -17,7 +17,11 @@
 
 ### Python based Wikidata framework for easy dataframe extraction
 
-**Contents:**<a id="contents"></a> [Data](#data) • [Maps (WIP)](#maps-wip) • [Examples](#examples) • [To-Do](#to-do)
+**Contents:**<a id="contents"></a>
+- [Data](#data)
+- [Maps (WIP)](#maps-wip)
+- [Examples](#examples)
+- [To-Do](#to-do)
 
 **wikirepo** is a Python package that provides a framework to easily source and leverage standardized [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) information. The goal is to create an intuitive interface so that Wikidata can function as a common read-write repository for public statistics.
 
