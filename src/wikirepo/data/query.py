@@ -2,7 +2,7 @@
 Query
 -----
 
-A function that calls and combines data from Wikidata
+A function that calls and combines data from Wikidata.
 
 Note: the purpose of this module is for a wikirepo.data.query() function call
 
@@ -39,7 +39,7 @@ def query(
     verbose=True,
 ):
     """
-    Queries Wikidata properties based on module arguments for locations given a depth, interval, and timespan
+    Queries Wikidata properties based on module arguments for locations given a depth, interval, and timespan.
 
     Parameters
     ----------
@@ -121,7 +121,7 @@ def query(
         "verbose",
     ]
 
-    if type(locations) == lctn_utils.LocationsDict:
+    if isinstance(locations, lctn_utils.LocationsDict):
         if depth == None:
             depth = locations.get_depth()
         # if interval == None:
@@ -142,7 +142,7 @@ def query(
     if ents_dict == None:
         ents_dict = wd_utils.EntitiesDict()
 
-    if type(locations) == str:
+    if isinstance(locations, str):
         locations = [locations]
 
     for arg in tqdm(
@@ -155,14 +155,14 @@ def query(
 
         query_params["ents_dict"] = literal_eval(str(ents_dict._print()))
         query_params["dir_name"] = sub_directory
-        if type(locations) == lctn_utils.LocationsDict:
+        if isinstance(locations, lctn_utils.LocationsDict):
             query_params["locations"] = literal_eval(str(locations._print()))
         else:
             query_params["locations"] = locations
         query_params["depth"] = depth
 
-        # The following is necessary for passing tuples with datetime.date objects to literal_evel
-        # Convert to a tuple of tuples, and then back again in the lower fxns via time_utils.make_timespan() in data_utils.gen_base_df()
+        # The following is necessary for passing tuples with datetime.date objects to literal_eval
+        # Convert to a tuple of tuples, and then back again in the lower functions via time_utils.make_timespan() in data_utils.gen_base_df()
         timespan = f"{timespan}".replace("datetime.date", "")
         timespan = literal_eval(timespan)
         query_params["timespan"] = timespan
@@ -185,7 +185,7 @@ def query(
                 query_params[i] = True
 
         else:
-            if type(query_arg_indexes) == str:
+            if isinstance(query_arg_indexes, str):
                 query_arg_indexes = [query_arg_indexes]
             for i in query_arg_indexes:
                 if i in incl_indexes:
@@ -207,10 +207,7 @@ def query(
                 **literal_eval(str(query_params))
             )
 
-            try:
-                df_merge = pd.merge(df_merge, df_dir_props, on=merge_on)
-            except:
-                pass
+            df_merge = pd.merge(df_merge, df_dir_props, on=merge_on)
 
         else:
             df_merge, new_ents_dict = data_utils.query_repo_dir(

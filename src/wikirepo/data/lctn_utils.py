@@ -2,7 +2,7 @@
 Location Utilities
 ------------------
 
-Utility functions for querying locations
+Utility functions for querying locations.
 
 Contents
     lctn_to_qid_dict,
@@ -44,9 +44,9 @@ from wikirepo.data import data_utils, wd_utils
 
 def lctn_to_qid_dict():
     """
-    Queries a dictionary that links a location's name to its WikiData QID
+    Queries a dictionary that links a location's name to its WikiData QID.
     """
-    lctn_to_qid_dict = {
+    return {
         "Earth": "Q2",
         "Africa": "Q15",
         "Antarctica": "Q51",
@@ -309,16 +309,16 @@ def lctn_to_qid_dict():
         "Zimbabwe": "Q954",
     }
 
-    return lctn_to_qid_dict
-
 
 def qid_to_lctn_dict():
     """
-    Queries a dictionary that links a location's name to its WikiData QID
+    Queries a dictionary that links a location's name to its WikiData QID.
 
-    Keys are QIDs, and values are dictionaries of QID labels and their locational level
+    Notes
+    -----
+        Keys are QIDs, and values are dictionaries of QID labels and their locational level
     """
-    qid_to_lctn_dict = {
+    return {
         "Q2": {"lbl": "Earth", "lctn_lvl": "world"},
         "Q15": {"lbl": "Africa", "lctn_lvl": "continent"},
         "Q51": {"lbl": "Antarctica", "lctn_lvl": "continent"},
@@ -383,7 +383,7 @@ def qid_to_lctn_dict():
         "Q25279": {"lbl": "Curaçao", "lctn_lvl": "region"},
         "Q229": {"lbl": "Cyprus", "lctn_lvl": "country"},
         "Q213": {"lbl": "Czech Republic", "lctn_lvl": "country"},
-        "Q974": {"lbl": "Democratic Republic of the Congo", "lctn_lvl": "country"},
+        "Q974": {"lbl": "Democratic Republic of the Congo", "lctn_lvl": "country",},
         "Q35": {"lbl": "Denmark", "lctn_lvl": "country"},
         "Q977": {"lbl": "Djibouti", "lctn_lvl": "country"},
         "Q784": {"lbl": "Dominica", "lctn_lvl": "country"},
@@ -400,7 +400,7 @@ def qid_to_lctn_dict():
         "Q115": {"lbl": "Ethiopia", "lctn_lvl": "country"},
         "Q9648": {"lbl": "Falkland Islands", "lctn_lvl": "region"},
         "Q4628": {"lbl": "Faroe Islands", "lctn_lvl": "region"},
-        "Q702": {"lbl": "Federated States of Micronesia", "lctn_lvl": "country"},
+        "Q702": {"lbl": "Federated States of Micronesia", "lctn_lvl": "country",},
         "Q712": {"lbl": "Fiji", "lctn_lvl": "country"},
         "Q33": {"lbl": "Finland", "lctn_lvl": "country"},
         "Q142": {"lbl": "France", "lctn_lvl": "country"},
@@ -519,7 +519,7 @@ def qid_to_lctn_dict():
         "Q760": {"lbl": "Saint Lucia", "lctn_lvl": "country"},
         "Q25596": {"lbl": "Saint Martin", "lctn_lvl": "region"},
         "Q34617": {"lbl": "Saint Pierre and Miquelon", "lctn_lvl": "region"},
-        "Q757": {"lbl": "Saint Vincent and the Grenadines", "lctn_lvl": "country"},
+        "Q757": {"lbl": "Saint Vincent and the Grenadines", "lctn_lvl": "country",},
         "Q683": {"lbl": "Samoa", "lctn_lvl": "country"},
         "Q238": {"lbl": "San Marino", "lctn_lvl": "country"},
         "Q851": {"lbl": "Saudi Arabia", "lctn_lvl": "country"},
@@ -564,7 +564,7 @@ def qid_to_lctn_dict():
         "Q754": {"lbl": "Trinidad and Tobago", "lctn_lvl": "country"},
         "Q948": {"lbl": "Tunisia", "lctn_lvl": "country"},
         "Q43": {"lbl": "Turkey", "lctn_lvl": "country"},
-        "Q23681": {"lbl": "Turkish Republic of Northern Cyprus", "lctn_lvl": "region"},
+        "Q23681": {"lbl": "Turkish Republic of Northern Cyprus", "lctn_lvl": "region",},
         "Q874": {"lbl": "Turkmenistan", "lctn_lvl": "country"},
         "Q18221": {"lbl": "Turks and Caicos Islands", "lctn_lvl": "region"},
         "Q672": {"lbl": "Tuvalu", "lctn_lvl": "country"},
@@ -573,7 +573,7 @@ def qid_to_lctn_dict():
         "Q878": {"lbl": "United Arab Emirates", "lctn_lvl": "country"},
         "Q145": {"lbl": "United Kingdom", "lctn_lvl": "country"},
         "Q30": {"lbl": "United States", "lctn_lvl": "country"},
-        "Q11703": {"lbl": "United States Virgin Islands", "lctn_lvl": "region"},
+        "Q11703": {"lbl": "United States Virgin Islands", "lctn_lvl": "region",},
         "Q77": {"lbl": "Uruguay", "lctn_lvl": "country"},
         "Q265": {"lbl": "Uzbekistan", "lctn_lvl": "country"},
         "Q686": {"lbl": "Vanuatu", "lctn_lvl": "country"},
@@ -587,12 +587,10 @@ def qid_to_lctn_dict():
         "Q954": {"lbl": "Zimbabwe", "lctn_lvl": "country"},
     }
 
-    return qid_to_lctn_dict
-
 
 def incl_lctn_lbls(lctn_lvls=False):
     """
-    Queries the included location labels
+    Queries the included location labels.
 
     Parameters
     ----------
@@ -658,14 +656,14 @@ def incl_lctn_lbls(lctn_lvls=False):
 
 def incl_lctn_ids():
     """
-    Queries the included location ids
+    Queries the included location ids.
     """
     return list(lctn_to_qid_dict().values())
 
 
 def lctn_lbl_to_qid(locations):
     """
-    Returns the Wikidata QID for given location(s)
+    Returns the Wikidata QID for given location(s).
 
     Parameters
     ----------
@@ -690,7 +688,7 @@ def lctn_lbl_to_qid(locations):
 
 def qid_to_lctn_lbl(qids):
     """
-    Returns the Wikidata label for given QID(s)
+    Returns the Wikidata label for given QID(s).
 
     Parameters
     ----------
@@ -707,7 +705,7 @@ def qid_to_lctn_lbl(qids):
 
     for q in qids:
         if q not in qid_to_lctn_dict().keys():
-            print(f"{q} is not a QID that a label can be direcrtly queried for.")
+            print(f"{q} is not a QID that a label can be directly queried for.")
             print("Use wd_utils.get_lbl() to load the entity and get its label.")
             qids.pop(q)
 
@@ -718,7 +716,7 @@ def qid_to_lctn_lbl(qids):
 
 def depth_to_col_name(depth):
     """
-    Derives the proper name of the column for locations given a depth
+    Derives the proper name of the column for locations given a depth.
     """
     if depth == 0:
         return "location"
@@ -729,21 +727,21 @@ def depth_to_col_name(depth):
 
 def depth_to_qid_col_name(depth):
     """
-    Derives the proper name of the column for qids for depth based assignment
+    Derives the proper name of the column for qids for depth based assignment.
     """
     return "sub_" * depth + "qid"
 
 
 def depth_to_qid_cols(depth):
     """
-    Derives the proper name of the column for qids for depth based assignment
+    Derives the proper name of the column for qids for depth based assignment.
     """
     return ["sub_" * d + "qid" for d in range(depth + 1)]
 
 
 def depth_to_cols(depth):
     """
-    Derives a list of locational columns for data_utils.gen_base_df given a depth
+    Derives a list of locational columns for data_utils.gen_base_df given a depth.
     """
     return list(
         flatten(
@@ -754,44 +752,41 @@ def depth_to_cols(depth):
 
 def find_qid_get_depth(lctns_dict, c=0):
     """
-    Finds all QIDs and gets their depths
+    Finds all QIDs and gets their depths.
     """
     if isinstance(lctns_dict, dict):
         for k, v in lctns_dict.items():
             if wd_utils.is_wd_id(k):
                 yield (k, int(c / 2))
             if isinstance(v, dict):
-                for result in find_qid_get_depth(v, c + 1):
-                    yield result
+                yield from find_qid_get_depth(v, c + 1)
 
 
 def get_qids_at_depth(lctns_dict, depth=None):
     """
-    Finds all QIDs at a given depth of a LocationsDict
+    Finds all QIDs at a given depth of a LocationsDict.
     """
     all_qid_depths = list(find_qid_get_depth(lctns_dict=lctns_dict, c=0))
 
-    qids_at_depth = [q[0] for q in all_qid_depths if q[1] == depth]
-
-    return qids_at_depth
+    return [q[0] for q in all_qid_depths if q[1] == depth]
 
 
 def iter_set_dict(dictionary, key, sub_key, value):
     """
-    Iterates until a key is found, and then sets the value (potentially given a sub_key)
+    Iterates until a key is found, and then sets the value (potentially given a sub_key).
     """
     for k, v in dictionary.items():  # pylint: disable=unused-variable
         if k == key:
-            if sub_key == None:
+            if sub_key is None:
                 dictionary[k] = value
 
             else:
                 dictionary[k][sub_key] = value
 
-        elif type(dictionary[k]) == dict:
+        elif isinstance(dictionary[k], dict):
             iter_set_dict(dictionary[k], key, sub_key, value)
 
-        elif type(dictionary[k]) == str:
+        elif isinstance(dictionary[k], str):
             pass
 
 
@@ -806,9 +801,11 @@ def gen_lctns_dict(
     verbose=True,
 ):
     """
-    Generates a dictionary of locations indexed by QIDs
+    Generates a dictionary of locations indexed by QIDs.
 
-    Note: 'P150' (contains administrative territorial entity) is used to subset
+    Notes
+    -----
+        'P150' (contains administrative territorial entity) is used to subset
 
     Parameters
     ----------
@@ -860,7 +857,7 @@ def gen_lctns_dict(
         verbose=True,
     ):
         """
-        Assigns the first level of a LocationsDict
+        Assigns the first level of a LocationsDict.
         """
 
         def get_first_iter_dict(ents_dict, lctns_dict, qid):
@@ -884,7 +881,7 @@ def gen_lctns_dict(
         verbose=verbose,
     ):
         """
-        Assigns more layers to a LocationsDict after the first
+        Assigns more layers to a LocationsDict after the first.
         """
         sub_lctns = utils._make_var_list(sub_lctns)[0]
 
@@ -894,7 +891,7 @@ def gen_lctns_dict(
             # Assuming that the user wants the current sub-locations
             def get_most_frequent_dict(ents_dict, lctns_dict, qid, pid):
                 """
-                Returns sub-locations that don't have 'P582' (end time) or don't have qualifiers at all
+                Returns sub-locations that don't have 'P582' (end time) or don't have qualifiers at all.
                 """
                 if pid in wd_utils.load_ent(ents_dict, qid)["claims"].keys():
                     subs_info = {
@@ -952,7 +949,7 @@ def gen_lctns_dict(
             # Find the included times and the timespan for each sub-location element
             def get_valid_timespan_dict(ents_dict, lctns_dict, qid, pid):
                 """
-                Returns the sub-location's id, lbl, and the valid timespan so it can be used in subsetting
+                Returns the sub-location's id, lbl, and the valid timespan so it can be used in subsetting.
                 """
                 if pid in wd_utils.load_ent(ents_dict, qid)["claims"].keys():
                     subs_info = {
@@ -1044,7 +1041,7 @@ def gen_lctns_dict(
 
 def derive_depth(a_dict, depth=0):
     """
-    Derives the depth of a LocationsDict
+    Derives the depth of a LocationsDict.
     """
     if a_dict != {}:  # an empty sub_lctn
         if "sub_lctns" in a_dict[list(a_dict.keys())[0]].keys():
@@ -1063,10 +1060,10 @@ def derive_depth(a_dict, depth=0):
 
 def merge_lctn_dicts(ld1, ld2):
     """
-    Merges two location dictionaries conditionally on them having the same depth
+    Merges two location dictionaries conditionally on them having the same depth.
     """
-    assert (
-        type(ld1) == LocationsDict and type(ld2) == LocationsDict
+    assert isinstance(ld1, LocationsDict) and isinstance(
+        ld2, LocationsDict
     ), "This merge is valid only for LocationsDict objects."
     depth_1 = derive_depth(ld1)
     depth_2 = derive_depth(ld2)
@@ -1083,26 +1080,26 @@ def merge_lctn_dicts(ld1, ld2):
 
 def iter_key_items(node, kv):
     """
-    Finds the items of a nested dictionary key
+    Finds the items of a nested dictionary key.
     """
     if isinstance(node, list):
         for i in node:
-            for x in iter_key_items(i, kv):
-                yield x
+            yield from iter_key_items(i, kv)
 
     elif isinstance(node, dict):
         if kv in node:
             yield node[kv]
         for j in node.values():
-            for x in iter_key_items(j, kv):
-                yield x
+            yield from iter_key_items(j, kv)
 
 
 class LocationsDict(dict):
     """
-    A dictionary for storing WikiData locations
+    A dictionary for storing WikiData locations.
 
-    Keywords are QIDs, and values are dictionaries of depth, interval, and timespan specific information
+    Notes
+    -----
+        Keywords are QIDs, and values are dictionaries of depth, interval, and timespan specific information
     """
 
     __slots__ = ()
@@ -1138,37 +1135,37 @@ class LocationsDict(dict):
 
     def key_lbls_list(self):
         """
-        Provides a list of all location labels in the LocationsDict
+        Provides a list of all location labels in the LocationsDict.
         """
         return list(iter_key_items(self, "lbl"))
 
     # def key_lbls_dict(self):
     #     """
-    #     Provides a dict of location labels in the LocationsDict
+    #     Provides a dict of location labels in the LocationsDict.
     #     """
     #     return # a dictionary created by a recursive lookup of those elements that have the key 'lbl'
 
     def get_depth(self):
         """
-        The depth of the LocationsDict
+        The depth of the LocationsDict.
         """
         return derive_depth(self, depth=0)
 
     # def get_interval(self):
     #     """
-    #     The interval of the LocationsDict
+    #     The interval of the LocationsDict.
     #     """
     #     return self['interval']
 
     # def get_timespan(self):
     #     """
-    #     The timespan of the LocationsDict
+    #     The timespan of the LocationsDict.
     #     """
     #     return self['timespan']
 
     # def get_lctn_dict_specs(self, depth, timespan, interval):
     #     """
-    #     Combines get_depth, get_interval, and get_timespan of a LocationsDict
+    #     Combines get_depth, get_interval, and get_timespan of a LocationsDict.
     #     """
     #     if depth == None:
     #         depth = self.get_depth()
@@ -1181,27 +1178,25 @@ class LocationsDict(dict):
 
     def iter_key_items(self, kv):
         """
-        The items within a key in LocationsDict
+        The items within a key in LocationsDict.
         """
         return iter_key_items(self, kv)
 
     def iter_set(self, key, sub_key, value):
         """
-        Finds and sets a key in LocationsDict
+        Finds and sets a key in LocationsDict.
         """
         return iter_set_dict(self, key, sub_key, value)
 
     def get_qids_at_depth(self, depth=None):
         """
-        Finds all QIDs at a given depth of a LocationsDict
+        Finds all QIDs at a given depth of a LocationsDict.
         """
-        qids_at_depth = get_qids_at_depth(self, depth=depth)
-
-        return qids_at_depth
+        return get_qids_at_depth(self, depth=depth)
 
     def key_lbls_at_depth(self, ents_dict, depth):
         """
-        Provides a list of key labels at a given depth
+        Provides a list of key labels at a given depth.
         """
         qids_at_depth = get_qids_at_depth(self, depth=depth)
 
@@ -1209,6 +1204,6 @@ class LocationsDict(dict):
 
     def _print(self):
         """
-        Prints the full LocationsDict
+        Prints the full LocationsDict.
         """
         return {k: v for k, v in self.items()}

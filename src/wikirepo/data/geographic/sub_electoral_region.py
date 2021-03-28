@@ -1,5 +1,5 @@
 """
-Functions querying sub_electoral_region information
+Functions querying sub_electoral_region information.
 
 Ex: US congressional voting districts are sub_electoral_regions of states
 

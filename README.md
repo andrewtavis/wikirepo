@@ -281,31 +281,45 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 - Climate statistics could be added to [data/climate](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/climate)
     - This would allow for easy modeling of global warming and its effects
     - Planning would be needed for whether lower intervals would be necessary, or just include daily averages
+
 - Those for electoral [polling](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/electoral_polls) and [results](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/electoral_results) for locations
     - This would allow direct access to all needed election information in a single function call
+
 - A property that links political parties and their regions in [data/political](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/political)
     - For easy professional presentation of electoral results (ex: loading in party hex colors, abbreviations, and alignments)
+
 - [data/demographic](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/demographic) properties such as:
     - age, education, religious, and linguistic diversities across time
+
 - [data/economic](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/economic) properties such as:
     - female workforce participation, workforce industry diversity, wealth diversity, and total working age population across time
+
 - Distinct properties for Freedom House and Press Freedom indexes, as well as other descriptive metrics
     - These could be added to [data/institutional](https://github.com/andrewtavis/wikirepo/tree/main/wikirepo/data/institutional)
 
 ### Further Ways to Help
 
 - Integrating current Python tools with wikirepo structures for uploads to Wikidata
+
 - Adding a query of property descriptions to `data.data_utils.incl_dir_idxs`
+
 - Adding multiprocessing support to the [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py) process and `data.lctn_utils.gen_lctns_dict`
+
 - Potentially converting [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py) and `data.lctn_utils.gen_lctns_dict` over to generated Wikidata SPARQL queries
+
 - Optimizing [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/data/query.py):
     - Potentially converting `EntitiesDict` and `LocationsDict` to slotted object classes for memory savings
     - Deriving and optimizing other slow parts of the query process
+
 - Adding access to GeoJSON files for mapping via [wikirepo.maps.query](https://github.com/andrewtavis/wikirepo/blob/main/wikirepo/maps/query.py)
+
 - Designing and adding GeoJSON files indexed by time properties to Wikidata
-- Creating and improving [examples](https://github.com/andrewtavis/wikirepo/tree/main/examples), as well as sharing them around the web
-- Testing for wikirepo
-- A read the docs page
+
+- Creating, improving and sharing [examples](https://github.com/andrewtavis/wikirepo/tree/main/examples)
+
+- Improving [tests](https://github.com/andrewtavis/wikirepo/tree/main/tests) for greater [code coverage](https://codecov.io/gh/andrewtavis/wikirepo)
+
+- Improving [code quality](https://app.codacy.com/gh/andrewtavis/wikirepo/dashboard) by refactoring large functions and checking conventions
 
 # Similar Projects
 <details><summary><strong>Python<strong></summary>

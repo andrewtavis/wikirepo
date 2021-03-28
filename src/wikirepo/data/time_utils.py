@@ -2,7 +2,7 @@
 Time Utilities
 --------------
 
-Functions querying time information
+Functions querying time information.
 
 Contents
     interval_to_col_name,
@@ -22,7 +22,7 @@ from dateutil.rrule import rrule, YEARLY, MONTHLY, WEEKLY, DAILY
 
 def interval_to_col_name(interval):
     """
-    Queries the proper name of the column for timespans given an interval
+    Queries the proper name of the column for timespans given an interval.
     """
     interval = interval.lower()
 
@@ -38,20 +38,20 @@ def interval_to_col_name(interval):
 
 def truncate_date(d, interval=None):
     """
-    Truncates a date object given an interval
+    Truncates a date object given an interval.
     """
-    assert type(interval) == str or interval == None, (
+    assert isinstance(interval, str) or interval == None, (
         "'interval' argument must be None or one of ".join(i for i in incl_intervals())
         + "."
     )
 
     if interval is not None:
-        if type(d) != str:  # hasn't been formatted already
-            if type(d) == tuple:
+        if not isinstance(d, str):  # hasn't been formatted already
+            if isinstance(d, tuple):
                 d = datetime.strptime(f"{d[0]}-{d[1]}-{d[2]}", "%Y-%m-%d").date()
 
             interval = interval.lower()
-            
+
             if interval == "yearly":
                 return d.strftime("%Y")
 
@@ -73,7 +73,7 @@ def truncate_date(d, interval=None):
 
 def truncate_date_col(df, col, interval):
     """
-    Truncates the date column of a df based on a provided interval
+    Truncates the date column of a df based on a provided interval.
     """
     df[col] = df[col].map(lambda x: truncate_date(d=x, interval=interval))
 
@@ -82,7 +82,7 @@ def truncate_date_col(df, col, interval):
 
 def incl_intervals():
     """
-    Queries the included intervals
+    Queries the included intervals.
 
     Note: timespans will not be able to be queried if their interval is not included
     """
@@ -91,7 +91,7 @@ def incl_intervals():
 
 def make_timespan(timespan=None, interval=None):
     """
-    Queries a timespan given user input of strings, ints, or time values
+    Queries a timespan given user input of strings, ints, or time values.
 
     Parameters
     ----------
@@ -115,19 +115,19 @@ def make_timespan(timespan=None, interval=None):
         formatted_timespan : list (contains datetime.date)
             The timespan formatted going back in time
     """
-    if interval == None and timespan == None:
+    if interval is None and timespan is None:
         # Most recent data wanted
         return
 
     order = -1  # default order is decreasing in time
 
-    if timespan == None:
+    if timespan is None:
         timespan = (date.today(), date.today())
 
     elif timespan == True:
         timespan = (date.min, date.today())
 
-    elif type(timespan) == date:
+    elif isinstance(timespan, date):
         timespan = (timespan, timespan)
 
     elif timespan[0] > timespan[1]:
@@ -138,14 +138,14 @@ def make_timespan(timespan=None, interval=None):
     else:
         ValueError("An invalid value was passed to the 'timespan' argument.")
 
-    if type(timespan[0]) == date:
+    if isinstance(timespan[0], date):
         start_dt = timespan[0]
-    elif type(timespan[0]) == tuple:
+    elif isinstance(timespan[0], tuple):
         start_dt = date(*timespan[0])
 
-    if type(timespan[1]) == date:
+    if isinstance(timespan[1], date):
         end_dt = timespan[1]
-    elif type(timespan[1]) == tuple:
+    elif isinstance(timespan[1], tuple):
         end_dt = date(*timespan[1])
 
     if interval == "yearly":
@@ -170,16 +170,18 @@ def make_timespan(timespan=None, interval=None):
 
     else:
         ValueError(
-            "An invalid value was passed to the 'interval' argument. Please choose one of ".join(
-                i for i in incl_intervals()
+            (
+                "An invalid value was passed to the 'interval' argument. Please choose one of ".join(
+                    incl_intervals()
+                )
+                + "."
             )
-            + "."
         )
 
 
 def latest_date(timespan):
     """
-    Returns the latest date in a timespan
+    Returns the latest date in a timespan.
     """
     if timespan[1] > timespan[0]:
         return timespan[1]
@@ -189,7 +191,7 @@ def latest_date(timespan):
 
 def earliest_date(timespan):
     """
-    Returns the earliest date in a timespan
+    Returns the earliest date in a timespan.
     """
     if timespan[0] < timespan[1]:
         return timespan[0]
@@ -199,13 +201,13 @@ def earliest_date(timespan):
 
 def truncated_latest_date(timespan, interval):
     """
-    Returns the truncated latest date in a timespan
+    Returns the truncated latest date in a timespan.
     """
     return truncate_date(latest_date(timespan), interval=interval)
 
 
 def truncated_earliest_date(timespan, interval):
     """
-    Returns the truncated earliest date in a timespan
+    Returns the truncated earliest date in a timespan.
     """
     return truncate_date(earliest_date(timespan), interval=interval)

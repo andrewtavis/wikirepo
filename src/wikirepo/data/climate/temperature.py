@@ -2,7 +2,7 @@
 Temperature
 -----------
 
-Functions querying 'PXYZ' (temperature) information
+Functions querying 'PXYZ' (temperature) information.
 
 Contents
     query_prop_data

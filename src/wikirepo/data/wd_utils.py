@@ -43,8 +43,7 @@ Contents
 """
 
 import numpy as np
-from datetime import datetime
-from datetime import date
+from datetime import datetime, date
 
 from wikidata.client import Client
 
@@ -63,8 +62,7 @@ def load_ent(ents_dict, pq_id):
             check_in_ents_dict(ents_dict, pq_id)
         return ents_dict[pq_id]
 
-    else:
-        return client.get(pq_id, load=True).data
+    return client.get(pq_id, load=True).data
 
 
 def check_in_ents_dict(ents_dict, qid):
@@ -95,7 +93,7 @@ def prop_has_many_entries(prop_ent):
     try:
         prop_ent[1]
         return True
-    except:
+    except IndexError:
         return False
 
 
@@ -112,7 +110,7 @@ def get_lbl(ents_dict=None, pq_id=None):
     """
     Gets an English label of a Wikidata entity
     """
-    if ents_dict == None and pq_id == None:
+    if ents_dict is None and pq_id is None:
         return
 
     try:
@@ -267,7 +265,7 @@ def get_val(ents_dict, qid, pid, sub_pid, i, ignore_char=""):
     if sub_pid == bool:
         return True
 
-    elif type(sub_pid) == str:
+    elif isinstance(sub_pid, str):
         return get_prop_qualifier_val(ents_dict, qid, pid, sub_pid, i, ignore_char)
 
     else:
@@ -305,7 +303,7 @@ def format_t(t):
     """
     Formats the date strings of a Wikidata entry
     """
-    if t != None:
+    if t is not None:
         return datetime.strptime(t[1:11].replace("-00", "-01"), "%Y-%m-%d").date()
     else:
         return t
@@ -343,18 +341,10 @@ def get_prop_timespan_intersection(ents_dict, qid, pid, i, timespan, interval):
     start_t = get_formatted_prop_start_t(ents_dict, qid, pid, i)
     end_t = get_formatted_prop_end_t(ents_dict, qid, pid, i)
 
-    if interval == None and timespan == None:
+    if interval is None and timespan is None:
         # We want the most recent data, so return the end date if it exists, or today's date
-        if start_t == None and end_t != None:
+        if end_t is not None:
             return
-
-        elif start_t != None and end_t != None:
-            return
-
-        elif start_t == None and end_t == None:
-            prop_t_intersection = [
-                time_utils.truncate_date(date.today(), interval="daily")
-            ]
 
         else:
             prop_t_intersection = [
@@ -373,14 +363,14 @@ def get_prop_timespan_intersection(ents_dict, qid, pid, i, timespan, interval):
                     t for t in included_times if t >= start_t and t <= end_t
                 ]
 
-        elif start_t != None and end_t == None:
+        elif start_t != None:
             if all(start_t > t for t in included_times):
                 return
 
             else:
                 prop_t_intersection = [t for t in included_times if t >= start_t]
 
-        elif start_t == None and end_t != None:
+        elif end_t != None:
             if all(end_t < t for t in included_times):
                 return
 
@@ -420,13 +410,11 @@ def dir_to_topic_page(dir_name=None, ents_dict=None, qid=None):
     # Needs sub-topics for other wikirepo directories
     name_to_topic_pid_dict = {"economic": "P8744", "geographic": "P2633"}
 
-    if dir_name in name_to_topic_pid_dict.keys():
+    if dir_name in name_to_topic_pid_dict:
         topic_pid = name_to_topic_pid_dict[dir_name]
 
         if topic_pid in load_ent(ents_dict, qid)["claims"].keys():
-            topic_qid = get_prop_id(ents_dict, qid, topic_pid, i=0)
-
-            return topic_qid
+            return get_prop_id(ents_dict, qid, topic_pid, i=0)
 
         else:
             return
@@ -497,7 +485,7 @@ def check_for_pid_topic_page(
     else:
         print_not_available(ents_dict=ents_dict, qid=qid, pid=pid, extra_msg="")
         # Assign no date for on interval or the most recent time in the timespan with np.nan as a placeholder
-        if interval == None and timespan == None:
+        if interval is None and timespan is None:
             if vd_or_vdd == "vd":
                 t_p_d = {"no date": np.nan}
             else:
@@ -630,7 +618,7 @@ def t_to_prop_val_dict(
                             interval=interval,
                         )
                     except:
-                        if interval == None and timespan == None:
+                        if interval is None and timespan is None:
                             t = "no date"
 
                         else:
@@ -639,12 +627,10 @@ def t_to_prop_val_dict(
                                 timespan=timespan, interval=interval
                             )
 
-                    if (included_times != None and t in included_times) or (
-                        included_times == None
-                    ):
+                    if included_times is None or t in included_times:
                         t_p_d[t] = get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
 
-        if orig_qid == None:
+        if orig_qid is None:
             t_prop_dict[q] = t_p_d
         else:
             t_prop_dict[orig_qid] = t_p_d
@@ -708,15 +694,15 @@ def t_to_prop_val_dict_dict(
     """
     qids = utils._make_var_list(qids)[0]
 
-    if interval != None:
+    if interval is None:
+        # Triggers acceptance of a all values so that the most recent can be selected
+        included_times = None
+
+    else:
         included_times = [
             time_utils.truncate_date(t, interval=interval)
             for t in time_utils.make_timespan(timespan=timespan, interval=interval)
         ]
-    else:
-        # Triggers acceptance of a all values so that the most recent can be selected
-        included_times = None
-
     t_prop_dict = {}
     for q in qids:
         t_p_d = {}
@@ -737,26 +723,21 @@ def t_to_prop_val_dict_dict(
         if skip_assignment == False:
             if span:
                 for i in range(len(get_prop(ents_dict, q, pid))):
-                    if "qualifiers" not in get_prop(ents_dict, q, pid)[i].keys():
-                        prop_t_intersection = included_times
-
-                    else:
+                    if "qualifiers" in get_prop(ents_dict, q, pid)[i].keys():
                         prop_t_intersection = get_prop_timespan_intersection(
                             ents_dict, q, pid, i, timespan, interval
                         )
 
-                    if prop_t_intersection != None:
+                    else:
+                        prop_t_intersection = included_times
+
+                    if prop_t_intersection is not None:
                         for t in prop_t_intersection:
                             if t not in t_p_d.keys():
                                 t_p_d[t] = {}
-                                t_p_d[t][
-                                    get_prop_val(ents_dict, q, pid, i, ignore_char)
-                                ] = get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
-
-                            else:
-                                t_p_d[t][
-                                    get_prop_val(ents_dict, q, pid, i, ignore_char)
-                                ] = get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
+                            t_p_d[t][
+                                get_prop_val(ents_dict, q, pid, i, ignore_char)
+                            ] = get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
 
             else:
                 for i in range(len(get_prop(ents_dict, q, pid))):
@@ -766,7 +747,7 @@ def t_to_prop_val_dict_dict(
                             interval=interval,
                         )
                     except:
-                        if interval == None and timespan == None:
+                        if interval is None and timespan is None:
                             t = "no date"
 
                         else:
@@ -775,20 +756,14 @@ def t_to_prop_val_dict_dict(
                                 timespan=timespan, interval=interval
                             )
 
-                    if (included_times != None and t in included_times) or (
-                        included_times == None
-                    ):
+                    if included_times is None or t in included_times:
                         if t not in t_p_d.keys():
                             t_p_d[t] = {}
-                            t_p_d[t][
-                                get_prop_val(ents_dict, q, pid, i, ignore_char)
-                            ] = get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
-                        else:
-                            t_p_d[t][
-                                get_prop_val(ents_dict, q, pid, i, ignore_char)
-                            ] = get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
+                        t_p_d[t][
+                            get_prop_val(ents_dict, q, pid, i, ignore_char)
+                        ] = get_val(ents_dict, q, pid, sub_pid, i, ignore_char)
 
-        if orig_qid == None:
+        if orig_qid is None:
             t_prop_dict[q] = t_p_d
         else:
             t_prop_dict[orig_qid] = t_p_d
