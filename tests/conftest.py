@@ -8,10 +8,7 @@ import pytest
 
 import wikirepo
 
-from wikirepo.data import data_utils
-from wikirepo.data import lctn_utils
-from wikirepo.data import query
-from wikirepo.data import wd_utils
+from wikirepo.data import data_utils, lctn_utils, wd_utils
 
 entities_dict = wd_utils.EntitiesDict()
 countries = ["Germany"]
