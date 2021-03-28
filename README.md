@@ -274,6 +274,8 @@ Current usage examples include:
 
 # To-Do [`↩`](#contents) <a id="to-do"></a>
 
+Please see the [contribution guidelines](https://github.com/andrewtavis/wikirepo/blob/main/.github/CONTRIBUTING.md) if you are interested in contributing to this project. Work that is in progress or could be implemented includes:
+
 ### Expanding Wikidata
 
 The growth of wikirepo's database relies on that of [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page). Through `data.wd_utils.dir_to_topic_page` wikirepo can access properties on location sub-pages, thus allowing for statistics on any topic to be linked to. Beyond simply adding entries to already existing properties, the following are examples of property types that could be included:
