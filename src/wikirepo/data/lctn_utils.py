@@ -39,7 +39,7 @@ from pandas.core.common import flatten
 from tqdm.auto import tqdm
 
 from wikirepo import utils
-from wikirepo.data import data_utils, wd_utils
+from wikirepo.data import wd_utils
 
 
 def lctn_to_qid_dict():

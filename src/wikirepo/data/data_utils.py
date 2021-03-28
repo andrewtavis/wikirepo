@@ -36,7 +36,6 @@ from tqdm.auto import tqdm
 
 from wikirepo import utils
 from wikirepo.data import lctn_utils, time_utils, wd_utils
-from wikirepo.data.geographic import continent
 
 
 def _get_dir_fxns_dict(dir_name=None):
@@ -480,7 +479,7 @@ def assign_to_column(
     else:
         valid_assigns = ["all", "most_recent", "repeat"]
 
-        ValueError(
+        raise ValueError(
             "An invalid argument was passed to the 'assign' argument - please choose from one from "
             + ", ".join(valid_assigns)
         ) + "."
@@ -655,7 +654,7 @@ def assign_to_cols(
     else:
         valid_assigns = ["all", "most_recent"]
 
-        ValueError(
+        raise ValueError(
             "An invalid argument was passed to the 'assign' argument - please choose from one from "
             + ", ".join(valid_assigns)
         ) + "."
