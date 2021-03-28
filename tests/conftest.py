@@ -20,7 +20,7 @@ timespan = (date(2009, 1, 1), date(2010, 1, 1))
 interval = "yearly"
 
 # Test of values for a given timespan
-df = wikirepo.data.query(
+df_timespan = wikirepo.data.query(
     ents_dict=entities_dict,
     locations=countries,
     depth=depth,
@@ -61,7 +61,7 @@ df = wikirepo.data.query(
 )
 
 # Test of most recent values
-df = wikirepo.data.query(
+df_most_recent = wikirepo.data.query(
     ents_dict=entities_dict,
     locations=countries,
     depth=depth,
@@ -100,7 +100,7 @@ df = wikirepo.data.query(
     misc_props="country_abbr",
     verbose=True,
 )
-df = data_utils.split_col_val_dates(df, col="population")
+df_most_recent = data_utils.split_col_val_dates(df_most_recent, col="population")
 
 entities_dict_bundeslands = wd_utils.EntitiesDict()
 depth = 1

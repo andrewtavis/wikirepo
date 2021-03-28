@@ -2,7 +2,7 @@
 Wiki Data Utilities
 -------------------
 
-Utility functions for accessing and storing Wikidata information
+Utility functions for accessing and storing Wikidata information.
 
 Contents
     load_ent,
@@ -115,7 +115,7 @@ def get_lbl(ents_dict=None, pq_id=None):
 
     try:
         return load_ent(ents_dict, pq_id)["labels"]["en"]["value"]
-    except:
+    except KeyError:
         return load_ent(ents_dict, pq_id)["labels"]["de"]["value"]
 
 
@@ -175,6 +175,7 @@ def get_prop_val(ents_dict, qid, pid, i, ignore_char=""):
             return float(val)
         except:
             return val
+
     except:
         pass
 
@@ -190,6 +191,7 @@ def get_prop_val(ents_dict, qid, pid, i, ignore_char=""):
             return float(val)
         except:
             return val
+
     except:
         # Property has no datavalue at the given index
         return np.nan
