@@ -2,7 +2,7 @@
 Ethnic Diversity
 ----------------
 
-Functions querying 'P172' (ethnic group) information
+Functions querying 'P172' (ethnic group) information.
 
 This is done by querying 'P1107' (proportion) from each 'P172'
 
@@ -24,7 +24,7 @@ def query_prop_data(
     dir_name=None, ents_dict=None, locations=None, depth=0, timespan=None, interval=None
 ):
     """
-    Queries data for the module property for given location(s), depth, timespan and interval
+    Queries data for the module property for given location(s), depth, timespan and interval.
     """
     df, ents_dict = data_utils.query_wd_prop(
         dir_name=dir_name,

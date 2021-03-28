@@ -2,7 +2,7 @@
 Precipitation
 -------------
 
-Functions querying 'PXYZ' (precipitation) information
+Functions querying 'PXYZ' (precipitation) information.
 
 Contents
     query_prop_data

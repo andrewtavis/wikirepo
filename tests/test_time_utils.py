@@ -3,7 +3,7 @@ Time Utilities Tests
 --------------------
 """
 
-from datetime import datetime, date
+from datetime import date
 
 import pytest
 import pandas as pd

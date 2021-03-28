@@ -2,7 +2,7 @@
 Freedom House Category
 ----------------------
 
-Functions querying 'PXYZ' (freedom house category) information
+Functions querying 'PXYZ' (freedom house category) information.
 
 This is done via 'P1552' (has quality) applied to regions
 Idealy a property would be created for this that would allow it to be traced over time
@@ -25,7 +25,7 @@ def query_prop_data(
     dir_name=None, ents_dict=None, locations=None, depth=0, timespan=None, interval=None
 ):
     """
-    Queries data for the module property for given location(s), depth, timespan and interval
+    Queries data for the module property for given location(s), depth, timespan and interval.
     """
     df, ents_dict = data_utils.query_wd_prop(
         dir_name=dir_name,

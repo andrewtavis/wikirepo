@@ -31,12 +31,14 @@ def test_prop_has_many_entries():
 
 
 def test_get_lbl(ents_dict, pop_pid):
-    assert wd_utils.get_lbl(ents_dict=None, pq_id=None) == None
-    assert type(wd_utils.get_lbl(ents_dict=ents_dict, pq_id=pop_pid)) == str
+    assert wd_utils.get_lbl(ents_dict=None, pq_id=None) is None
+    assert isinstance(wd_utils.get_lbl(ents_dict=ents_dict, pq_id=pop_pid), str)
 
 
 def test_get_prop(ents_dict, qid, pop_pid):
-    assert type(wd_utils.get_prop(ents_dict=ents_dict, qid=qid, pid=pop_pid)[0]) == dict
+    assert isinstance(
+        wd_utils.get_prop(ents_dict=ents_dict, qid=qid, pid=pop_pid)[0], dict
+    )
 
 
 def test_get_prop_id(ents_dict, qid, exec_pid):
@@ -46,20 +48,16 @@ def test_get_prop_id(ents_dict, qid, exec_pid):
 
 
 def test_get_prop_val(ents_dict, qid, pop_pid, exec_pid):
-    assert (
-        type(
-            wd_utils.get_prop_val(
-                ents_dict=entities_dict, qid=qid, pid=pop_pid, i=0, ignore_char=""
-            )
-        )
-        == int
+    assert isinstance(
+        wd_utils.get_prop_val(
+            ents_dict=entities_dict, qid=qid, pid=pop_pid, i=0, ignore_char=""
+        ),
+        int,
     )
 
-    assert (
-        type(
-            wd_utils.get_prop_val(
-                ents_dict=entities_dict, qid=qid, pid=exec_pid, i=0, ignore_char=""
-            )
-        )
-        == str
+    assert isinstance(
+        wd_utils.get_prop_val(
+            ents_dict=entities_dict, qid=qid, pid=exec_pid, i=0, ignore_char=""
+        ),
+        str,
     )

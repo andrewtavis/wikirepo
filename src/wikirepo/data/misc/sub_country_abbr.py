@@ -2,7 +2,7 @@
 Sub-Country Abbreviation
 ------------------------
 
-Functions querying 'P300' (ISO 3166-2 code) information
+Functions querying 'P300' (ISO 3166-2 code) information.
 
 This property is used to derive abbreviations for country sub-regions
 
@@ -24,7 +24,7 @@ def query_prop_data(
     dir_name=None, ents_dict=None, locations=None, depth=0, timespan=None, interval=None
 ):
     """
-    Queries data for the module property for given location(s), depth, timespan and interval
+    Queries data for the module property for given location(s), depth, timespan and interval.
     """
     df, ents_dict = data_utils.query_wd_prop(
         dir_name=dir_name,

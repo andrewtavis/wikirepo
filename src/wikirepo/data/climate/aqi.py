@@ -2,7 +2,7 @@
 Air Quality Index
 -----------------
 
-Functions querying 'PXYZ' (air quality index) information
+Functions querying 'PXYZ' (air quality index) information.
 
 Contents
     query_prop_data

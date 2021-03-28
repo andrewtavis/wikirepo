@@ -2,7 +2,7 @@
 Data Utilities
 --------------
 
-Utility functions for querying data
+Utility functions for querying data.
 
 Contents
     _get_fxn_idx,
@@ -41,7 +41,7 @@ from wikirepo.data.geographic import continent
 
 def _get_dir_fxns_dict(dir_name=None):
     """
-    Generates a jump table dictionary of all modules in the cwd and the get_ functions within
+    Generates a jump table dictionary of all modules in the cwd and the get_ functions within.
 
     Note: indexes all data querying functions within wikirepo directories
 
@@ -65,13 +65,18 @@ def _get_dir_fxns_dict(dir_name=None):
             "wikirepo." + target_directory.split("wikirepo/")[3].replace("/", ".") + "."
         )
     except IndexError:
-        import_path = (
-            "wikirepo." + target_directory.split("wikirepo/")[2].replace("/", ".") + "."
-        )
-    except IndexError:
-        import_path = (
-            "wikirepo." + target_directory.split("wikirepo/")[1].replace("/", ".") + "."
-        )
+        try:
+            import_path = (
+                "wikirepo."
+                + target_directory.split("wikirepo/")[2].replace("/", ".")
+                + "."
+            )
+        except IndexError:
+            import_path = (
+                "wikirepo."
+                + target_directory.split("wikirepo/")[1].replace("/", ".")
+                + "."
+            )
 
     fxns_dict = {}
     for mod in target_modules:
@@ -81,10 +86,11 @@ def _get_dir_fxns_dict(dir_name=None):
             for fxn in inspect.getmembers(script, inspect.isfunction)
         ]
 
-        indexed_fxn_dict = {}
-        for n_f in name_fxn_list:
-            if n_f[0][: len("query_")] == "query_":
-                indexed_fxn_dict[n_f[0]] = n_f[1]
+        indexed_fxn_dict = {
+            n_f[0]: n_f[1]
+            for n_f in name_fxn_list
+            if n_f[0][: len("query_")] == "query_"
+        }
 
         fxns_dict[mod] = indexed_fxn_dict
 
@@ -93,7 +99,7 @@ def _get_dir_fxns_dict(dir_name=None):
 
 def _check_data_assertions(timespan=None, interval=None, **kwargs):
     """
-    Checks standardized data assertions across functions given local functional arguments
+    Checks standardized data assertions across functions given local functional arguments.
 
     Parameters
     ----------
@@ -111,7 +117,7 @@ def _check_data_assertions(timespan=None, interval=None, **kwargs):
     -------
         The results of a series of standardized assertions
     """
-    assert (interval == None) or (interval in time_utils.incl_intervals()), (
+    assert (interval is None) or (interval in time_utils.incl_intervals()), (
         "Please provide None for no time interval or a value for 'interval' from the following list of possible arguments: "
         + ", ".join(time_utils.incl_intervals())
         + "."
@@ -136,7 +142,7 @@ def _get_max_workers(multicore):
 
 def incl_dir_idxs(dir_name=None, descriptions=False):
     """
-    Returns the included indexes in the given directory - the file names of its scripts
+    Returns the included indexes in the given directory - the file names of its scripts.
 
     Parameters
     ----------
@@ -158,7 +164,7 @@ def gen_base_df(
     locations=None, depth=None, timespan=None, interval=None, col_name="data"
 ):
     """
-    Generates a baseline dataframe to be filled with queried data
+    Generates a baseline dataframe to be filled with queried data.
 
     Parameters
     ----------
@@ -187,17 +193,17 @@ def gen_base_df(
         base_df : pd.DataFrame
             A df that is ready to have queried data added to it
     """
-    if type(locations) == str:
+    if isinstance(locations, str):
         locations = [locations]
 
-    if type(locations) == list:
+    if isinstance(locations, list):
         assert (
             depth == 0
         ), """The user has provided locations with depth 0, but the 'depth' argument is not 0.
         If a greater depth is required, use lctn_utils.gen_lctns_dict."""
 
-    elif type(locations) == lctn_utils.LocationsDict:
-        if depth != None:
+    elif isinstance(locations, lctn_utils.LocationsDict):
+        if depth is not None:
             depth_check = lctn_utils.derive_depth(locations, depth=0)
             assert (
                 depth_check == depth
@@ -224,21 +230,21 @@ def gen_base_df(
     current_depth = 0
     current_qid_col = lctn_utils.depth_to_qid_col_name(depth=current_depth)
 
-    if type(locations) == lctn_utils.LocationsDict or type(locations) == dict:
+    if isinstance(locations, (lctn_utils.LocationsDict, dict)):
         current_depth_qids = [q for q in locations.keys()]
 
-    elif type(locations) == list:
+    elif isinstance(locations, list):
         current_depth_qids = [lctn_utils.lctn_lbl_to_qid(lctn) for lctn in locations]
     base_df[current_qid_col] = current_depth_qids
 
     # Assign labels for the above QIDs
-    if type(locations) == lctn_utils.LocationsDict or type(locations) == dict:
+    if isinstance(locations, (lctn_utils.LocationsDict, dict)):
         base_df[lctn_utils.depth_to_col_name(depth=current_depth)] = [
             list(lctn_utils.iter_key_items(node=locations, kv=q))[0]["lbl"]
             for q in current_depth_qids
         ]
 
-    elif type(locations) == list:
+    elif isinstance(locations, list):
         base_df[lctn_utils.depth_to_col_name(depth=current_depth)] = locations
 
     while current_depth < depth:
@@ -264,7 +270,7 @@ def gen_base_df(
             base_df.reset_index(drop=True, inplace=True)
             base_df[assign_qid_col] = base_df[assign_qid_col].astype(str)
 
-            if type(key_sub_qids) == list:
+            if isinstance(key_sub_qids, list):
                 for sub_q in base_df.loc[base_df[current_qid_col] == q, assign_qid_col]:
                     # For each sub_qid, assign the lbl
                     base_df.loc[
@@ -282,8 +288,8 @@ def gen_base_df(
     if interval:
         time_col = time_utils.interval_to_col_name(interval=interval)
 
-        if type(locations) == lctn_utils.LocationsDict or type(locations) == dict:
-            # Find the valis times for the sub_lctn and assign them
+        if isinstance(locations, (lctn_utils.LocationsDict, dict)):
+            # Find the valid times for the sub_lctn and assign them
             final_sub_lctn_qid_col = lctn_utils.depth_to_qid_col_name(depth=depth)
             for q in base_df[final_sub_lctn_qid_col]:
                 if q != "nan":  # is str because of astype(str)
@@ -298,7 +304,7 @@ def gen_base_df(
 
             base_df = base_df.explode(time_col)
 
-        elif type(locations) == list:
+        elif isinstance(locations, list):
             base_df[time_col] = [
                 time_utils.make_timespan(interval=interval, timespan=timespan)
             ] * len(base_df)
@@ -332,7 +338,7 @@ def assign_to_column(
     span=False,
 ):
     """
-    Assigns Wikidata property values to a designated column of a given df
+    Assigns Wikidata property values to a designated column of a given df.
 
     Parameters
     ----------
@@ -368,18 +374,16 @@ def assign_to_column(
         df : pd.DataFrame
             The df after assignment
     """
-    valid_assigns = ["all", "most_recent", "repeat"]
-
-    if type(locations) == str:
+    if isinstance(locations, str):
         locations = [locations]
 
-    if type(locations) == list:
+    if isinstance(locations, list):
         assert (
             depth == 0
         ), """The user has provided locations with depth 0, but the 'depth' argument is not 0.
         If a greater depth is required, use lctn_utils.gen_lctns_dict."""
 
-    elif type(locations) == lctn_utils.LocationsDict:
+    elif isinstance(locations, lctn_utils.LocationsDict):
         if depth != None:
             depth_check = lctn_utils.derive_depth(locations, depth=0)
             assert (
@@ -392,9 +396,9 @@ def assign_to_column(
     if assign == "all":
         # Assign a value over rows by matching times
         for q in df[assignment_col].unique():
-            if type(q) == str:  # is a valid location
+            if isinstance(q, str):  # is a valid location
                 for t in props[q].keys():
-                    if type(props[q][t]) == list:
+                    if isinstance(props[q][t], list):
                         # Multiple values to assign
                         df.loc[
                             df[
@@ -402,7 +406,7 @@ def assign_to_column(
                                 & (df[time_utils.interval_to_col_name(interval)] == t)
                             ].index[0],
                             col_name,
-                        ] = ", ".join([str(i) for i in props[q][t]])
+                        ] = ", ".join(str(i) for i in props[q][t])
 
                     else:
                         df.loc[
@@ -416,7 +420,7 @@ def assign_to_column(
     elif assign == "most_recent":  # interval and timespan are None
         # Assign the most recent value formatted with the date it's coming from
         for q in df[assignment_col].unique():
-            if type(q) == str:  # is a valid location
+            if isinstance(q, str):  # is a valid location
                 if len(props[q].keys()) == 1:
                     # Select the singular value even if it is 'no date'
                     assignment_times = list(props[q].keys())
@@ -431,17 +435,17 @@ def assign_to_column(
                     assignment_times = list(list(props[q].keys())[0])
 
                 most_recent_t = assignment_times[0]
-                if type(props[q][most_recent_t]) == list:
+                if isinstance(props[q][most_recent_t], list):
                     # Multiple values to assign
                     if span:
                         # We don't want the time for most recent span values
                         df.loc[
                             df.loc[df[assignment_col] == q].index, col_name
-                        ] = ", ".join([str(i) for i in props[q][most_recent_t]])
+                        ] = ", ".join(str(i) for i in props[q][most_recent_t])
 
                     else:
                         df.loc[df.loc[df[assignment_col] == q].index, col_name] = (
-                            ", ".join([str(i) for i in props[q][most_recent_t]])
+                            ", ".join(str(i) for i in props[q][most_recent_t])
                             + f" ({most_recent_t})"
                         )
 
@@ -460,12 +464,12 @@ def assign_to_column(
     elif assign == "repeat":
         # Assign one value over multiple rows
         for q in df[assignment_col].unique():
-            if type(q) == str:  # is a valid location
+            if isinstance(q, str):  # is a valid location
                 indexes_to_assign = df.loc[df[assignment_col] == q].index
-                if type(props[q]) == list:
+                if isinstance(props[q], list):
                     # Multiple values to assign
                     df.loc[indexes_to_assign, col_name] = [
-                        ", ".join([str(i) for i in props[q]])
+                        ", ".join(str(i) for i in props[q])
                     ] * len(indexes_to_assign)
 
                 else:
@@ -474,6 +478,8 @@ def assign_to_column(
                     )
 
     else:
+        valid_assigns = ["all", "most_recent", "repeat"]
+
         ValueError(
             "An invalid argument was passed to the 'assign' argument - please choose from one from "
             + ", ".join(valid_assigns)
@@ -497,7 +503,7 @@ def gen_base_and_assign_to_column(
     span=False,
 ):
     """
-    Combines data_utils.gen_base_df and data_utils.assign_to_column
+    Combines data_utils.gen_base_df and data_utils.assign_to_column.
     """
     df = gen_base_df(
         locations=locations,
@@ -533,7 +539,7 @@ def assign_to_cols(
     span=False,
 ):
     """
-    Assigns Wikidata property values from a qualifier to a designated column of a given df
+    Assigns Wikidata property values from a qualifier to a designated column of a given df.
 
     Parameters
     ----------
@@ -572,18 +578,16 @@ def assign_to_cols(
         df : pd.DataFrame
             The df after assignment
     """
-    valid_assigns = ["all", "most_recent"]
-
-    if type(locations) == str:
+    if isinstance(locations, str):
         locations = [locations]
 
-    if type(locations) == list:
+    if isinstance(locations, list):
         assert (
             depth == 0
         ), """The user has provided locations with depth 0, but the 'depth' argument is not 0.
         If a greater depth is required, use lctn_utils.gen_lctns_dict."""
 
-    elif type(locations) == lctn_utils.LocationsDict:
+    elif isinstance(locations, lctn_utils.LocationsDict):
         if depth != None:
             depth_check = lctn_utils.derive_depth(locations, depth=0)
             assert (
@@ -596,7 +600,7 @@ def assign_to_cols(
     if assign == "all":
         # Assign a value over rows by matching times
         for q in df[assignment_col]:
-            if type(q) == str:  # is a valid location
+            if isinstance(q, str):  # is a valid location
                 for t in props[q].keys():
                     # props[q][t] is a dictionary qualified values
                     for k in props[q][t].keys():
@@ -615,7 +619,7 @@ def assign_to_cols(
     elif assign == "most_recent":  # interval and timespan are None
         # Assign the most recent value formatted with the date it's coming from
         for q in df[assignment_col]:
-            if type(q) == str:  # is a valid location
+            if isinstance(q, str):  # is a valid location
                 if len(props[q].keys()) == 1:
                     # Select the singular value even if it is 'no date'
                     assignment_times = list(props[q].keys())
@@ -649,6 +653,8 @@ def assign_to_cols(
                         ] = f"{props[q][most_recent_t][k]} ({most_recent_t})"
 
     else:
+        valid_assigns = ["all", "most_recent"]
+
         ValueError(
             "An invalid argument was passed to the 'assign' argument - please choose from one from "
             + ", ".join(valid_assigns)
@@ -674,7 +680,7 @@ def gen_base_and_assign_to_cols(
     span=False,
 ):
     """
-    Combines data_utils.gen_base_df and data_utils.assign_to_cols
+    Combines data_utils.gen_base_df and data_utils.assign_to_cols.
     """
     df = gen_base_df(
         locations=locations,
@@ -714,7 +720,7 @@ def query_wd_prop(
     span=False,
 ):
     """
-    Queries a Wikidata property for the given continent(s)
+    Queries a Wikidata property for the given continent(s).
 
     Parameters
     ----------
@@ -765,26 +771,26 @@ def query_wd_prop(
         df, ents_dict : pd.DataFrame, wd_utils.EntitiesDict
             A df of location names and the given property for the given timespan with an updated EntitiesDict
     """
-    if ents_dict == None:
+    if ents_dict is None:
         ents_dict = wd_utils.EntitiesDict()
 
-    if type(locations) == str:
+    if isinstance(locations, str):
         locations = [locations]
 
-    if type(locations) == list:
+    if isinstance(locations, list):
         qids = [
             lctn_utils.lctn_lbl_to_qid(lctn) if not wd_utils.is_wd_id(lctn) else lctn
             for lctn in locations
         ]
 
-    elif type(locations) == lctn_utils.LocationsDict:
+    elif isinstance(locations, lctn_utils.LocationsDict):
         qids = locations.get_keys_at_depth(depth)
 
-    elif type(locations) == dict:
+    elif isinstance(locations, dict):
         qids = lctn_utils.get_qids_at_depth(lctns_dict=locations, depth=depth)
     qids = utils._make_var_list(qids)[0]
 
-    if col_prefix == None:
+    if col_prefix is None:
         t_to_p_dict = wd_utils.t_to_prop_val_dict(
             dir_name=dir_name,
             ents_dict=ents_dict,
@@ -878,7 +884,7 @@ def query_repo_dir(
     **kwargs,
 ):
     """
-    Generates a df of statistics for given a psk directory and geographic as well as time intervals
+    Generates a df of statistics for given a psk directory and geographic as well as time intervals.
 
     Parameters
     ----------
@@ -966,9 +972,11 @@ def query_repo_dir(
 
 def interp_by_subset(df=None, depth=None, col_name="data", **kwargs):
     """
-    Subsets a df by a given geo_lvl and interpolates the given column
+    Subsets a df by a given geo_lvl and interpolates the given column.
 
-    Note: pd.DataFrame.interpolate and scipy.interpolate **kwargs are passed
+    Notes
+    -----
+        pd.DataFrame.interpolate and scipy.interpolate **kwargs are passed
 
     Parameters
     ----------
@@ -1002,8 +1010,9 @@ def interp_by_subset(df=None, depth=None, col_name="data", **kwargs):
             unique_val = [
                 val
                 for val in df_subset[col_name].unique()
-                if not (type(val) != str and np.isnan(val))
+                if isinstance(val, str) or not np.isnan(val)
             ][0]
+
             df_subset[col_name] = [unique_val] * len(df_subset)
 
             df_interpolated = df_interpolated.append(df_subset)
@@ -1029,7 +1038,7 @@ def sum_df_prop_vals(
     drop_vals_lctn=False,
 ):
     """
-    Adds or subtracts values in a dataframe for given locations
+    Adds or subtracts values in a dataframe for given locations.
 
     Parameters
     ----------
@@ -1138,7 +1147,7 @@ def sum_df_prop_vals(
 
 def split_col_val_dates(df=None, col=None):
     """
-    Adds or subtracts values in a dataframe for given locations
+    Adds or subtracts values in a dataframe for given locations.
 
     Parameters
     ----------
@@ -1179,7 +1188,7 @@ def split_col_val_dates(df=None, col=None):
 
 def count_df_prop_vals(df=None, col=None, percent=False):
     """
-    Returns value counts of df columns sorted alphabetically
+    Returns value counts of df columns sorted alphabetically.
 
     Parameters
     ----------

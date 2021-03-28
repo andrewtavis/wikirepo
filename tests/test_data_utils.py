@@ -3,8 +3,6 @@ Data Utilities Tests
 --------------------
 """
 
-import pandas as pd
-
 from wikirepo.data import data_utils
 
 
