@@ -212,6 +212,5 @@ dependencies:
     - verboselogs==1.7
     - wheel-filename==1.3.0
     - wikidata==0.7.0
-    - wikirepo==0.1.0
     - yarl==1.6.3
     - zict==2.0.0
