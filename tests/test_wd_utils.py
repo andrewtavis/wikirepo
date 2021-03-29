@@ -5,7 +5,6 @@ Wikidata Utilities Tests
 
 from wikirepo.data import wd_utils
 
-
 entities_dict = wd_utils.EntitiesDict()
 
 

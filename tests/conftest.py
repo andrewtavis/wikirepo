@@ -4,10 +4,9 @@ Fixtures
 """
 
 from datetime import date
+
 import pytest
-
 import wikirepo
-
 from wikirepo.data import data_utils, lctn_utils, wd_utils
 
 entities_dict = wd_utils.EntitiesDict()

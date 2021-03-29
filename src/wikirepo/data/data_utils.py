@@ -23,9 +23,9 @@ Contents
     count_df_prop_vals
 """
 
-import os
-import inspect
 import importlib
+import inspect
+import os
 from ast import literal_eval
 
 import numpy as np
@@ -33,7 +33,6 @@ import numpy as np
 # import modin.pandas as pd
 import pandas as pd
 from tqdm.auto import tqdm
-
 from wikirepo import utils
 from wikirepo.data import lctn_utils, time_utils, wd_utils
 

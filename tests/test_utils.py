@@ -4,7 +4,6 @@ Utilities Tests
 """
 
 import pytest
-
 from wikirepo import utils
 
 

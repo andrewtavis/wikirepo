@@ -5,7 +5,6 @@ Reference: https://plotly.com/python/choropleth-maps/
 
 Contents
 --------
-  0. No Class
 """
 
 # import pandas as pd

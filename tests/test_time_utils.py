@@ -5,9 +5,8 @@ Time Utilities Tests
 
 from datetime import date
 
-import pytest
 import pandas as pd
-
+import pytest
 from wikirepo.data import time_utils
 
 

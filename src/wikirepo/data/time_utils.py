@@ -16,8 +16,9 @@ Contents
     truncated_earliest_date
 """
 
-from datetime import datetime, date
-from dateutil.rrule import rrule, YEARLY, MONTHLY, WEEKLY, DAILY
+from datetime import date, datetime
+
+from dateutil.rrule import DAILY, MONTHLY, WEEKLY, YEARLY, rrule
 
 
 def interval_to_col_name(interval):

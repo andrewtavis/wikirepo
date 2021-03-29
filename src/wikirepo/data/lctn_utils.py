@@ -37,7 +37,6 @@ Contents
 
 from pandas.core.common import flatten
 from tqdm.auto import tqdm
-
 from wikirepo import utils
 from wikirepo.data import wd_utils
 

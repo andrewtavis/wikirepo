@@ -42,11 +42,10 @@ Contents
         _print
 """
 
+from datetime import date, datetime
+
 import numpy as np
-from datetime import datetime, date
-
 from wikidata.client import Client
-
 from wikirepo import utils
 from wikirepo.data import time_utils
 
