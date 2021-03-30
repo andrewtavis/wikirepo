@@ -307,7 +307,7 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 
 - Integrating current Python tools with wikirepo structures for uploads to Wikidata
 
-- Adding a query of property descriptions to `data.data_utils.incl_dir_idxs`
+- Adding a query of property descriptions to `data.data_utils.incl_dir_idxs` [(see issue)](https://github.com/andrewtavis/wikirepo/issues/15)
 
 - Adding multiprocessing support to the [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/query.py) process and `data.lctn_utils.gen_lctns_dict`
 
