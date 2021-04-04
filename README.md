@@ -17,7 +17,7 @@
 
 ### Python based Wikidata framework for easy dataframe extraction
 
-**wikirepo** is a Python package that provides a framework to easily source and leverage standardized [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) information. The goal is to create an intuitive interface so that Wikidata can function as a common read-write repository for public statistics.
+**wikirepo** is a Python package that provides a framework to easily source and leverage standardized [Wikidata](https://www.wikidata.org/) information. The goal is to create an intuitive interface so that Wikidata can function as a common read-write repository for public statistics.
 
 # **Contents**<a id="contents"></a>
 - [Data](#data)
@@ -45,7 +45,7 @@ import wikirepo
 
 # Data [`↩`](#contents) <a id="data"></a>
 
-wikirepo's data structure is built around [Wikidata.org](https://www.wikidata.org/wiki/Wikidata:Main_Page). Human-readable access to Wikidata statistics is achieved through converting requests into Wikidata's Quantity IDs (QIDs) and Property IDs (PIDs), with the Python package [wikidata](https://github.com/dahlia/wikidata) serving as a basis for data loading and indexing. See the [documentation](https://wikirepo.readthedocs.io/en/latest/) for a structured overview of the currently available properties.
+wikirepo's data structure is built around [Wikidata.org](https://www.wikidata.org/). Human-readable access to Wikidata statistics is achieved through converting requests into Wikidata's Quantity IDs (QIDs) and Property IDs (PIDs), with the Python package [wikidata](https://github.com/dahlia/wikidata) serving as a basis for data loading and indexing. See the [documentation](https://wikirepo.readthedocs.io/en/latest/) for a structured overview of the currently available properties.
 
 ### Query Data
 
@@ -269,7 +269,7 @@ Similar to the potential of adding statistics through [wikirepo.data.upload](htt
 
 # Examples [`↩`](#contents) <a id="examples"></a>
 
-wikirepo can be used as a foundation for countless projects, with its usefulness and practicality only improving as more properties are added and more data is uploaded to [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page).
+wikirepo can be used as a foundation for countless projects, with its usefulness and practicality only improving as more properties are added and more data is uploaded to [Wikidata](https://www.wikidata.org/).
 
 Current usage examples include:
 
@@ -282,7 +282,7 @@ Please see the [contribution guidelines](https://github.com/andrewtavis/wikirepo
 
 ### Expanding Wikidata
 
-The growth of wikirepo's database relies on that of [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page). Through `data.wd_utils.dir_to_topic_page` wikirepo can access properties on location sub-pages, thus allowing for statistics on any topic to be linked to. Beyond simply adding entries to already existing properties, the following are examples of property types that could be included:
+The growth of wikirepo's database relies on that of [Wikidata](https://www.wikidata.org/). Through `data.wd_utils.dir_to_topic_page` wikirepo can access properties on location sub-pages, thus allowing for statistics on any topic to be linked to. Beyond including entries for already existing properties (see [this issue](https://github.com/andrewtavis/wikirepo/issues/16)), the following are examples of property types that could be added:
 
 - Climate statistics could be added to [data/climate](https://github.com/andrewtavis/wikirepo/tree/main/src/wikirepo/data/climate)
     - This would allow for easy modeling of global warming and its effects
@@ -363,7 +363,7 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
   <br>
   <a href="https://wikiba.se/"><img height="150" src="https://raw.githubusercontent.com/andrewtavis/wikirepo/master/resources/gh_images/wikibase_logo.png" alt="wikibase"></a>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://www.wikidata.org/wiki/Wikidata:Main_Page"><img height="150" src="https://raw.githubusercontent.com/andrewtavis/wikirepo/master/resources/gh_images/wikidata_logo.png" alt="wikidata"></a>
+  <a href="https://www.wikidata.org/"><img height="150" src="https://raw.githubusercontent.com/andrewtavis/wikirepo/master/resources/gh_images/wikidata_logo.png" alt="wikidata"></a>
   <br>
   <br>
 </div>
