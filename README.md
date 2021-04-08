@@ -305,6 +305,8 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 
 ### Further Ways to Help
 
+- Creating an outline of the package's structure for the readme [(see issue)](https://github.com/andrewtavis/wikirepo/issues/18)
+
 - Creating concise [requirements.txt](https://github.com/andrewtavis/wikirepo/blob/main/requirements.txt) and [environment.yml](https://github.com/andrewtavis/wikirepo/blob/main/environment.yml) files [(see issue)](https://github.com/andrewtavis/wikirepo/issues/17)
 
 - Integrating current Python tools with wikirepo structures for uploads to Wikidata
