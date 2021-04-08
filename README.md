@@ -280,7 +280,7 @@ Current usage examples include:
 
 Please see the [contribution guidelines](https://github.com/andrewtavis/wikirepo/blob/main/.github/CONTRIBUTING.md) if you are interested in contributing to this project. Work that is in progress or could be implemented includes:
 
-### Expanding Wikidata
+## Expanding Wikidata
 
 The growth of wikirepo's database relies on that of [Wikidata](https://www.wikidata.org/). Through `data.wd_utils.dir_to_topic_page` wikirepo can access properties on location sub-pages, thus allowing for statistics on any topic to be linked to. Beyond including entries for already existing properties (see [this issue](https://github.com/andrewtavis/wikirepo/issues/16)), the following are examples of property types that could be added:
 
@@ -303,7 +303,7 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 - Distinct properties for Freedom House and Press Freedom indexes, as well as other descriptive metrics
     - These could be added to [data/institutional](https://github.com/andrewtavis/wikirepo/tree/main/src/wikirepo/data/institutional)
 
-### Further Ways to Help
+## Expanding wikirepo
 
 - Creating an outline of the package's structure for the readme [(see issue)](https://github.com/andrewtavis/wikirepo/issues/18)
 
