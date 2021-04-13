@@ -36,13 +36,8 @@ setup_args = dict(
 )
 
 install_requires = [
-    "numpy",
-    "scipy",
     "pandas",
-    "matplotlib",
-    "seaborn",
     "wikidata",
-    "python-dateutil",
     "tqdm",
 ]
 
