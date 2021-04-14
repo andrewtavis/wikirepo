@@ -6,11 +6,11 @@ except ImportError:
 
 from setuptools import find_packages
 
-this_directory = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(this_directory, "README.md"), encoding="utf-8") as fh:
+package_directory = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(package_directory, "README.md"), encoding="utf-8") as fh:
     long_description = fh.read()
 
-with open(os.path.join(this_directory, "requirements.txt")) as req_file:
+with open(os.path.join(package_directory, "requirements.txt")) as req_file:
     requirements = req_file.readlines()
 
 setup_args = dict(
