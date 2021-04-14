@@ -1,3 +1,4 @@
+import os
 try:
     from setuptools import setup
 except ImportError:
@@ -5,8 +6,12 @@ except ImportError:
 
 from setuptools import find_packages
 
-with open("README.md", "r") as fh:
+this_directory = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(this_directory, "README.md"), encoding="utf-8") as fh:
     long_description = fh.read()
+
+with open(os.path.join(this_directory, "requirements.txt")) as req_file:
+    requirements = req_file.readlines()
 
 setup_args = dict(
     name="wikirepo",
@@ -28,6 +33,8 @@ setup_args = dict(
         "Programming Language :: Python :: 3.8",
         "Operating System :: OS Independent",
     ],
+    python_requires=">=3.6",
+    install_requires=requirements,
     description="Python based Wikidata framework for easy dataframe extraction",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -35,11 +42,5 @@ setup_args = dict(
     url="https://github.com/andrewtavis/wikirepo",
 )
 
-install_requires = [
-    "pandas",
-    "wikidata",
-    "tqdm",
-]
-
 if __name__ == "__main__":
-    setup(**setup_args, install_requires=install_requires)
+    setup(**setup_args)
