@@ -15,5 +15,4 @@ dependencies:
   - python>=3.6
   - tqdm=4.56.0
   - pip:
-    - pandas==1.1.5
     - wikidata==0.7.0
