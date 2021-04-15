@@ -332,7 +332,7 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 - Improving [code quality](https://app.codacy.com/gh/andrewtavis/wikirepo/dashboard) by refactoring large functions and checking conventions
 
 # Similar Projects
-<details><summary><strong>Python<strong></summary>
+<details><summary><strong>Python</strong></summary>
 <p>
 
 - https://github.com/dahlia/wikidata
@@ -342,7 +342,7 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 </p>
 </details>
 
-<details><summary><strong>JavaScript<strong></summary>
+<details><summary><strong>JavaScript</strong></summary>
 <p>
 
 - https://github.com/maxlath/wikibase-cli
@@ -353,7 +353,7 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 </p>
 </details>
 
-<details><summary><strong>Java<strong></summary>
+<details><summary><strong>Java</strong></summary>
 <p>
 
 - https://github.com/Wikidata/Wikidata-Toolkit
