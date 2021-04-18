@@ -20,12 +20,13 @@
 **wikirepo** is a Python package that provides a framework to easily source and leverage standardized [Wikidata](https://www.wikidata.org/) information. The goal is to create an intuitive interface so that Wikidata can function as a common read-write repository for public statistics.
 
 # **Contents**<a id="contents"></a>
+- [Installation](#installation)
 - [Data](#data)
 - [Maps (WIP)](#maps-wip)
 - [Examples](#examples)
 - [To-Do](#to-do)
 
-# Installation
+# Installation [`↩`](#contents) <a id="installation"></a>
 
 wikirepo can be downloaded from PyPI via pip or sourced directly from this repository:
 
