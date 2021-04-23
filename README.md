@@ -308,8 +308,6 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 
 - Creating an outline of the package's structure for the readme [(see issue)](https://github.com/andrewtavis/wikirepo/issues/18)
 
-- Creating concise [requirements.txt](https://github.com/andrewtavis/wikirepo/blob/main/requirements.txt) and [environment.yml](https://github.com/andrewtavis/wikirepo/blob/main/environment.yml) files [(see issue)](https://github.com/andrewtavis/wikirepo/issues/17)
-
 - Integrating current Python tools with wikirepo structures for uploads to Wikidata
 
 - Adding a query of property descriptions to `data.data_utils.incl_dir_idxs` [(see issue)](https://github.com/andrewtavis/wikirepo/issues/15)
