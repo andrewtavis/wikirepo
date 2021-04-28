@@ -1,4 +1,5 @@
 import os
+
 try:
     from setuptools import setup
 except ImportError:
@@ -17,7 +18,7 @@ setup_args = dict(
     name="wikirepo",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    version="0.1.1.6",
+    version="0.1.1.7",
     author="Andrew Tavis McAllister",
     author_email="andrew.t.mcallister@gmail.com",
     classifiers=[
