@@ -887,7 +887,7 @@ def gen_lctns_dict(
         depth_keys = get_qids_at_depth(lctns_dict=lctns_dict, depth=current_depth)
 
         if interval == None:
-            # Assuming that the user wants the current sub-locations
+            # Assuming that the user wants the current sub-locations.
             def get_most_frequent_dict(ents_dict, lctns_dict, qid, pid):
                 """
                 Returns sub-locations that don't have 'P582' (end time) or don't have qualifiers at all.
@@ -945,7 +945,7 @@ def gen_lctns_dict(
                 get_most_frequent_dict(ents_dict, lctns_dict, q, pid)
 
         else:
-            # Find the included times and the timespan for each sub-location element
+            # Find the included times and the timespan for each sub-location element.
             def get_valid_timespan_dict(ents_dict, lctns_dict, qid, pid):
                 """
                 Returns the sub-location's id, lbl, and the valid timespan so it can be used in subsetting.

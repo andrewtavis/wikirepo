@@ -211,7 +211,7 @@ def gen_base_df(
             depth = lctn_utils.derive_depth(locations, depth=0)
 
     df_cols = lctn_utils.depth_to_cols(depth=depth)
-    # qids that will have values assigned through a LocationsDict lookup
+    # qids that will have values assigned through a LocationsDict lookup.
     qid_cols = lctn_utils.depth_to_qid_cols(depth=depth)
     df_cols += qid_cols
 
@@ -235,7 +235,7 @@ def gen_base_df(
         current_depth_qids = [lctn_utils.lctn_lbl_to_qid(lctn) for lctn in locations]
     base_df[current_qid_col] = current_depth_qids
 
-    # Assign labels for the above QIDs
+    # Assign labels for the above QIDs.
     if isinstance(locations, (lctn_utils.LocationsDict, dict)):
         base_df[lctn_utils.depth_to_col_name(depth=current_depth)] = [
             list(lctn_utils.iter_key_items(node=locations, kv=q))[0]["lbl"]
@@ -250,14 +250,14 @@ def gen_base_df(
         assign_lbl_col = lctn_utils.depth_to_col_name(depth=current_depth + 1)
 
         for q in [qid for qid in current_depth_qids if qid != np.nan]:
-            # Assign a list that will directly be exploded
+            # Assign a list that will directly be exploded.
             key_items = list(lctn_utils.iter_key_items(node=locations, kv=q))[0]
             key_subs = list(lctn_utils.iter_key_items(node=key_items, kv="sub_lctns"))[
                 0
             ]
             key_sub_qids = list(key_subs.keys())
             if key_sub_qids == []:
-                # Assign to locations that don't have sub_lctns for pd.explode
+                # Assign to locations that don't have sub_lctns for pd.explode.
                 key_sub_qids = np.nan
 
             base_df.at[
@@ -270,7 +270,7 @@ def gen_base_df(
 
             if isinstance(key_sub_qids, list):
                 for sub_q in base_df.loc[base_df[current_qid_col] == q, assign_qid_col]:
-                    # For each sub_qid, assign the lbl
+                    # For each sub_qid, assign the lbl.
                     base_df.loc[
                         base_df[base_df[assign_qid_col] == sub_q].index[0],
                         assign_lbl_col,
@@ -287,7 +287,7 @@ def gen_base_df(
         time_col = time_utils.interval_to_col_name(interval=interval)
 
         if isinstance(locations, (lctn_utils.LocationsDict, dict)):
-            # Find the valid times for the sub_lctn and assign them
+            # Find the valid times for the sub_lctn and assign them.
             final_sub_lctn_qid_col = lctn_utils.depth_to_qid_col_name(depth=depth)
             for q in base_df[final_sub_lctn_qid_col]:
                 if q != "nan":  # is str because of astype(str)
@@ -315,7 +315,7 @@ def gen_base_df(
     if col_name != None:
         base_df[col_name] = [np.nan] * len(base_df)
 
-    # Drop all columns except for the last to allow for assignment
+    # Drop all columns except for the last to allow for assignment.
     for col in qid_cols[:-1]:
         base_df.drop(col, axis=1, inplace=True)
 
@@ -388,16 +388,16 @@ def assign_to_column(
                 depth_check == depth
             ), "The given depth and the derived depth of the LocationsDict do not match. Please check the geographic depth you want to analyze."
 
-    # Column made up of QIDs for assignment
+    # Column made up of QIDs for assignment.
     assignment_col = lctn_utils.depth_to_qid_col_name(depth=depth)
 
     if assign == "all":
-        # Assign a value over rows by matching times
+        # Assign a value over rows by matching times.
         for q in df[assignment_col].unique():
-            if isinstance(q, str):  # is a valid location
+            if isinstance(q, str):  # is a valid location.
                 for t in props[q].keys():
                     if isinstance(props[q][t], list):
-                        # Multiple values to assign
+                        # Multiple values to assign.
                         df.loc[
                             df[
                                 (df[assignment_col] == q)
@@ -416,27 +416,27 @@ def assign_to_column(
                         ] = props[q][t]
 
     elif assign == "most_recent":  # interval and timespan are None
-        # Assign the most recent value formatted with the date it's coming from
+        # Assign the most recent value formatted with the date it's coming from.
         for q in df[assignment_col].unique():
             if isinstance(q, str):  # is a valid location
                 if len(props[q].keys()) == 1:
-                    # Select the singular value even if it is 'no date'
+                    # Select the singular value even if it is 'no date'.
                     assignment_times = list(props[q].keys())
                 else:
-                    # Select the documented times
+                    # Select the documented times.
                     assignment_times = sorted(
                         [k for k in props[q].keys() if k != "no date"]
                     )[::-1]
 
                 if assignment_times == []:
-                    # There were multiple 'no date' values, so select the first
+                    # There were multiple 'no date' values, so select the first.
                     assignment_times = list(list(props[q].keys())[0])
 
                 most_recent_t = assignment_times[0]
                 if isinstance(props[q][most_recent_t], list):
-                    # Multiple values to assign
+                    # Multiple values to assign.
                     if span:
-                        # We don't want the time for most recent span values
+                        # We don't want the time for most recent span values.
                         df.loc[
                             df.loc[df[assignment_col] == q].index, col_name
                         ] = ", ".join(str(i) for i in props[q][most_recent_t])
@@ -449,7 +449,7 @@ def assign_to_column(
 
                 else:
                     if span:
-                        # We don't want the time for most recent span values
+                        # We don't want the time for most recent span values.
                         df.loc[df.loc[df[assignment_col] == q].index, col_name] = props[
                             q
                         ][most_recent_t]
@@ -460,12 +460,12 @@ def assign_to_column(
                         ] = f"{props[q][most_recent_t]} ({most_recent_t})"
 
     elif assign == "repeat":
-        # Assign one value over multiple rows
+        # Assign one value over multiple rows.
         for q in df[assignment_col].unique():
             if isinstance(q, str):  # is a valid location
                 indexes_to_assign = df.loc[df[assignment_col] == q].index
                 if isinstance(props[q], list):
-                    # Multiple values to assign
+                    # Multiple values to assign.
                     df.loc[indexes_to_assign, col_name] = [
                         ", ".join(str(i) for i in props[q])
                     ] * len(indexes_to_assign)
@@ -484,7 +484,7 @@ def assign_to_column(
         ) + "."
 
     df.replace(to_replace="nan", value=np.nan, inplace=True)
-    # QID columns will be transferred for all properties, but all except one will be dropped
+    # QID columns will be transferred for all properties, but all except one will be dropped.
     df.rename(columns={assignment_col: "qid"}, inplace=True)
 
     return df
@@ -592,15 +592,15 @@ def assign_to_cols(
                 depth_check == depth
             ), "The given depth and the derived depth of the LocationsDict do not match. Please check the geographic depth you want to analyze."
 
-    # Column made up of QIDs for assignment
+    # Column made up of QIDs for assignment.
     assignment_col = lctn_utils.depth_to_qid_col_name(depth=depth)
 
     if assign == "all":
-        # Assign a value over rows by matching times
+        # Assign a value over rows by matching times.
         for q in df[assignment_col]:
-            if isinstance(q, str):  # is a valid location
+            if isinstance(q, str):  # is a valid location.
                 for t in props[q].keys():
-                    # props[q][t] is a dictionary qualified values
+                    # props[q][t] is a dictionary qualified values.
                     for k in props[q][t].keys():
                         sub_col = col_prefix + "_" + k.replace(" ", "_").lower()
                         if sub_col not in df.columns:
@@ -615,32 +615,32 @@ def assign_to_cols(
                         ] = props[q][t][k]
 
     elif assign == "most_recent":  # interval and timespan are None
-        # Assign the most recent value formatted with the date it's coming from
+        # Assign the most recent value formatted with the date it's coming from.
         for q in df[assignment_col]:
             if isinstance(q, str):  # is a valid location
                 if len(props[q].keys()) == 1:
-                    # Select the singular value even if it is 'no date'
+                    # Select the singular value even if it is 'no date'.
                     assignment_times = list(props[q].keys())
                 else:
-                    # Select the documented times
+                    # Select the documented times.
                     assignment_times = sorted(
                         [k for k in props[q].keys() if k != "no date"]
                     )[::-1]
 
                 if assignment_times == []:
-                    # There were multiple 'no date' values, so select the first
+                    # There were multiple 'no date' values, so select the first.
                     assignment_times = list(list(props[q].keys())[0])
 
                 most_recent_t = assignment_times[0]
-                # props[q][most_recent_t] is a dictionary qualified values
 
+                # props[q][most_recent_t] is a dictionary qualified values.
                 for k in props[q][most_recent_t].keys():
                     sub_col = col_prefix + "_" + k.replace(" ", "_").lower()
                     if sub_col not in df.columns:
                         df[sub_col] = [np.nan] * len(df)
 
                     if span == True and sub_pid == bool:
-                        # We don't want the date if it's a spanned boolean value
+                        # We don't want the date if it's a spanned boolean value.
                         df.loc[df[(df[assignment_col] == q)].index[0], sub_col] = props[
                             q
                         ][most_recent_t][k]
@@ -659,7 +659,7 @@ def assign_to_cols(
         ) + "."
 
     df.replace(to_replace="nan", value=np.nan, inplace=True)
-    # QID columns will be transferred for all properties, but all except one will be dropped
+    # QID columns will be transferred for all properties, but all except one will be dropped.
     df.rename(columns={assignment_col: "qid"}, inplace=True)
 
     return df
@@ -801,7 +801,7 @@ def query_wd_prop(
             span=span,
         )
 
-        # Assignment via a single column col_name
+        # Assignment via a single column col_name.
         if interval is not None:
             df = gen_base_and_assign_to_column(
                 locations=locations,
@@ -839,7 +839,7 @@ def query_wd_prop(
             span=span,
         )
 
-        # Assignment via generated columns prefixed as col_prefix
+        # Assignment via generated columns prefixed as col_prefix.
         if interval is not None:
             df = gen_base_and_assign_to_cols(
                 locations=locations,

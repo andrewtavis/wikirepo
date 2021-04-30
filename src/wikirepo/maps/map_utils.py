@@ -1,5 +1,5 @@
 """
-Functions querying map shapefiles for mapping
+Functions querying map shapefiles for mapping.
 
 Reference: https://plotly.com/python/choropleth-maps/
 

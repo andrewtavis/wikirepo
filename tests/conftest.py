@@ -15,7 +15,7 @@ depth = 0
 timespan = (date(2009, 1, 1), date(2010, 1, 1))
 interval = "yearly"
 
-# Test of values for a given timespan
+# Test of values for a given timespan.
 df_timespan = wikirepo.data.query(
     ents_dict=entities_dict,
     locations=countries,
@@ -56,7 +56,7 @@ df_timespan = wikirepo.data.query(
     verbose=True,
 )
 
-# Test of most recent values
+# Test of most recent values.
 df_most_recent = wikirepo.data.query(
     ents_dict=entities_dict,
     locations=countries,
