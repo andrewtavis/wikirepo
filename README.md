@@ -2,7 +2,7 @@
   <a href="https://github.com/andrewtavis/wikirepo"><img src="https://raw.githubusercontent.com/andrewtavis/wikirepo/master/resources/wikirepo_logo_transparent.png" width=506 height=304></a>
 </div>
 
---------------------------------------
+---
 
 [![rtd](https://img.shields.io/readthedocs/wikirepo.svg?logo=read-the-docs)](http://wikirepo.readthedocs.io/en/latest/)
 [![ci](https://img.shields.io/github/workflow/status/andrewtavis/wikirepo/CI?logo=github)](https://github.com/andrewtavis/wikirepo/actions?query=workflow%3ACI)
@@ -20,6 +20,7 @@
 **wikirepo** is a Python package that provides a framework to easily source and leverage standardized [Wikidata](https://www.wikidata.org/) information. The goal is to create an intuitive interface so that Wikidata can function as a common read-write repository for public statistics.
 
 # **Contents**<a id="contents"></a>
+
 - [Installation](#installation)
 - [Data](#data)
 - [Maps (WIP)](#maps-wip)
@@ -55,19 +56,19 @@ wikirepo's main access function, [wikirepo.data.query](https://github.com/andrew
 Each query needs the following inputs:
 
 - **locations**: the locations that data should be queried for
-    - Strings are accepted for `Earth`, continents, and countries
-    - Get all country names with `wikirepo.data.incl_lctn_lbls(lctn_lvls='country')`
-    - The user can also pass Wikidata QIDs directly
+  - Strings are accepted for `Earth`, continents, and countries
+  - Get all country names with `wikirepo.data.incl_lctn_lbls(lctn_lvls='country')`
+  - The user can also pass Wikidata QIDs directly
 - **depth**: the geographic level of the given locations to query
-    - A depth of 0 is the locations themselves
-    - Greater depths correspond to lower geographic levels (states of countries, etc.)
-    - A dictionary of locations is generated for lower depths (see second example below)
+  - A depth of 0 is the locations themselves
+  - Greater depths correspond to lower geographic levels (states of countries, etc.)
+  - A dictionary of locations is generated for lower depths (see second example below)
 - **timespan**: start and end `datetime.date` objects defining when data should come from
-    - If not provided, then the most recent data will be retrieved with annotation for when it's from
+  - If not provided, then the most recent data will be retrieved with annotation for when it's from
 - **interval**: `yearly`, `monthly`, `weekly`, or `daily` as strings
 - **Further arguments**: the names of modules in [wikirepo/data](https://github.com/andrewtavis/wikirepo/tree/main/src/wikirepo/data) directories
-    - These are passed to arguments corresponding to their directories
-    - Data will be queried for these properties for the given `locations`, `depth`, `timespan` and `interval`, with results being merged as dataframe columns
+  - These are passed to arguments corresponding to their directories
+  - Data will be queried for these properties for the given `locations`, `depth`, `timespan` and `interval`, with results being merged as dataframe columns
 
 Queries are also able to access information in Wikidata sub-pages for locations. For example: if inflation rate is not found on the location's main page, then wikirepo checks the location's economic topic page as [inflation_rate.py](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/economic/inflation_rate.py) is found in [wikirepo/data/economic](https://github.com/andrewtavis/wikirepo/tree/main/src/wikirepo/data/economic) (see [Germany](https://www.wikidata.org/wiki/Q183) and [economy of Germany](https://www.wikidata.org/wiki/Q8046)).
 
@@ -124,16 +125,14 @@ df = df[col_order]
 df.head(6)
 ```
 
-| location                   | qid   |   year | executive      |    population |   life_exp |   human_dev_idx |   median_income |
-|:---------------------------|:------|-------:|:---------------|--------------:|-----------:|----------------:|----------------:|
-| Germany                    | Q183  |   2010 | Angela Merkel  |   8.1752e+07  |    79.9878 |           0.921 |           33333 |
-| Germany                    | Q183  |   2009 | Angela Merkel  | nan           |    79.8366 |           0.917 |             nan |
-| United States of America   | Q30   |   2010 | Barack Obama   |   3.08746e+08 |    78.5415 |           0.914 |           43585 |
-| United States of America   | Q30   |   2009 | George W. Bush | nan           |    78.3902 |           0.91  |             nan |
-| People's Republic of China | Q148  |   2010 | Wen Jiabao     |   1.35976e+09 |    75.236  |           0.706 |             nan |
-| People's Republic of China | Q148  |   2009 | Wen Jiabao     | nan           |    75.032  |           0.694 |             nan |
-
-
+| location                   | qid  | year | executive      |  population | life_exp | human_dev_idx | median_income |
+| :------------------------- | :--- | ---: | :------------- | ----------: | -------: | ------------: | ------------: |
+| Germany                    | Q183 | 2010 | Angela Merkel  |  8.1752e+07 |  79.9878 |         0.921 |         33333 |
+| Germany                    | Q183 | 2009 | Angela Merkel  |         nan |  79.8366 |         0.917 |           nan |
+| United States of America   | Q30  | 2010 | Barack Obama   | 3.08746e+08 |  78.5415 |         0.914 |         43585 |
+| United States of America   | Q30  | 2009 | George W. Bush |         nan |  78.3902 |          0.91 |           nan |
+| People's Republic of China | Q148 | 2010 | Wen Jiabao     | 1.35976e+09 |   75.236 |         0.706 |           nan |
+| People's Republic of China | Q148 | 2009 | Wen Jiabao     |         nan |   75.032 |         0.694 |           nan |
 
 #### Querying Information for all US Counties
 
@@ -183,16 +182,14 @@ df = wikirepo.data.query(
 df[df["population"].notnull()].head(6)
 ```
 
-| location                 | sub_lctn   | sub_sub_lctn        | qid     |   year |       population |   area_km2 | capital      |
-|:-------------------------|:-----------|:--------------------|:--------|-------:|-----------------:|-----------:|:-------------|
-| United States of America | California | Alameda County      | Q107146 |   2018 |      1.6602e+06  |       2127 | Oakland      |
-| United States of America | California | Contra Costa County | Q108058 |   2018 |      1.14936e+06 |       2078 | Martinez     |
-| United States of America | California | Marin County        | Q108117 |   2018 | 263886           |       2145 | San Rafael   |
-| United States of America | California | Napa County         | Q108137 |   2018 | 141294           |       2042 | Napa         |
-| United States of America | California | San Mateo County    | Q108101 |   2018 | 774155           |       1919 | Redwood City |
-| United States of America | California | Santa Clara County  | Q110739 |   2018 |      1.9566e+06  |       3377 | San Jose     |
-
-
+| location                 | sub_lctn   | sub_sub_lctn        | qid     | year |  population | area_km2 | capital      |
+| :----------------------- | :--------- | :------------------ | :------ | ---: | ----------: | -------: | :----------- |
+| United States of America | California | Alameda County      | Q107146 | 2018 |  1.6602e+06 |     2127 | Oakland      |
+| United States of America | California | Contra Costa County | Q108058 | 2018 | 1.14936e+06 |     2078 | Martinez     |
+| United States of America | California | Marin County        | Q108117 | 2018 |      263886 |     2145 | San Rafael   |
+| United States of America | California | Napa County         | Q108137 | 2018 |      141294 |     2042 | Napa         |
+| United States of America | California | San Mateo County    | Q108101 | 2018 |      774155 |     1919 | Redwood City |
+| United States of America | California | Santa Clara County  | Q110739 | 2018 |  1.9566e+06 |     3377 | San Jose     |
 
 ### Upload Data (WIP)
 
@@ -286,23 +283,28 @@ Please see the [contribution guidelines](https://github.com/andrewtavis/wikirepo
 The growth of wikirepo's database relies on that of [Wikidata](https://www.wikidata.org/). Through `data.wd_utils.dir_to_topic_page` wikirepo can access properties on location sub-pages, thus allowing for statistics on any topic to be linked to. Beyond including entries for already existing properties (see [this issue](https://github.com/andrewtavis/wikirepo/issues/16)), the following are examples of property types that could be added:
 
 - Climate statistics could be added to [data/climate](https://github.com/andrewtavis/wikirepo/tree/main/src/wikirepo/data/climate)
-    - This would allow for easy modeling of global warming and its effects
-    - Planning would be needed for whether lower intervals would be necessary, or just include daily averages
+
+  - This would allow for easy modeling of global warming and its effects
+  - Planning would be needed for whether lower intervals would be necessary, or just include daily averages
 
 - Those for electoral [polling](https://github.com/andrewtavis/wikirepo/tree/main/src/wikirepo/data/electoral_polls) and [results](https://github.com/andrewtavis/wikirepo/tree/main/src/wikirepo/data/electoral_results) for locations
-    - This would allow direct access to all needed election information in a single function call
+
+  - This would allow direct access to all needed election information in a single function call
 
 - A property that links political parties and their regions in [data/political](https://github.com/andrewtavis/wikirepo/tree/main/src/wikirepo/data/political)
-    - For easy professional presentation of electoral results (ex: loading in party hex colors, abbreviations, and alignments)
+
+  - For easy professional presentation of electoral results (ex: loading in party hex colors, abbreviations, and alignments)
 
 - [data/demographic](https://github.com/andrewtavis/wikirepo/tree/main/src/wikirepo/data/demographic) properties such as:
-    - age, education, religious, and linguistic diversities across time
+
+  - age, education, religious, and linguistic diversities across time
 
 - [data/economic](https://github.com/andrewtavis/wikirepo/tree/main/src/wikirepo/data/economic) properties such as:
-    - female workforce participation, workforce industry diversity, wealth diversity, and total working age population across time
+
+  - female workforce participation, workforce industry diversity, wealth diversity, and total working age population across time
 
 - Distinct properties for Freedom House and Press Freedom indexes, as well as other descriptive metrics
-    - These could be added to [data/institutional](https://github.com/andrewtavis/wikirepo/tree/main/src/wikirepo/data/institutional)
+  - These could be added to [data/institutional](https://github.com/andrewtavis/wikirepo/tree/main/src/wikirepo/data/institutional)
 
 ## Expanding wikirepo
 
@@ -317,8 +319,9 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 - Potentially converting [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/query.py) and `data.lctn_utils.gen_lctns_dict` over to generated Wikidata SPARQL queries
 
 - Optimizing [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/query.py):
-    - Potentially converting `EntitiesDict` and `LocationsDict` to slotted object classes for memory savings
-    - Deriving and optimizing other slow parts of the query process
+
+  - Potentially converting `EntitiesDict` and `LocationsDict` to slotted object classes for memory savings
+  - Deriving and optimizing other slow parts of the query process
 
 - Adding access to GeoJSON files for mapping via [wikirepo.maps.query](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/maps/query.py)
 
@@ -331,6 +334,7 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 - Improving [code quality](https://app.codacy.com/gh/andrewtavis/wikirepo/dashboard) by refactoring large functions and checking conventions
 
 # Similar Projects
+
 <details><summary><strong>Python</strong></summary>
 <p>
 

@@ -1,10 +1,10 @@
 """
 Functions querying sub_electoral_region information.
 
-Ex: US congressional voting districts are sub_electoral_regions of states
+Ex: US congressional voting districts are sub_electoral_regions of states.
 
-This is done via 'PXYZ' (contains electoral district) applied to any level
-Explicitly used when the there are different electoral and administrative sub_regions
+This is done via 'PXYZ' (contains electoral district) applied to any level.
+Explicitly used when the there are different electoral and administrative sub_regions.
 
 Contents
 --------

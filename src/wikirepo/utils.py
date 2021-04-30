@@ -34,7 +34,7 @@ def _return_given_type(var, var_was_str):
     Allows for a one line return or list or string variables.
     """
     if var_was_str:
-        # Check if there's only one element
+        # Check if there's only one element.
         if len(var) == 1:
             return var[0]
 
@@ -103,7 +103,7 @@ def check_str_args(arguments, valid_args):
         raise ValueError("An invalid string has been passed.")
 
     elif isinstance(arguments, list):
-        # Check arguments, and remove them if they're invalid
+        # Check arguments, and remove them if they're invalid.
         for a in arguments:
             check_str_args(arguments=a, valid_args=valid_args)
 

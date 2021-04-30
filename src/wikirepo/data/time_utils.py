@@ -117,7 +117,7 @@ def make_timespan(timespan=None, interval=None):
             The timespan formatted going back in time
     """
     if interval is None and timespan is None:
-        # Most recent data wanted
+        # Most recent data wanted.
         return
 
     order = -1  # default order is decreasing in time

@@ -4,7 +4,7 @@ Country Abbreviation
 
 Functions querying 'P297' (ISO 3166-1 alpha-2 code) information.
 
-This property is used to derive abbreviations for countries
+This property is used to derive abbreviations for countries.
 
 Contents
     query_prop_data

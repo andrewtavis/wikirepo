@@ -4,7 +4,7 @@ Organization Membership
 
 Functions querying organizational information.
 
-This is done via 'P463' (member of) applied to locations
+This is done via 'P463' (member of) applied to locations.
 
 Contents
     query_prop_data

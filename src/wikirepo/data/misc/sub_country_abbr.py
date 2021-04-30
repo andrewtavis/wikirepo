@@ -4,7 +4,7 @@ Sub-Country Abbreviation
 
 Functions querying 'P300' (ISO 3166-2 code) information.
 
-This property is used to derive abbreviations for country sub-regions
+This property is used to derive abbreviations for country sub-regions.
 
 Contents
     query_prop_data
