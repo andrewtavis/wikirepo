@@ -278,6 +278,33 @@ Current usage examples include:
 
 Please see the [contribution guidelines](https://github.com/andrewtavis/wikirepo/blob/main/.github/CONTRIBUTING.md) if you are interested in contributing to this project. Work that is in progress or could be implemented includes:
 
+## Expanding wikirepo
+
+- Creating an outline of the package's structure for the readme [(see issue)](https://github.com/andrewtavis/wikirepo/issues/18)
+
+- Integrating current Python tools with wikirepo structures for uploads to Wikidata
+
+- Adding a query of property descriptions to `data.data_utils.incl_dir_idxs` [(see issue)](https://github.com/andrewtavis/wikirepo/issues/15)
+
+- Adding multiprocessing support to the [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/query.py) process and `data.lctn_utils.gen_lctns_dict`
+
+- Potentially converting [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/query.py) and `data.lctn_utils.gen_lctns_dict` over to generated Wikidata SPARQL queries
+
+- Optimizing [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/query.py):
+
+  - Potentially converting `EntitiesDict` and `LocationsDict` to slotted object classes for memory savings
+  - Deriving and optimizing other slow parts of the query process
+
+- Adding access to GeoJSON files for mapping via [wikirepo.maps.query](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/maps/query.py)
+
+- Designing and adding GeoJSON files indexed by time properties to Wikidata
+
+- Creating, improving and sharing [examples](https://github.com/andrewtavis/wikirepo/tree/main/examples)
+
+- Improving [tests](https://github.com/andrewtavis/wikirepo/tree/main/tests) for greater [code coverage](https://codecov.io/gh/andrewtavis/wikirepo)
+
+- Improving [code quality](https://app.codacy.com/gh/andrewtavis/wikirepo/dashboard) by refactoring large functions and checking conventions
+
 ## Expanding Wikidata
 
 The growth of wikirepo's database relies on that of [Wikidata](https://www.wikidata.org/). Through `data.wd_utils.dir_to_topic_page` wikirepo can access properties on location sub-pages, thus allowing for statistics on any topic to be linked to. Beyond including entries for already existing properties (see [this issue](https://github.com/andrewtavis/wikirepo/issues/16)), the following are examples of property types that could be added:
@@ -305,33 +332,6 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 
 - Distinct properties for Freedom House and Press Freedom indexes, as well as other descriptive metrics
   - These could be added to [data/institutional](https://github.com/andrewtavis/wikirepo/tree/main/src/wikirepo/data/institutional)
-
-## Expanding wikirepo
-
-- Creating an outline of the package's structure for the readme [(see issue)](https://github.com/andrewtavis/wikirepo/issues/18)
-
-- Integrating current Python tools with wikirepo structures for uploads to Wikidata
-
-- Adding a query of property descriptions to `data.data_utils.incl_dir_idxs` [(see issue)](https://github.com/andrewtavis/wikirepo/issues/15)
-
-- Adding multiprocessing support to the [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/query.py) process and `data.lctn_utils.gen_lctns_dict`
-
-- Potentially converting [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/query.py) and `data.lctn_utils.gen_lctns_dict` over to generated Wikidata SPARQL queries
-
-- Optimizing [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/query.py):
-
-  - Potentially converting `EntitiesDict` and `LocationsDict` to slotted object classes for memory savings
-  - Deriving and optimizing other slow parts of the query process
-
-- Adding access to GeoJSON files for mapping via [wikirepo.maps.query](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/maps/query.py)
-
-- Designing and adding GeoJSON files indexed by time properties to Wikidata
-
-- Creating, improving and sharing [examples](https://github.com/andrewtavis/wikirepo/tree/main/examples)
-
-- Improving [tests](https://github.com/andrewtavis/wikirepo/tree/main/tests) for greater [code coverage](https://codecov.io/gh/andrewtavis/wikirepo)
-
-- Improving [code quality](https://app.codacy.com/gh/andrewtavis/wikirepo/dashboard) by refactoring large functions and checking conventions
 
 # Similar Projects
 
