@@ -85,7 +85,7 @@ def incl_intervals():
     """
     Queries the included intervals.
 
-    Note: timespans will not be able to be queried if their interval is not included
+    Note: timespans will not be able to be queried if their interval is not included.
     """
     return ["yearly", "monthly", "weekly", "daily"]
 
@@ -97,24 +97,23 @@ def make_timespan(timespan=None, interval=None):
     Parameters
     ----------
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
+            A tuple or list that defines the start and end dates to be queried.
 
-            A tuple or list that defines the start and end dates to be queried
+            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried.
 
-            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried
-
-            Note 2: passing a single entry will query for that date only
+            Note 2: passing a single entry will query for that date only.
 
         interval : str
-            The time interval over which queries will be made
+            The time interval over which queries will be made.
 
-            Note 1: see data.time_utils for options
+            Note 1: see data.time_utils for options.
 
-            Note 2: if None, then only the most recent data will be queried
+            Note 2: if None, then only the most recent data will be queried.
 
     Returns
     -------
         formatted_timespan : list (contains datetime.date)
-            The timespan formatted going back in time
+            The timespan formatted going back in time.
     """
     if interval is None and timespan is None:
         # Most recent data wanted.

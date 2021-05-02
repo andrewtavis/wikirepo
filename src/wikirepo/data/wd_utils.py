@@ -198,7 +198,7 @@ def get_prop_val(ents_dict, qid, pid, i, ignore_char=""):
 
 def prop_has_qualifiers(ents_dict, qid, pid, i):
     """
-    Checks if the property has qualifiers
+    Checks if the property has qualifiers.
     """
     return "qualifiers" in get_prop(ents_dict=ents_dict, qid=qid, pid=pid)[i].keys()
 
@@ -396,18 +396,18 @@ def dir_to_topic_page(dir_name=None, ents_dict=None, qid=None):
     Parameters
     ----------
         dir_name : str (default=None)
-            The name of the directory within wikirepo.data
+            The name of the directory within wikirepo.data.
 
         ents_dict : wd_utils.EntitiesDict (default=None)
-            A dictionary with keys being Wikidata QIDs and values being their entities
+            A dictionary with keys being Wikidata QIDs and values being their entities.
 
         qid : str (default=None)
-            Wikidata QID for a location
+            Wikidata QID for a location.
 
     Returns
     -------
         topic_qid or None : str or None
-            The qid for an existing topic for the location or None to cancel later steps
+            The qid for an existing topic for the location or None to cancel later steps.
     """
     # Needs sub-topics for other wikirepo directories.
     name_to_topic_pid_dict = {"economic": "P8744", "geographic": "P2633"}
@@ -441,38 +441,43 @@ def check_for_pid_topic_page(
     Parameters
     ----------
         dir_name : str (default=None)
-            The name of the directory within wikirepo.data
+            The name of the directory within wikirepo.data.
 
         ents_dict : wd_utils.EntitiesDict (default=None)
-            A dictionary with keys being Wikidata QIDs and values being their entities
+            A dictionary with keys being Wikidata QIDs and values being their entities.
 
         qid : str (default=None)
-            Wikidata QID for a location
+            Wikidata QID for a location.
 
         orig_qid : str (default=None)
-            Maintains the original QID for assignment if qid is changed to that of the topic-page
+            Maintains the original QID for assignment if qid is changed to that of the topic-page.
 
         pid : str (default=None)
-            The Wikidata property that is being queried
+            The Wikidata property that is being queried.
 
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
-            A tuple or list that defines the start and end dates to be queried
-            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried
-            Note 2: passing a single entry will query for that date only
+            A tuple or list that defines the start and end dates to be queried.
+
+            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried.
+
+            Note 2: passing a single entry will query for that date only.
 
         interval : str (default=None)
-            The time interval over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
+            The time interval over which queries will be made.
+
+            Note 1: see data.time_utils for options.
+
+            Note 2: if None, then only the most recent data will be queried.
 
         vd_or_vdd : str (default=vd)
-            Whether the function is being called in val_dict or val_dict_dict
-            Note: this controls the depth of the returned placeholders
+            Whether the function is being called in val_dict or val_dict_dict.
+
+            Note: this controls the depth of the returned placeholders.
 
     Returns
     -------
         qid, orig_qid, t_p_d, skip_assignment : str, str, dict, bool
-            Arguments necessary to derive if and how assignment should occur
+            Arguments necessary to derive if and how assignment should occur.
     """
     topic_qid = dir_to_topic_page(dir_name, ents_dict, qid)
 
@@ -526,45 +531,51 @@ def t_to_prop_val_dict(
     """
     Gets a dictionary of property value(s) indexed by time(s) from a locational entity.
 
-    Note: used to assign property values to a single column (values cannot have the same time value)
+    Notes
+    -----
+        Used to assign property values to a single column (values cannot have the same time value).
 
     Parameters
     ----------
         dir_name : str (default=None)
-            The name of the directory within wikirepo.data
+            The name of the directory within wikirepo.data.
 
         ents_dict : wd_utils.EntitiesDict (default=None)
-            A dictionary with keys being Wikidata QIDs and values being their entities
+            A dictionary with keys being Wikidata QIDs and values being their entities.
 
         qids : str or list (contains strs) (default=None)
-            Wikidata QIDs for locations
+            Wikidata QIDs for locations.
 
         pid : str (default=None)
-            The Wikidata property that is being queried
+            The Wikidata property that is being queried.
 
         sub_pid : str (default=None)
-            The Wikidata property that subsets time values
+            The Wikidata property that subsets time values.
 
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
-            A tuple or list that defines the start and end dates to be queried
-            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried
-            Note 2: passing a single entry will query for that date only
+            A tuple or list that defines the start and end dates to be queried.
+
+            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried.
+
+            Note 2: passing a single entry will query for that date only.
 
         interval : str (default=None)
-            The time interval over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
+            The time interval over which queries will be made.
+
+            Note 1: see data.time_utils for options.
+
+            Note 2: if None, then only the most recent data will be queried.
 
         ignore_char : str (default='', no character to ignore)
-            Characters in the output that should be ignored
+            Characters in the output that should be ignored.
 
         span : bool (default=False)
-            Whether to check for P580 'start time' and P582 'end time' to create spans
+            Whether to check for P580 'start time' and P582 'end time' to create spans.
 
     Returns
     -------
         t_prop_dict : dict
-            A dictionary of Wikidata properties indexed by their time
+            A dictionary of Wikidata properties indexed by their time.
     """
     qids = utils._make_var_list(qids)[0]
 
@@ -655,45 +666,51 @@ def t_to_prop_val_dict_dict(
     """
     Gets a dictionary of dictionaries of multiple property values that are indexed by time(s) from a locational entity.
 
-    Note: used to assign property values to separate columns (values can have the same time value)
+    Notes
+    -----
+        Used to assign property values to separate columns (values can have the same time value)
 
     Parameters
     ----------
         dir_name : str (default=None)
-            The name of the directory within wikirepo.data
+            The name of the directory within wikirepo.data.
 
         ents_dict : wd_utils.EntitiesDict (default=None)
-            A dictionary with keys being Wikidata QIDs and values being their entities
+            A dictionary with keys being Wikidata QIDs and values being their entities.
 
         qids : str or list (contains strs) (default=None)
-            Wikidata QIDs for locations
+            Wikidata QIDs for locations.
 
         pid : str (default=None)
-            The Wikidata property that is being queried
+            The Wikidata property that is being queried.
 
         sub_pid : str (default=None)
-            The Wikidata property that subsets time values
+            The Wikidata property that subsets time values.
 
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
-            A tuple or list that defines the start and end dates to be queried
-            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried
-            Note 2: passing a single entry will query for that date only
+            A tuple or list that defines the start and end dates to be queried.
+
+            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried.
+
+            Note 2: passing a single entry will query for that date only.
 
         interval : str (default=None)
-            The time interval over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
+            The time interval over which queries will be made.
+
+            Note 1: see data.time_utils for options.
+
+            Note 2: if None, then only the most recent data will be queried.
 
         ignore_char : str (default='', no character to ignore)
-            Characters in the output that should be ignored
+            Characters in the output that should be ignored.
 
         span : bool (default=False)
-            Whether to check for P580 'start time' and P582 'end time' to create spans
+            Whether to check for P580 'start time' and P582 'end time' to create spans.
 
     Returns
     -------
         t_prop_dict : dict
-            A dictionary of Wikidata properties indexed by their time
+            A dictionary of Wikidata properties indexed by their time.
     """
     qids = utils._make_var_list(qids)[0]
 

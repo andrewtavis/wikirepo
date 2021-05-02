@@ -66,7 +66,7 @@ def gen_list_of_lists(original_list, new_structure):
     """Generates a list of lists with a given structure from a given list."""
     assert len(original_list) == sum(
         new_structure
-    ), "The number of elements in the original list and desired structure don't match"
+    ), "The number of elements in the original list and desired structure don't match."
 
     return [
         [original_list[i + sum(new_structure[:j])] for i in range(new_structure[j])]

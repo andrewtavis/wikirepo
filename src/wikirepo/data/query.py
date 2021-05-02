@@ -43,69 +43,75 @@ def query(
     Parameters
     ----------
         ents_dict : wd_utils.EntitiesDict : optional (default=None)
-            A dictionary with keys being Wikidata QIDs and values being their entities
+            A dictionary with keys being Wikidata QIDs and values being their entities.
 
         locations : str, list, or lctn_utils.LocationsDict (contains strs) : optional (default=None)
-            The locations to query either as strings for indexed locations or Wikidata QIDs
+            The locations to query either as strings for indexed locations or Wikidata QIDs.
 
         depth : int (default=0, no sub_locations)
-            The depth from the given lbls or qids that data should go
-            Note: this uses 'P150' (contains administrative territorial entity)
+            The depth from the given lbls or qids that data should go.
 
-        timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
-            A tuple or list that defines the start and end dates to be queried
-            Note 1: if None, then only the most recent data for the interval will be queried
-            Note 2: if True, then the full timespan from 1-1-1 to the current day will be queried
-            Note 3: passing a single entry will query for that date only
+            Note: this uses 'P150' (contains administrative territorial entity).
+
+        timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today())).
+            A tuple or list that defines the start and end dates to be queried.
+
+            Note 1: if None, then only the most recent data for the interval will be queried.
+
+            Note 2: if True, then the full timespan from 1-1-1 to the current day will be queried.
+
+            Note 3: passing a single entry will query for that date only.
 
         interval : str (default=None)
-            The time interval over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
+            The time interval over which queries will be made.
+
+            Note 1: see data.time_utils for options.
+
+            Note 2: if None, then only the most recent data will be queried.
 
         climate_props : str or list (contains strs) : optional (default=None)
-            String representations of data/climate modules for data_utils.query_repo_dir
+            String representations of data/climate modules for data_utils.query_repo_dir.
 
         demographic_props : str or list (contains strs) : optional (default=None)
-            String representations of data/demographic modules for data_utils.query_repo_dir
+            String representations of data/demographic modules for data_utils.query_repo_dir.
 
         economic_props : str or list (contains strs) : optional (default=None)
-            String representations of data/economic modules for data_utils.query_repo_dir
+            String representations of data/economic modules for data_utils.query_repo_dir.
 
         electoral_poll_props : str or list (contains strs) : optional (default=None)
-            String representations of data/electoral_polls modules for data_utils.query_repo_dir
+            String representations of data/electoral_polls modules for data_utils.query_repo_dir.
 
         electoral_result_props : str or list (contains strs) : optional (default=None)
-            String representations of data/electoral_results modules for data_utils.query_repo_dir
+            String representations of data/electoral_results modules for data_utils.query_repo_dir.
 
         geographic_props : str or list (contains strs) : optional (default=None)
-            String representations of data/geographic modules for data_utils.query_repo_dir
+            String representations of data/geographic modules for data_utils.query_repo_dir.
 
         institutional_props : str or list (contains strs) : optional (default=None)
-            String representations of data/institutional modules for data_utils.query_repo_dir
+            String representations of data/institutional modules for data_utils.query_repo_dir.
 
         political_props : str or list (contains strs) : optional (default=None)
-            String representations of data/political modules for data_utils.query_repo_dir
+            String representations of data/political modules for data_utils.query_repo_dir.
 
         misc_props : str or list (contains strs) : optional (default=None)
-            String representations of data/misc (miscellaneous) modules for data_utils.query_repo_dir
+            String representations of data/misc (miscellaneous) modules for data_utils.query_repo_dir.
 
         verbose : bool (default=True)
             Whether to show a tqdm progress bar for the query
-            Note: passing 'full' calls progress bars for each data_utils.query_repo_dir
+            Note: passing 'full' calls progress bars for each data_utils.query_repo_dir.
 
         Potential later arguments:
             multicore : bool or int (default=False)
                 Whether to make use of multiple processes and threads, and how many to use
-                Note: True uses all available
+                Note: True uses all available.
 
             source : bool (default=False)
-                Whether to add columns for sources for all data
+                Whether to add columns for sources for all data.
 
     Returns
     -------
         df_merge : pd.DataFrame
-            A df of locations and data given timespan and data source arguments
+            A df of locations and data given timespan and data source arguments.
     """
     local_args = locals()
 

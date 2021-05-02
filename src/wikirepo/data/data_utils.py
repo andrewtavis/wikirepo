@@ -41,17 +41,19 @@ def _get_dir_fxns_dict(dir_name=None):
     """
     Generates a jump table dictionary of all modules in the cwd and the get_ functions within.
 
-    Note: indexes all data querying functions within wikirepo directories
+    Notes
+    -----
+        Indexes all data querying functions within wikirepo directories.
 
     Parameters
     ----------
         dir_name : str (default=None)
-            The name of the directory within wikirepo.data
+            The name of the directory within wikirepo.data.
 
     Returns
     -------
         fxns_dict : dict
-            A dictionary with keys being module names and contents being dictionaries of standardized indexes and functions
+            A dictionary with keys being module names and contents being dictionaries of standardized indexes and functions.
     """
     data_directory = os.path.dirname(os.path.abspath(__file__))
     target_directory = data_directory + "/" + dir_name
@@ -102,18 +104,22 @@ def _check_data_assertions(timespan=None, interval=None, **kwargs):
     Parameters
     ----------
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
-            A tuple or list that defines the start and end dates to be queried
-            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried
-            Note 2: passing a single entry will query for that date only
+            A tuple or list that defines the start and end dates to be queried.
+
+            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried.
+
+            Note 2: passing a single entry will query for that date only.
 
         interval : str
-            The time interval over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
+            The time interval over which queries will be made.
+
+            Note 1: see data.time_utils for options.
+
+            Note 2: if None, then only the most recent data will be queried.
 
     Returns
     -------
-        The results of a series of standardized assertions
+        The results of a series of standardized assertions.
     """
     assert (interval is None) or (interval in time_utils.incl_intervals()), (
         "Please provide None for no time interval or a value for 'interval' from the following list of possible arguments: "
@@ -145,15 +151,15 @@ def incl_dir_idxs(dir_name=None, descriptions=False):
     Parameters
     ----------
         dir_name : str (default=None)
-            The name of the directory within wikirepo.data
+            The name of the directory within wikirepo.data.
 
         descriptions : bool (default=False)
-            Whether also return the descriptions of the indexes
+            Whether also return the descriptions of the indexes.
 
     Returns
     -------
         included_indexes : list
-            A list of included indexes as derived by module names
+            A list of included indexes as derived by module names.
     """
     return list(_get_dir_fxns_dict(dir_name).keys())
 
@@ -167,29 +173,34 @@ def gen_base_df(
     Parameters
     ----------
         locations : str, list, or lctn_utils.LocationsDict (contains strs) : optional (default=None)
-            The locations to query
+            The locations to query.
 
         depth : int (default=None)
-            The depth from the given lbls or qids that data should go
-            Note: this uses 'P150' (contains administrative territorial entity)
+            The depth from the given lbls or qids that data should go.
+
+            Note: this uses 'P150' (contains administrative territorial entity).
 
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
-            A tuple or list that defines the start and end dates to be queried
-            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried
-            Note 2: passing a single entry will query for that date only
+            A tuple or list that defines the start and end dates to be queried.
+
+            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried.
+
+            Note 2: passing a single entry will query for that date only.
 
         interval : str
-            The time interval over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
+            The time interval over which queries will be made.
+
+            Note 1: see data.time_utils for options.
+
+            Note 2: if None, then only the most recent data will be queried.
 
         col_name : str (default=data)
-            The name of the column into which queried data should be merged
+            The name of the column into which queried data should be merged.
 
     Returns
     -------
         base_df : pd.DataFrame
-            A df that is ready to have queried data added to it
+            A df that is ready to have queried data added to it.
     """
     if isinstance(locations, str):
         locations = [locations]
@@ -341,36 +352,39 @@ def assign_to_column(
     Parameters
     ----------
         df : pd.DataFrmae
-            A df (likely base_df) to which values should be assigned
+            A df (likely base_df) to which values should be assigned.
 
         locations : str, list, or lctn_utils.LocationsDict (contains strs) : optional (default=None)
-            The locations to query
+            The locations to query.
 
         depth : int (default=None)
-            The depth from the given lbls or qids that data should go
-            Note: this uses 'P150' (contains administrative territorial entity)
+            The depth from the given lbls or qids that data should go.
+
+            Note: this uses 'P150' (contains administrative territorial entity).
 
         interval : str
-            The time interval over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
+            The time interval over which queries will be made.
+
+            Note 1: see data.time_utils for options.
+
+            Note 2: if None, then only the most recent data will be queried.
 
         col_name : str
-            A column in df to which properties should be assigned
+            A column in df to which properties should be assigned.
 
         props : list or dict
-            The properties to be assigned
+            The properties to be assigned.
 
         assign : str (default=all)
-            The type of assignment
+            The type of assignment.
 
         span : bool (default=False)
-            Whether to check for P580 'start time' and P582 'end time' to create spans
+            Whether to check for P580 'start time' and P582 'end time' to create spans.
 
     Returns
     -------
         df : pd.DataFrame
-            The df after assignment
+            The df after assignment.
     """
     if isinstance(locations, str):
         locations = [locations]
@@ -542,39 +556,42 @@ def assign_to_cols(
     Parameters
     ----------
         df : pd.DataFrmae
-            A df (likely base_df) to which values should be assigned
+            A df (likely base_df) to which values should be assigned.
 
         locations : str, list, or lctn_utils.LocationsDict (contains strs) : optional (default=None)
-            The locations to query
+            The locations to query.
 
         depth : int (default=None)
-            The depth from the given lbls or qids that data should go
-            Note: this uses 'P150' (contains administrative territorial entity)
+            The depth from the given lbls or qids that data should go.
+
+            Note: this uses 'P150' (contains administrative territorial entity).
 
         sub_pid : str (default=None)
-            The Wikidata property that subsets time values
+            The Wikidata property that subsets time values.
 
         interval : str
-            The time interval over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
+            The time interval over which queries will be made.
+
+            Note 1: see data.time_utils for options.
+
+            Note 2: if None, then only the most recent data will be queried.
 
         col_prefix : str (default=d)
-            The prefix for columns that are a created from sub_prop values
+            The prefix for columns that are a created from sub_prop values.
 
         props : list or dict
-            The properties to be assigned
+            The properties to be assigned.
 
         assign : str (default=all)
-            The type of assignment
+            The type of assignment.
 
         span : bool (default=False)
-            Whether to check for P580 'start time' and P582 'end time' to create spans
+            Whether to check for P580 'start time' and P582 'end time' to create spans.
 
     Returns
     -------
         df : pd.DataFrame
-            The df after assignment
+            The df after assignment.
     """
     if isinstance(locations, str):
         locations = [locations]
@@ -723,51 +740,57 @@ def query_wd_prop(
     Parameters
     ----------
         dir_name : str (default=None)
-            The name of the directory within wikirepo.data
+            The name of the directory within wikirepo.data.
 
         ents_dict : wd_utils.EntitiesDict : optional (default=None)
-            A dictionary with keys being Wikidata QIDs and values being their entities
+            A dictionary with keys being Wikidata QIDs and values being their entities.
 
         locations : str, list, or lctn_utils.LocationsDict (contains strs) : optional (default=None)
-            The locations to query
+            The locations to query.
 
         depth : int (default=None)
-            The depth from the given lbls or qids that data should go
-            Note: this uses 'P150' (contains administrative territorial entity)
+            The depth from the given lbls or qids that data should go.
+
+            Note: this uses 'P150' (contains administrative territorial entity).
 
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
-            A tuple or list that defines the start and end dates to be queried
-            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried
-            Note 2: passing a single entry will query for that date only
+            A tuple or list that defines the start and end dates to be queried.
+
+            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried.
+
+            Note 2: passing a single entry will query for that date only.
 
         interval : str
-            The time interval over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
+            The time interval over which queries will be made.
+
+            Note 1: see data.time_utils for options.
+
+            Note 2: if None, then only the most recent data will be queried.
 
         pid : str (default=None)
-            The Wikidata property that is being queried
+            The Wikidata property that is being queried.
 
         sub_pid : str (default=None)
-            The Wikidata property that subsets time values
+            The Wikidata property that subsets time values.
 
         col_name : str (default=None)
-            The name of the column into which queried data should be merged
+            The name of the column into which queried data should be merged.
 
         col_prefix : str (default=None)
-            The prefix for columns that are a created from sub_pid values
-            Note: only use col_name or col_prefix
+            The prefix for columns that are a created from sub_pid values.
+
+            Note: only use col_name or col_prefix.
 
         ignore_char : str
-            Characters in the output that should be ignored
+            Characters in the output that should be ignored.
 
         span : bool (default=False)
-            Whether to check for P580 'start time' and P582 'end time' to create spans
+            Whether to check for P580 'start time' and P582 'end time' to create spans.
 
     Returns
     -------
         df, ents_dict : pd.DataFrame, wd_utils.EntitiesDict
-            A df of location names and the given property for the given timespan with an updated EntitiesDict
+            A df of location names and the given property for the given timespan with an updated EntitiesDict.
     """
     if ents_dict is None:
         ents_dict = wd_utils.EntitiesDict()
@@ -887,35 +910,40 @@ def query_repo_dir(
     Parameters
     ----------
         dir_name : str (default=None)
-            The name of the directory within wikirepo.data
+            The name of the directory within wikirepo.data.
 
         ents_dict : wd_utils.EntitiesDict : optional (default=None)
-            A dictionary with keys being Wikidata QIDs and values being their entities
+            A dictionary with keys being Wikidata QIDs and values being their entities.
 
         locations : str, list, or lctn_utils.LocationsDict (contains strs) : optional (default=None)
-            The locations to query
+            The locations to query.
 
         depth : int (default=None)
-            The depth from the given lbls or qids that data should go
-            Note: this uses 'P150' (contains administrative territorial entity)
+            The depth from the given lbls or qids that data should go.
+
+            Note: this uses 'P150' (contains administrative territorial entity).
 
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
-            A tuple or list that defines the start and end dates to be queried
-            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried
-            Note 2: passing a single entry will query for that date only
+            A tuple or list that defines the start and end dates to be queried.
+
+            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried.
+
+            Note 2: passing a single entry will query for that date only.
 
         interval : str
-            The time interval over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
+            The time interval over which queries will be made.
+
+            Note 1: see data.time_utils for options.
+
+            Note 2: if None, then only the most recent data will be queried.
 
         verbose : bool (default=True)
-            Whether to show a tqdm progress bar for the query
+            Whether to show a tqdm progress bar for the query.
 
     Returns
     -------
         df_data : pd.DataFrame
-            A df of locations and data given timespan and demographic index arguments
+            A df of locations and data given timespan and demographic index arguments.
     """
     local_args = locals()
     _check_data_assertions(**literal_eval(str(local_args)))
@@ -974,24 +1002,25 @@ def interp_by_subset(df=None, depth=None, col_name="data", **kwargs):
 
     Notes
     -----
-        pd.DataFrame.interpolate and scipy.interpolate **kwargs are passed
+        pd.DataFrame.interpolate and scipy.interpolate **kwargs are passed.
 
     Parameters
     ----------
         df : pd.DataFrame (default=None)
-            A dataframe to have a column interpolated
+            A dataframe to have a column interpolated.
 
         depth : int (default=None)
-            The depth from the given lbls or qids that data should go
-            Note: this uses 'P150' (contains administrative territorial entity)
+            The depth from the given lbls or qids that data should go.
+
+            Note: this uses 'P150' (contains administrative territorial entity).
 
         col_name : str
-            A column in df that is to be interpolated
+            A column in df that is to be interpolated.
 
     Returns
     -------
         df_interpolated : pd.DataFrame
-            The original df with the given column interpolated based on **kwargs
+            The original df with the given column interpolated based on **kwargs.
     """
     df_interpolated = pd.DataFrame()
 
@@ -1041,34 +1070,35 @@ def sum_df_prop_vals(
     Parameters
     ----------
         df : pd.DataFrame (default=None)
-            A dataframe with property rows to be summed
+            A dataframe with property rows to be summed.
 
         target_lctn : str (default=None)
-            The name of the location to which values should be added
-            Note: subtract=True subtracts from this location
+            The name of the location to which values should be added.
+
+            Note: subtract=True subtracts from this location.
 
         vals_lctn : str (default=None)
-            The name of the location that has values to be added or subtracted
+            The name of the location that has values to be added or subtracted.
 
         lctn_col : str (default=None)
-            The name of the column in which the locations are defined
+            The name of the column in which the locations are defined.
 
         time_col : str (default=None)
-            The name of the column in which times are defined
+            The name of the column in which times are defined.
 
         prop_col : str (default=None)
-            The name of the column in which property values are found
+            The name of the column in which property values are found.
 
         subtract : bool (default=False)
-            Whether values from vals_lctn should be subtracted from target_lctn
+            Whether values from vals_lctn should be subtracted from target_lctn.
 
         drop_vals_lctn : bool (default=False)
-            Whether rows with vals_lctn should be dropped from df
+            Whether rows with vals_lctn should be dropped from df.
 
     Returns
     -------
         df_new : pd.DataFrame
-            The dataframe post arithmetic operations
+            The dataframe post arithmetic operations.
     """
     df_new = df.copy()
 
@@ -1150,15 +1180,15 @@ def split_col_val_dates(df=None, col=None):
     Parameters
     ----------
         df : pd.DataFrame (default=None)
-            A dataframe with property rows to be summed
+            A dataframe with property rows to be summed.
 
         col : str (default=None)
-            The name of the column which should have its dates split to another column
+            The name of the column which should have its dates split to another column.
 
     Returns
     -------
         df_new : pd.DataFrame
-            The dataframe post splitting the date from the values
+            The dataframe post splitting the date from the values.
     """
     df_new = df.copy()
 
@@ -1191,18 +1221,18 @@ def count_df_prop_vals(df=None, col=None, percent=False):
     Parameters
     ----------
         df : pd.DataFrame (default=None)
-            Regional data including population size
+            Regional data including population size.
 
         col : str (default=None)
-            The column in df in which counts should be made
+            The column in df in which counts should be made.
 
         percent : bool (default=False)
-            Whether to return percentage values
+            Whether to return percentage values.
 
     Returns
     -------
         val_counts or pd.value_counts : dict or pd.value_counts
-            Aggregate or percentage value counts
+            Aggregate or percentage value counts.
     """
     assert col in [s for s in df.columns], f"{col} is not a column in the data."
 

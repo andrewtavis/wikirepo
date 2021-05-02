@@ -315,7 +315,7 @@ def qid_to_lctn_dict():
 
     Notes
     -----
-        Keys are QIDs, and values are dictionaries of QID labels and their locational level
+        Keys are QIDs, and values are dictionaries of QID labels and their locational level.
     """
     return {
         "Q2": {"lbl": "Earth", "lctn_lvl": "world"},
@@ -594,12 +594,12 @@ def incl_lctn_lbls(lctn_lvls=False):
     Parameters
     ----------
         lctn_lvls : str or list (contains strs)
-            The level(s) of location to be queried
+            The level(s) of location to be queried.
 
     Returns
     -------
         incl_lctns : list (contains strs)
-            The Wikidata labels corresponding to the provided location level(s)
+            The Wikidata labels corresponding to the provided location level(s).
     """
     lctn_lvls = utils._make_var_list(lctn_lvls)[0]
 
@@ -667,12 +667,12 @@ def lctn_lbl_to_qid(locations):
     Parameters
     ----------
         locations : str or list (contains strs)
-            The label(s) of location(s) to be converted
+            The label(s) of location(s) to be converted.
 
     Returns
     -------
         wd_qids : list (contains strs)
-            The Wikidata QIDs corresponding to the provided location label(s)
+            The Wikidata QIDs corresponding to the provided location label(s).
     """
     locations, was_str_bool = utils._make_var_list(locations)
 
@@ -692,12 +692,12 @@ def qid_to_lctn_lbl(qids):
     Parameters
     ----------
         qids : str or list (contains strs)
-            The QID(s) of location(s) to be converted
+            The QID(s) of location(s) to be converted.
 
     Returns
     -------
         wd_lbls : list (contains strs)
-            The Wikidata labels corresponding to the provided location qid(s)
+            The Wikidata labels corresponding to the provided location qid(s).
 
     """
     qids, was_str_bool = utils._make_var_list(qids)
@@ -804,45 +804,51 @@ def gen_lctns_dict(
 
     Notes
     -----
-        'P150' (contains administrative territorial entity) is used to subset
+        'P150' (contains administrative territorial entity) is used to subset.
 
     Parameters
     ----------
         ents_dict : wd_utils.EntitiesDict : optional (default=None)
-            A dictionary with keys being Wikidata QIDs and values being their entities
+            A dictionary with keys being Wikidata QIDs and values being their entities.
 
         locations : str or list (contains strs) : optional (default=None)
-            The name of a location or list of location names
+            The name of a location or list of location names.
 
         depth : int (default=0, no sub_locations)
-            The depth from the given lbls or qids that data should go
-            Note: this uses 'P150' (contains administrative territorial entity)
+            The depth from the given lbls or qids that data should go.
+
+            Note: this uses 'P150' (contains administrative territorial entity).
 
         sub_lctns : str or list (contains strs) : optional (default=None)
-            sub_locations to subset by or not subset by adding '~' as the first character
+            sub_locations to subset by or not subset by adding '~' as the first character.
 
         timespan : two element tuple or list : contains datetime.date or tuple (default=None: (date.today(), date.today()))
-            A tuple or list that defines the start and end dates to be queried
-            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried
-            Note 2: passing a single entry will query for that date only
+            A tuple or list that defines the start and end dates to be queried.
+
+            Note 1: if True, then the full timespan from 1-1-1 to the current day will be queried.
+
+            Note 2: passing a single entry will query for that date only.
 
         interval : str
-            The time interval over which queries will be made
-            Note 1: see data.time_utils for options
-            Note 2: if None, then only the most recent data will be queried
+            The time interval over which queries will be made.
+
+            Note 1: see data.time_utils for options.
+
+            Note 2: if None, then only the most recent data will be queried.
 
         verbose : bool (default=True)
-            Whether to show a tqdm progress bar for the creation of the dictionary
+            Whether to show a tqdm progress bar for the creation of the dictionary.
 
         Potential later arguments:
             multicore : bool or int (default=False)
-                Whether to make use of multiple processes and threads, and how many to use
-                Note: True uses all available
+                Whether to make use of multiple processes and threads, and how many to use.
+
+                Note: True uses all available cores.
 
     Returns
     -------
         subs_dict : dict
-            A dictionary of the given qids as keys and dictionaries of their subsidiaries by 'P150' as items
+            A dictionary of the given qids as keys and dictionaries of their subsidiaries by 'P150' as items.
     """
     pid = "P150"
     lctns_dict = LocationsDict()
@@ -1098,7 +1104,7 @@ class LocationsDict(dict):
 
     Notes
     -----
-        Keywords are QIDs, and values are dictionaries of depth, interval, and timespan specific information
+        Keywords are QIDs, and values are dictionaries of depth, interval, and timespan specific information.
     """
 
     __slots__ = ()
