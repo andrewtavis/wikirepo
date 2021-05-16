@@ -42,7 +42,8 @@ def truncate_date(d, interval=None):
     Truncates a date object given an interval.
     """
     assert isinstance(interval, str) or interval == None, (
-        "'interval' argument must be None or one of ".join(i for i in incl_intervals())
+        "'interval' argument must be None or one of "
+        + ", ".join(i for i in incl_intervals())
         + "."
     )
 
@@ -171,9 +172,8 @@ def make_timespan(timespan=None, interval=None):
     else:
         ValueError(
             (
-                "An invalid value was passed to the 'interval' argument. Please choose one of ".join(
-                    incl_intervals()
-                )
+                "An invalid value was passed to the 'interval' argument. Please choose one of "
+                + ", ".join(incl_intervals())
                 + "."
             )
         )
