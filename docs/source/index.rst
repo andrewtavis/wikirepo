@@ -16,9 +16,6 @@
 .. |codecov| image:: https://codecov.io/gh/andrewtavis/wikirepo/branch/main/graphs/badge.svg
     :target: https://codecov.io/gh/andrewtavis/wikirepo
 
-.. |quality| image:: https://img.shields.io/codacy/grade/6ea41831f36c477fb1c9304bd63ba52c?logo=codacy
-    :target: https://app.codacy.com/gh/andrewtavis/wikirepo/dashboard
-
 .. |pyversions| image:: https://img.shields.io/pypi/pyversions/wikirepo.svg?logo=python&logoColor=FFD43B&color=306998
     :target: https://pypi.org/project/wikirepo/
 
