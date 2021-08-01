@@ -367,6 +367,8 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 
 <div align="center">
   <br>
+  <a href="https://wikiba.se/"><img height="150" src="https://raw.githubusercontent.com/andrewtavis/wikirepo/master/resources/gh_images/wikimedia_foundation_logo.png" alt="wikibase"></a>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <a href="https://wikiba.se/"><img height="150" src="https://raw.githubusercontent.com/andrewtavis/wikirepo/master/resources/gh_images/wikibase_logo.png" alt="wikibase"></a>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <a href="https://www.wikidata.org/"><img height="150" src="https://raw.githubusercontent.com/andrewtavis/wikirepo/master/resources/gh_images/wikidata_logo.png" alt="wikidata"></a>
