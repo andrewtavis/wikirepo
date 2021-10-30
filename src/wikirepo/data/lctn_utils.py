@@ -316,6 +316,8 @@ def qid_to_lctn_dict():
     Notes
     -----
         Keys are QIDs, and values are dictionaries of QID labels and their locational level.
+
+        This could also be rewritten using Q3624078: sovereign state.
     """
     return {
         "Q2": {"lbl": "Earth", "lctn_lvl": "world"},
