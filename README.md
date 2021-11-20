@@ -124,14 +124,14 @@ df = df[col_order]
 df.head(6)
 ```
 
-| location                   | qid  | year | executive      |  population | life_exp | human_dev_idx | median_income |
-| :------------------------- | :--- | ---: | :------------- | ----------: | -------: | ------------: | ------------: |
-| Germany                    | Q183 | 2010 | Angela Merkel  |  8.1752e+07 |  79.9878 |         0.921 |         33333 |
-| Germany                    | Q183 | 2009 | Angela Merkel  |         nan |  79.8366 |         0.917 |           nan |
-| United States of America   | Q30  | 2010 | Barack Obama   | 3.08746e+08 |  78.5415 |         0.914 |         43585 |
-| United States of America   | Q30  | 2009 | George W. Bush |         nan |  78.3902 |          0.91 |           nan |
-| People's Republic of China | Q148 | 2010 | Wen Jiabao     | 1.35976e+09 |   75.236 |         0.706 |           nan |
-| People's Republic of China | Q148 | 2009 | Wen Jiabao     |         nan |   75.032 |         0.694 |           nan |
+| location                   |  qid | year |      executive |  population | life_exp | human_dev_idx | median_income |
+| :------------------------- | ---: | ---: | -------------: | ----------: | -------: | ------------: | ------------: |
+| Germany                    | Q183 | 2010 |  Angela Merkel |  8.1752e+07 |  79.9878 |         0.921 |         33333 |
+| Germany                    | Q183 | 2009 |  Angela Merkel |         nan |  79.8366 |         0.917 |           nan |
+| United States of America   |  Q30 | 2010 |   Barack Obama | 3.08746e+08 |  78.5415 |         0.914 |         43585 |
+| United States of America   |  Q30 | 2009 | George W. Bush |         nan |  78.3902 |          0.91 |           nan |
+| People's Republic of China | Q148 | 2010 |     Wen Jiabao | 1.35976e+09 |   75.236 |         0.706 |           nan |
+| People's Republic of China | Q148 | 2009 |     Wen Jiabao |         nan |   75.032 |         0.694 |           nan |
 
 #### Querying Information for all US Counties
 
@@ -181,14 +181,14 @@ df = wikirepo.data.query(
 df[df["population"].notnull()].head(6)
 ```
 
-| location                 | sub_lctn   | sub_sub_lctn        | qid     | year |  population | area_km2 | capital      |
-| :----------------------- | :--------- | :------------------ | :------ | ---: | ----------: | -------: | :----------- |
-| United States of America | California | Alameda County      | Q107146 | 2018 |  1.6602e+06 |     2127 | Oakland      |
-| United States of America | California | Contra Costa County | Q108058 | 2018 | 1.14936e+06 |     2078 | Martinez     |
-| United States of America | California | Marin County        | Q108117 | 2018 |      263886 |     2145 | San Rafael   |
-| United States of America | California | Napa County         | Q108137 | 2018 |      141294 |     2042 | Napa         |
-| United States of America | California | San Mateo County    | Q108101 | 2018 |      774155 |     1919 | Redwood City |
-| United States of America | California | Santa Clara County  | Q110739 | 2018 |  1.9566e+06 |     3377 | San Jose     |
+| location                 |   sub_lctn |        sub_sub_lctn |     qid | year |  population | area_km2 |      capital |
+| :----------------------- | ---------: | ------------------: | ------: | ---: | ----------: | -------: | -----------: |
+| United States of America | California |      Alameda County | Q107146 | 2018 |  1.6602e+06 |     2127 |      Oakland |
+| United States of America | California | Contra Costa County | Q108058 | 2018 | 1.14936e+06 |     2078 |     Martinez |
+| United States of America | California |        Marin County | Q108117 | 2018 |      263886 |     2145 |   San Rafael |
+| United States of America | California |         Napa County | Q108137 | 2018 |      141294 |     2042 |         Napa |
+| United States of America | California |    San Mateo County | Q108101 | 2018 |      774155 |     1919 | Redwood City |
+| United States of America | California |  Santa Clara County | Q110739 | 2018 |  1.9566e+06 |     3377 |     San Jose |
 
 ### Upload Data (WIP)
 
