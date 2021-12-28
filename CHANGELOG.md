@@ -1,4 +1,16 @@
-### wikirepo 0.1.1.5 (March 28, 2021)
+# Changelog
+
+wikirepo tries to follow [semantic versioning](https://semver.org/), a MAJOR.MINOR.PATCH version where increments are made of the:
+
+- MAJOR version when we make incompatible API changes
+- MINOR version when we add functionality in a backwards compatible manner
+- PATCH version when we make backwards compatible bug fixes
+
+# wikirepo 1.0.0 (December 28th, 2021)
+
+- Release switches wikirepo over to [semantic versioning](https://semver.org/) and indicates that it is stable
+
+# wikirepo 0.1.1.5 (March 28th, 2021)
 
 Changes include:
 
@@ -7,11 +19,11 @@ Changes include:
 - Extensive code formatting to improve quality and style
 - Fixes to vulnerabilities through exception use
 
-### wikirepo 0.1.0 (Feb 23, 2021)
+# wikirepo 0.1.0 (Feb 23rd, 2021)
 
 First stable release of wikirepo
 
-Additions include:
+Changes include:
 
 - Full documentation of the package
 - Virtual environment files
@@ -19,7 +31,7 @@ Additions include:
 - Extensive testing of all modules with GH Actions and Codecov
 - Code of conduct and contribution guidelines
 
-### wikirepo 0.0.2 (Dec 8, 2020)
+# wikirepo 0.0.2 (Dec 8th, 2020)
 
 The minimum viable product of wikirepo:
 

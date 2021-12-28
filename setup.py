@@ -14,11 +14,15 @@ with open(os.path.join(package_directory, "README.md"), encoding="utf-8") as fh:
 with open(os.path.join(package_directory, "requirements.txt")) as req_file:
     requirements = req_file.readlines()
 
+on_rtd = os.environ.get("READTHEDOCS") == "True"
+if on_rtd:
+    requirements = []
+
 setup_args = dict(
     name="wikirepo",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    version="0.1.1.7",
+    version="1.0.0",
     author="Andrew Tavis McAllister",
     author_email="andrew.t.mcallister@gmail.com",
     classifiers=[
