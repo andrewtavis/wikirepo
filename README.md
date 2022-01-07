@@ -22,6 +22,8 @@
 
 - [Installation](#installation)
 - [Data](#data)
+  - [Query Data](#query-data)
+  - [Upload Data](#upload-data)
 - [Maps (WIP)](#maps-wip)
 - [Examples](#examples)
 - [To-Do](#to-do)
@@ -48,7 +50,7 @@ import wikirepo
 
 wikirepo's data structure is built around [Wikidata.org](https://www.wikidata.org/). Human-readable access to Wikidata statistics is achieved through converting requests into Wikidata's Quantity IDs (QIDs) and Property IDs (PIDs), with the Python package [wikidata](https://github.com/dahlia/wikidata) serving as a basis for data loading and indexing. See the [documentation](https://wikirepo.readthedocs.io/en/latest/) for a structured overview of the currently available properties.
 
-### Query Data
+## • Query Data [`⇧`](#contents) <a id="query-data"></a>
 
 wikirepo's main access function, [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/query.py), returns a `pandas.DataFrame` of locations and property data across time.
 
@@ -190,7 +192,7 @@ df[df["population"].notnull()].head(6)
 | United States of America | California |    San Mateo County | Q108101 | 2018 |      774155 |     1919 | Redwood City |
 | United States of America | California |  Santa Clara County | Q110739 | 2018 |  1.9566e+06 |     3377 |     San Jose |
 
-### Upload Data (WIP)
+## • Upload Data (WIP) [`⇧`](#contents) <a id="upload-data"></a>
 
 [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/upload.py) will be the core of the eventual wikirepo upload feature. The goal is to record edits that a user makes to a previously queried or baseline dataframe such that these changes can then be pushed back to Wikidata. With the addition of Wikidata login credentials as a wikirepo feature (WIP), the unique information in the edited dataframe could then be uploaded to Wikidata for all to use.
 
@@ -256,11 +258,11 @@ Put simply: a full featured [wikirepo.data.upload](https://github.com/andrewtavi
 
 [wikirepo/maps](https://github.com/andrewtavis/wikirepo/tree/main/src/wikirepo/maps) is a further goal of the project, as it combines wikirepo's focus on easy to access open source data and quick high level analytics.
 
-### Query Maps
+### • Query Maps
 
 As in [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/query.py), passing the `locations`, `depth`, `timespan` and `interval` arguments could access GeoJSON files stored on Wikidata, thus providing mapping files in parallel to the user's data. These files could then be leveraged using existing Python plotting libraries to provide detailed presentations of geographic analysis.
 
-### Upload Maps
+### • Upload Maps
 
 Similar to the potential of adding statistics through [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/upload.py), GeoJSON map files could also be uploaded to Wikidata using appropriate arguments. The potential exists for a myriad of variable maps given `locations`, `depth`, `timespan` and `interval` information that would allow all wikirepo users to get the exact mapping file that they need for their given task.
 
