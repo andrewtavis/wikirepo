@@ -23,7 +23,7 @@
 - [Installation](#installation)
 - [Data](#data)
   - [Query Data](#query-data)
-  - [Upload Data](#upload-data)
+  - [Upload Data (WIP)](#upload-data)
 - [Maps (WIP)](#maps-wip)
 - [Examples](#examples)
 - [To-Do](#to-do)
