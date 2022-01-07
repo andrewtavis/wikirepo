@@ -50,7 +50,7 @@ import wikirepo
 
 wikirepo's data structure is built around [Wikidata.org](https://www.wikidata.org/). Human-readable access to Wikidata statistics is achieved through converting requests into Wikidata's Quantity IDs (QIDs) and Property IDs (PIDs), with the Python package [wikidata](https://github.com/dahlia/wikidata) serving as a basis for data loading and indexing. See the [documentation](https://wikirepo.readthedocs.io/en/latest/) for a structured overview of the currently available properties.
 
-## • Query Data [`⇧`](#contents) <a id="query-data"></a>
+## Query Data [`⇧`](#contents) <a id="query-data"></a>
 
 wikirepo's main access function, [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/query.py), returns a `pandas.DataFrame` of locations and property data across time.
 
@@ -192,7 +192,7 @@ df[df["population"].notnull()].head(6)
 | United States of America | California |    San Mateo County | Q108101 | 2018 |      774155 |     1919 | Redwood City |
 | United States of America | California |  Santa Clara County | Q110739 | 2018 |  1.9566e+06 |     3377 |     San Jose |
 
-## • Upload Data (WIP) [`⇧`](#contents) <a id="upload-data"></a>
+## Upload Data (WIP) [`⇧`](#contents) <a id="upload-data"></a>
 
 [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/upload.py) will be the core of the eventual wikirepo upload feature. The goal is to record edits that a user makes to a previously queried or baseline dataframe such that these changes can then be pushed back to Wikidata. With the addition of Wikidata login credentials as a wikirepo feature (WIP), the unique information in the edited dataframe could then be uploaded to Wikidata for all to use.
 
