@@ -18,6 +18,8 @@
 
 **wikirepo** is a Python package that provides a framework to easily source and leverage standardized [Wikidata](https://www.wikidata.org/) information. The goal is to create an intuitive interface so that Wikidata can function as a common read-write repository for public statistics.
 
+See the [documentation](http://wikirepo.readthedocs.io/en/latest/) for a full outline of the package including usage and available data.
+
 # **Contents**<a id="contents"></a>
 
 - [Installation](#installation)
