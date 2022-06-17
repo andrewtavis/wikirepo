@@ -20,7 +20,9 @@
 
 See the [documentation](http://wikirepo.readthedocs.io/en/latest/) for a full outline of the package including usage and available data.
 
-# **Contents**<a id="contents"></a>
+<a id="contents"></a>
+
+# **Contents**
 
 - [Installation](#installation)
 - [Data](#data)
@@ -30,7 +32,9 @@ See the [documentation](http://wikirepo.readthedocs.io/en/latest/) for a full ou
 - [Examples](#examples)
 - [To-Do](#to-do)
 
-# Installation [`⇧`](#contents) <a id="installation"></a>
+<a id="installation"></a>
+
+# Installation [`⇧`](#contents)
 
 wikirepo can be downloaded from PyPI via pip or sourced directly from this repository:
 
@@ -48,11 +52,15 @@ python setup.py install
 import wikirepo
 ```
 
-# Data [`⇧`](#contents) <a id="data"></a>
+<a id="data"></a>
+
+# Data [`⇧`](#contents)
 
 wikirepo's data structure is built around [Wikidata.org](https://www.wikidata.org/). Human-readable access to Wikidata statistics is achieved through converting requests into Wikidata's Quantity IDs (QIDs) and Property IDs (PIDs), with the Python package [wikidata](https://github.com/dahlia/wikidata) serving as a basis for data loading and indexing. See the [documentation](https://wikirepo.readthedocs.io/en/latest/) for a structured overview of the currently available properties.
 
-## Query Data [`⇧`](#contents) <a id="query-data"></a>
+<a id="query-data"></a>
+
+## Query Data [`⇧`](#contents)
 
 wikirepo's main access function, [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/query.py), returns a `pandas.DataFrame` of locations and property data across time.
 
@@ -194,7 +202,9 @@ df[df["population"].notnull()].head(6)
 | United States of America | California |    San Mateo County | Q108101 | 2018 |      774155 |     1919 | Redwood City |
 | United States of America | California |  Santa Clara County | Q110739 | 2018 |  1.9566e+06 |     3377 |     San Jose |
 
-## Upload Data (WIP) [`⇧`](#contents) <a id="upload-data"></a>
+<a id="upload-data"></a>
+
+## Upload Data (WIP) [`⇧`](#contents)
 
 [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/upload.py) will be the core of the eventual wikirepo upload feature. The goal is to record edits that a user makes to a previously queried or baseline dataframe such that these changes can then be pushed back to Wikidata. With the addition of Wikidata login credentials as a wikirepo feature (WIP), the unique information in the edited dataframe could then be uploaded to Wikidata for all to use.
 
@@ -256,7 +266,9 @@ wikirepo.data.upload(base_df, credentials)
 
 Put simply: a full featured [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/upload.py) function would realize the potential of a single read-write repository for all public information.
 
-# Maps (WIP) [`⇧`](#contents) <a id="maps-wip"></a>
+<a id="maps-wip"></a>
+
+# Maps (WIP) [`⇧`](#contents)
 
 [wikirepo/maps](https://github.com/andrewtavis/wikirepo/tree/main/src/wikirepo/maps) is a further goal of the project, as it combines wikirepo's focus on easy to access open source data and quick high level analytics.
 
@@ -268,7 +280,9 @@ As in [wikirepo.data.query](https://github.com/andrewtavis/wikirepo/blob/main/sr
 
 Similar to the potential of adding statistics through [wikirepo.data.upload](https://github.com/andrewtavis/wikirepo/blob/main/src/wikirepo/data/upload.py), GeoJSON map files could also be uploaded to Wikidata using appropriate arguments. The potential exists for a myriad of variable maps given `locations`, `depth`, `timespan` and `interval` information that would allow all wikirepo users to get the exact mapping file that they need for their given task.
 
-# Examples [`⇧`](#contents) <a id="examples"></a>
+<a id="examples"></a>
+
+# Examples [`⇧`](#contents)
 
 wikirepo can be used as a foundation for countless projects, with its usefulness and practicality only improving as more properties are added and more data is uploaded to [Wikidata](https://www.wikidata.org/).
 
@@ -277,7 +291,9 @@ Current usage examples include:
 - Sample notebooks for the Python package [poli-sci-kit](https://github.com/andrewtavis/poli-sci-kit) show how to use wikirepo as a basis for political election and parliamentary appointment analysis, with those notebooks being found in the [examples for poli-sci-kit](https://github.com/andrewtavis/poli-sci-kit/tree/main/examples) or on [Google Colab](https://colab.research.google.com/github/andrewtavis/poli-sci-kit)
 - Pull requests with other examples will gladly be accepted
 
-# To-Do [`⇧`](#contents) <a id="to-do"></a>
+<a id="to-do"></a>
+
+# To-Do [`⇧`](#contents)
 
 Please see the [contribution guidelines](https://github.com/andrewtavis/wikirepo/blob/main/.github/CONTRIBUTING.md) if you are interested in contributing to this project. Work that is in progress or could be implemented includes:
 
