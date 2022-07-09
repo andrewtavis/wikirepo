@@ -1,4 +1,4 @@
-.. image:: https://raw.githubusercontent.com/andrewtavis/wikirepo/main/resources/wikirepo_logo_transparent.png
+.. image:: https://raw.githubusercontent.com/andrewtavis/wikirepo/main/.github/resources/logo/wikirepo_logo_transparent.png
     :width: 506
     :height: 304
     :align: center

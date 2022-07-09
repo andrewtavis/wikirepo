@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://github.com/andrewtavis/wikirepo"><img src="https://raw.githubusercontent.com/andrewtavis/wikirepo/main/resources/wikirepo_logo_transparent.png" width=506 height=304></a>
+  <a href="https://github.com/andrewtavis/wikirepo"><img src="https://raw.githubusercontent.com/andrewtavis/wikirepo/main/.github/resources/logo/wikirepo_logo_transparent.png" width=506 height=304></a>
 </div>
 
 ---
@@ -387,6 +387,6 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 
 <div align="center">
   <br>
-  <a href="https://www.wikidata.org/"><img height="175" src="https://raw.githubusercontent.com/andrewtavis/wikirepo/main/resources/gh_images/wikidata_logo.png" alt="Wikidata"></a>
+  <a href="https://www.wikidata.org/"><img height="175" src="https://raw.githubusercontent.com/andrewtavis/wikirepo/main/.github/resources/images/wikidata_logo.png" alt="Wikidata"></a>
   <br>
 </div>
