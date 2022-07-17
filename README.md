@@ -358,6 +358,7 @@ The growth of wikirepo's database relies on that of [Wikidata](https://www.wikid
 <p>
 
 - https://github.com/dahlia/wikidata
+- https://github.com/RDFLib/sparqlwrapper
 - https://github.com/SuLab/WikidataIntegrator
 - https://github.com/siznax/wptools
 
