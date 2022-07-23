@@ -2,7 +2,7 @@
   <a href="https://github.com/andrewtavis/wikirepo"><img src="https://raw.githubusercontent.com/andrewtavis/wikirepo/main/.github/resources/logo/wikirepo_logo_transparent.png" width=506 height=304></a>
 </div>
 
----
+<ol></ol>
 
 [![rtd](https://img.shields.io/readthedocs/wikirepo.svg?logo=read-the-docs)](http://wikirepo.readthedocs.io/en/latest/)
 [![ci](https://img.shields.io/github/workflow/status/andrewtavis/wikirepo/CI?logo=github)](https://github.com/andrewtavis/wikirepo/actions?query=workflow%3ACI)
@@ -14,7 +14,7 @@
 [![coc](https://img.shields.io/badge/coc-Contributor%20Covenant-ff69b4.svg)](https://github.com/andrewtavis/wikirepo/blob/main/.github/CODE_OF_CONDUCT.md)
 [![codestyle](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-### Python based Wikidata framework for easy dataframe extraction
+## Python based Wikidata framework for easy dataframe extraction
 
 **wikirepo** is a Python package that provides a framework to easily source and leverage standardized [Wikidata](https://www.wikidata.org/) information. The goal is to create an intuitive interface so that Wikidata can function as a common read-write repository for public statistics.
 
