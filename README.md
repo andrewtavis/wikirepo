@@ -5,7 +5,7 @@
 <ol></ol>
 
 [![rtd](https://img.shields.io/readthedocs/wikirepo.svg?logo=read-the-docs)](http://wikirepo.readthedocs.io/en/latest/)
-[![ci](https://img.shields.io/github/workflow/status/andrewtavis/wikirepo/CI?logo=github)](https://github.com/andrewtavis/wikirepo/actions?query=workflow%3ACI)
+[![ci](https://img.shields.io/github/actions/workflow/status/andrewtavis/wikirepo/.github/workflows/ci.yml?branch=mainlogo=github)](https://github.com/andrewtavis/wikirepo/actions?query=workflow%3ACI)
 [![codecov](https://codecov.io/gh/andrewtavis/wikirepo/branch/main/graphs/badge.svg)](https://codecov.io/gh/andrewtavis/wikirepo)
 [![pyversions](https://img.shields.io/pypi/pyversions/wikirepo.svg?logo=python&logoColor=FFD43B&color=306998)](https://pypi.org/project/wikirepo/)
 [![pypi](https://img.shields.io/pypi/v/wikirepo.svg?color=4B8BBE)](https://pypi.org/project/wikirepo/)
