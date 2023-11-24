@@ -10,7 +10,7 @@
 .. |rtd| image:: https://img.shields.io/readthedocs/wikirepo.svg?logo=read-the-docs
     :target: http://wikirepo.readthedocs.io/en/latest/
 
-.. |ci| image:: https://img.shields.io/github/workflow/status/andrewtavis/wikirepo/CI?logo=github
+.. |ci| image:: https://img.shields.io/github/actions/workflow/status/andrewtavis/wikirepo/.github/workflows/ci.yml?branch=main?logo=github
     :target: https://github.com/andrewtavis/wikirepo/actions?query=workflow%3ACI
 
 .. |codecov| image:: https://codecov.io/gh/andrewtavis/wikirepo/branch/main/graphs/badge.svg
